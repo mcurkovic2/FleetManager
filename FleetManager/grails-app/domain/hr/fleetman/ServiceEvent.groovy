@@ -1,6 +1,6 @@
 package hr.fleetman
 
-class ServiceEvent {
+class ServiceEvent extends Event{
 
     static constraints = {
     }
