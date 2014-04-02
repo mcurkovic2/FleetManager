@@ -8,11 +8,11 @@
 
     <title><g:layoutTitle default="FleetManager" /></title>
     <g:layoutHead/>
-    <r:external uri="/css/font-awesome.css"/>
-<%--    <link rel="stylesheet" href="${resource(dir: 'css', file: 'font-awesome.css')}" type="text/css">--%>
-	<g:javascript library="application"/>	
-    <r:require modules="jquery, bootstrap, sbadmin"/>
-	<r:layoutResources />
+    <asset:javascript src="application.js"/>
+    <asset:stylesheet src="application.css"/>
+<%--    <asset:stylesheet src="bootstrap.css"/>--%>
+<%--    <asset:stylesheet src="sb-admin.css"/>--%>
+<%--  	<asset:stylesheet src="font-awesome.css"/>--%>
   </head>
 
   <body>
@@ -29,7 +29,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.html">SB Admin</a>
+          <a class="navbar-brand" href="index.html">FleetManager</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -132,7 +132,7 @@
 
     </div><!-- /#wrapper -->
 
-	<r:layoutResources/>
+<%--	<r:layoutResources/>--%>
 	
   </body>
 </html>

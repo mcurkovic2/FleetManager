@@ -92,6 +92,8 @@ grails.hibernate.osiv.readonly = false
 environments {
     development {
         grails.logging.jul.usebridge = true
+		
+		
     }
     production {
         grails.logging.jul.usebridge = false

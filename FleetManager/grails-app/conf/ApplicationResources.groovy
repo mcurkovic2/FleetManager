@@ -1,6 +1,6 @@
 modules = {
-    bootstrap {
-        resource url:'/js/lib/bootstrap.js'
+    application {
+        resource url:'application.js'
 		resource url: '/css/bootstrap.css'
     }
 	
