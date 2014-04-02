@@ -6,5 +6,5 @@ class User {
     }
 	
 	String userId, firstName, lastName
-	Integer active
+	boolean active
 }

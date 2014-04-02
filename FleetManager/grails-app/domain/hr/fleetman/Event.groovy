@@ -6,9 +6,14 @@ abstract class  Event {
         tablePerHierarchy false
     }
 	
+	Date occurenceDate = new Date()
+	boolean active
+	Integer id
+	
     static constraints = {
+		occurenceDate nullable: false
+		id unique: true, nullable: false
     }
 	
-	Date occurenceDate
-	Integer active
+	
 }
