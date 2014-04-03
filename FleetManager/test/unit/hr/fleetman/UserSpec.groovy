@@ -1,6 +1,7 @@
 package hr.fleetman
 
 import grails.test.mixin.TestFor
+import hr.fleetman.common.User;
 import spock.lang.Specification
 
 /**

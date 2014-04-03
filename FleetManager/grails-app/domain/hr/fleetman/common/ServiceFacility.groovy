@@ -1,4 +1,5 @@
-package hr.fleetman
+package hr.fleetman.common
+
 
 class ServiceFacility {
 

@@ -1,4 +1,7 @@
-package hr.fleetman
+package hr.fleetman.events
+
+import hr.fleetman.Car
+import hr.fleetman.common.ServiceFacility
 
 class ServiceEvent extends Event{
 
@@ -6,4 +9,5 @@ class ServiceEvent extends Event{
     }
 	
 	ServiceFacility serviceFacility
+	
 }
