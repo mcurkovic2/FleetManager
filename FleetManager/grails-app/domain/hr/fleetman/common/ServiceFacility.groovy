@@ -5,7 +5,7 @@ class ServiceFacility {
 
     static constraints = {
     }
-	static embedded = ['homeAddress', 'workAddress']
+	static embedded = ['address']
 	
 	String name
 	Address address
