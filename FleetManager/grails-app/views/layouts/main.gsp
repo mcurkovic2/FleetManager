@@ -10,9 +10,6 @@
     <g:layoutHead/>
     <asset:javascript src="application.js"/>
     <asset:stylesheet src="application.css"/>
-<%--    <asset:stylesheet src="bootstrap.css"/>--%>
-<%--    <asset:stylesheet src="sb-admin.css"/>--%>
-<%--  	<asset:stylesheet src="font-awesome.css"/>--%>
   </head>
 
   <body>
@@ -35,11 +32,15 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav">
-            <li><a href="index.html"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li><a href="charts.html"><i class="fa fa-bar-chart-o"></i> Charts</a></li>
-            <li><a href="tables.html"><i class="fa fa-table"></i> Tables</a></li>
-            <li><a href="forms.html"><i class="fa fa-edit"></i> Forms</a></li>
-            <li><a href="typography.html"><i class="fa fa-font"></i> Typography</a></li>
+            <li><g:link controller="Dashboard"><i class="fa fa-dashboard"></i> <g:message code="main.menu.menuItem.dashboard"/></g:link></li>
+            <li><g:link controller="Car"><i class="fa fa-bar-chart-o"></i> <g:message code="main.menu.menuItem.resources"/></g:link></li>
+            <li><g:link controller="User"><i class="fa fa-table"></i> <g:message code="main.menu.menuItem.users"/></g:link></li>
+            <li><g:link controller="Reports"><i class="fa fa-edit"></i> <g:message code="main.menu.menuItem.reports"/></g:link></li><%--
+            
+            
+<%--            MENU ITEMS--%>
+            
+            <%--<li><a href="typography.html"><i class="fa fa-font"></i> Typography</a></li>
             <li><a href="bootstrap-elements.html"><i class="fa fa-desktop"></i> Bootstrap Elements</a></li>
             <li><a href="bootstrap-grid.html"><i class="fa fa-wrench"></i> Bootstrap Grid</a></li>
             <li class="active"><a href="blank-page.html"><i class="fa fa-file"></i> Blank Page</a></li>
@@ -51,7 +52,7 @@
                 <li><a href="#">Third Item</a></li>
                 <li><a href="#">Last Item</a></li>
               </ul>
-            </li>
+            </li>--%>
           </ul>
 
           <ul class="nav navbar-nav navbar-right navbar-user">
