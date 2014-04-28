@@ -16,6 +16,29 @@
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 			</ul>
 		</div>
+		
+		<div class="row">
+		<div class="col-lg-4">
+            <h1>Descriptions</h1>
+            <dl>
+              <dt><g:message code="car.vin.label" default="Vin" /></dt>
+              <dd><g:fieldValue bean="${carInstance}" field="vin"/></dd>
+              
+              <dt><g:message code="car.active.label" default="Active" /></dt>
+              <dd><g:fieldValue bean="${carInstance}" field="active"/></dd>
+             
+              <dt> <g:message code="car.color.label" default="Color" /></dt>
+              <dd><g:fieldValue bean="${carInstance}" field="color"/></dd>
+              
+            </dl>            
+            <dl class="dl-horizontal">
+              <dt>Horizontal Description List</dt>
+              <dd>Description Text</dd>
+              <dt>Description List Title</dt>
+              <dd>Description List Text</dd>
+            </dl>            
+          </div>
+		</div>
 		<div id="show-car" class="content scaffold-show" role="main">
 			<h1><g:message code="default.show.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">

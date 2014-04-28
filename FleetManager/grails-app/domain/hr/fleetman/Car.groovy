@@ -2,6 +2,7 @@ package hr.fleetman
 
 import hr.fleetman.common.Country
 import hr.fleetman.common.DrivingDistance
+import hr.fleetman.events.InsurancePurchaseEvent;
 import hr.fleetman.events.RegistrationEvent
 import hr.fleetman.events.ServiceEvent
 import hr.fleetman.events.TireChangeEvent
@@ -33,8 +34,8 @@ class Car {
 		HIBRID,
 		ELECTRIC_POWER
 	}
-
-	static hasMany = [serviceEvents: ServiceEvent, registrationEvents : RegistrationEvent, tireChangeEvents: TireChangeEvent]
+	
+	static hasMany = [serviceEvents: ServiceEvent, registrationEvents : RegistrationEvent, tireChangeEvents: TireChangeEvent, insurancePurchaseEvents: InsurancePurchaseEvent]
 	static embedded = ['currentDrivingDistance']
 
 	String vin, currentRegistrationId, description

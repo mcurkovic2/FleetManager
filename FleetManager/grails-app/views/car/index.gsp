@@ -25,8 +25,8 @@
 		</div>
 
 	</div>
-	
-	<div class="row">
+	<g:render template="/shared/flashMessage"></g:render>
+	<%--<div class="row">
 		<div class="col-lg-12">
 			<g:if test="${flash.message}">
 				<div class="alert alert-info alert-dismissable">
@@ -36,7 +36,7 @@
 			</g:if>
 		</div>
 	</div>
-	<div class="row">
+	--%><div class="row">
 		<div class="col-lg-8">
 			<h2>
 				<g:set var="entityName" value="${message(code: 'car.label', default: 'Car')}" />
