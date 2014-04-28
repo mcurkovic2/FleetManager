@@ -6,11 +6,12 @@
 <g:set var="entityName" value="${message(code: 'user.label', default: 'User')}" />
 <title><g:message code="default.list.label" args="[entityName]" /></title>
 </head>
-<p>
+<%--<p>
 	<a class="skip" href="#list-user" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content"></g:message></a>
 </p>
 
-<div class="nav" role="navigation">
+--%>
+<%--<div class="nav" role="navigation">
 	<ul>
 		<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"></g:message></a></li>
 		<li><g:link action="create" class="create">
@@ -19,6 +20,7 @@
 	</ul>
 </div>
 
+--%>
 <div class="row">
 	<div class="col-lg-12">
 		<div class="alert alert-info alert-dismissable">
@@ -28,7 +30,25 @@
 		</div>
 	</div>
 </div>
-<!-- /.row -->
+
+<div class="row">
+
+	<div class="col-lg-12">
+		<g:link action="create" class="btn btn-default">
+			<g:message args="[entityName]" code="default.new.label"></g:message>
+		</g:link>
+		<%--		<button type="button" class="btn btn-default">Show List</button>--%>
+		<%--		<div class="btn-group">--%>
+		<%--			<button type="button" class="btn btn-default">New Service</button>--%>
+		<%--			<button type="button" class="btn btn-default">New Registration</button>--%>
+		<%--			<button type="button" class="btn btn-default">New Tire Change</button>--%>
+		<%--		</div>--%>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-12">&nbsp;</div>
+</div>
 
 <div class="row">
 	<div class="col-lg-12">
@@ -55,15 +75,10 @@
 				<tbody>
 					<g:each in="${userInstanceList}" status="i" var="userInstance">
 						<tr>
-							<td>
-								<g:link action="show" id="${userInstance.id}">
+							<td><g:link action="show" id="${userInstance.id}">
 									${fieldValue(bean: userInstance, field: 'userId')}
-								</g:link>
-							</td>
-							<td>
-								<g:checkBox name="active" disabled="disabled" value="${userInstance.active}"/>
-								
-							</td>
+								</g:link></td>
+							<td><g:checkBox name="active" disabled="disabled" value="${userInstance.active}" /></td>
 							<td>
 								${fieldValue(bean: userInstance, field: 'description')}
 							</td>
