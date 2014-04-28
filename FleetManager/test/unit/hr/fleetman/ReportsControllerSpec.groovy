@@ -1,0 +1,21 @@
+package hr.fleetman
+
+import grails.test.mixin.TestFor
+import hr.fleetman.reports.ReportsController;
+import spock.lang.Specification
+
+/**
+ * See the API for {@link grails.test.mixin.web.ControllerUnitTestMixin} for usage instructions
+ */
+@TestFor(ReportsController)
+class ReportsControllerSpec extends Specification {
+
+    def setup() {
+    }
+
+    def cleanup() {
+    }
+
+    void "test something"() {
+    }
+}
