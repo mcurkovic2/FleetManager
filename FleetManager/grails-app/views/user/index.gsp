@@ -72,16 +72,16 @@
 							class="fa fa-sort"></i>
 						</th>
 						<th>
-							${message(code: 'user.description.label', default: 'Description')}
-							<i class="fa fa-sort"></i>
+							${message(code: 'user.lastName.label', default: 'Last Name')} <i
+							class="fa fa-sort"></i>
 						</th>
 						<th>
 							${message(code: 'user.firstName.label', default: 'First Name')} <i
 							class="fa fa-sort"></i>
 						</th>
 						<th>
-							${message(code: 'user.lastName.label', default: 'Last Name')} <i
-							class="fa fa-sort"></i>
+							${message(code: 'user.description.label', default: 'Description')}
+							<i class="fa fa-sort"></i>
 						</th>
 				</thead>
 				<tbody>
@@ -93,37 +93,22 @@
 							<td><g:checkBox name="active" disabled="disabled"
 									value="${userInstance.active}" /></td>
 							<td>
-								${fieldValue(bean: userInstance, field: 'description')}
+								${fieldValue(bean: userInstance, field: 'lastName')}
 							</td>
 							<td>
 								${fieldValue(bean: userInstance, field: 'firstName')}
 							</td>
 							<td>
-								${fieldValue(bean: userInstance, field: 'lastName')}
+								${fieldValue(bean: userInstance, field: 'description')}
 							</td>
 						</tr>
 					</g:each>
 				</tbody>
 			</table>
 
-
-			<ul class="pagination">
-
-				<li class="disabled"><a href="#">&laquo;</a></li>
-				<g:each var="i" in="${ (0..<(userInstanceCount ?: 0)) }">
-					<li><a href="#">${i+1} <span class="sr-only">(current)</span></a></li>
-				</g:each>
-				<li><a href="#">&raquo;</a></li>
-<%--				<li class="disabled"><a href="#">&laquo;</a></li>--%>
-<%--				<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>--%>
-<%--				<li><a href="#">2 <span class="sr-only">(current)</span></a></li>--%>
-<%--				<li><a href="#">3 <span class="sr-only">(current)</span></a></li>--%>
-<%--				<li><a href="#">4 <span class="sr-only">(current)</span></a></li>--%>
-			</ul>
-
-			<%--			<div class="pagination">--%>
-			<%--				<g:paginate total="${userInstanceCount ?: 0}"></g:paginate>--%>
-			<%--			</div>--%>
+			<div class="pagination">
+				<g:paginate total="${userInstanceCount ?: 0}"></g:paginate>
+			</div>
 		</div>
 	</div>
 </div>

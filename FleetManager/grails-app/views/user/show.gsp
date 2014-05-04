@@ -17,10 +17,10 @@
 	<%--				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>--%>
 	<%--			</ul>--%>
 	<%--		</div>--%>
-
+	<g:render template="/shared/flashMessage"></g:render>
 	<div class="row">
 		<div class="col-lg-6">
-			<div class="panel panel-primary">
+			<div class="panel panel-default">
 				<div class="panel-heading">
 					<g:message code="user.details" />
 				</div>
@@ -29,9 +29,11 @@
 						<dt>
 							<g:message code="user.userId.label" default="Id" />
 						</dt>
+
 						<dd>
 							<g:fieldValue bean="${userInstance}" field="userId" />
 						</dd>
+						<br>
 						<dt>
 							<g:message code="user.active.label" default="Active" />
 						</dt>
@@ -39,83 +41,35 @@
 							<g:checkBox name="active " value="true"
 								checked="${userInstance?.active == true}" disabled="true" />
 						</dd>
+						<br>
 						<dt>
 							<g:message code="user.firstName.label" default="First Name" />
 						</dt>
 						<dd>
 							<g:fieldValue bean="${userInstance}" field="firstName" />
 						</dd>
+						<br>
 						<dt>
 							<g:message code="user.lastName.label" default="Last Name" />
 						</dt>
 						<dd>
 							<g:fieldValue bean="${userInstance}" field="lastName" />
 						</dd>
+						<br>
 						<dt>
 							<g:message code="user.description.label" default="Descritption" />
 						</dt>
 						<dd>
 							<g:fieldValue bean="${userInstance}" field="description" />
 						</dd>
-						
+
 					</dl>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<div id="show-user" class="content scaffold-show" role="main">
-		<h1>
-			<g:message code="default.show.label" args="[entityName]" />
-		</h1>
-		<g:if test="${flash.message}">
-			<div class="message" role="status">
-				${flash.message}
-			</div>
-		</g:if>
-		<ol class="property-list user">
-
-			<%--			<g:if test="${userInstance?.active}">--%>
-			<%--				<li class="fieldcontain"><span id="active-label"--%>
-			<%--					class="property-label"><g:message code="user.active.label"--%>
-			<%--							default="Active" /></span> <span class="property-value"--%>
-			<%--					aria-labelledby="active-label"><g:formatBoolean--%>
-			<%--							boolean="${userInstance?.active}" /></span></li>--%>
-			<%--			</g:if>--%>
-
-<%--			<g:if test="${userInstance?.description}">--%>
-<%--				<li class="fieldcontain"><span id="description-label"--%>
-<%--					class="property-label"><g:message--%>
-<%--							code="user.description.label" default="Description" /></span> <span--%>
-<%--					class="property-value" aria-labelledby="description-label"><g:fieldValue--%>
-<%--							bean="${userInstance}" field="description" /></span></li>--%>
-<%--			</g:if>--%>
-
-			<%--			<g:if test="${userInstance?.firstName}">--%>
-			<%--				<li class="fieldcontain"><span id="firstName-label"--%>
-			<%--					class="property-label"><g:message--%>
-			<%--							code="user.firstName.label" default="First Name" /></span> <span--%>
-			<%--					class="property-value" aria-labelledby="firstName-label"><g:fieldValue--%>
-			<%--							bean="${userInstance}" field="firstName" /></span></li>--%>
-			<%--			</g:if>--%>
-
-			<%--			<g:if test="${userInstance?.lastName}">--%>
-			<%--				<li class="fieldcontain"><span id="lastName-label"--%>
-			<%--					class="property-label"><g:message code="user.lastName.label"--%>
-			<%--							default="Last Name" /></span> <span class="property-value"--%>
-			<%--					aria-labelledby="lastName-label"><g:fieldValue--%>
-			<%--							bean="${userInstance}" field="lastName" /></span></li>--%>
-			<%--			</g:if>--%>
-<%----%>
-<%--			<g:if test="${userInstance?.userId}">--%>
-<%--				<li class="fieldcontain"><span id="userId-label"--%>
-<%--					class="property-label"><g:message code="user.userId.label"--%>
-<%--							default="User Id" /></span> <span class="property-value"--%>
-<%--					aria-labelledby="userId-label"><g:fieldValue--%>
-<%--							bean="${userInstance}" field="userId" /></span></li>--%>
-<%--			</g:if>--%>
-
-		</ol>
+	<div>
 		<g:form url="[resource:userInstance, action:'delete']" method="DELETE">
 			<fieldset class="buttons">
 				<g:link class="edit" action="edit" resource="${userInstance}">
