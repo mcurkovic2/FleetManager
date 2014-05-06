@@ -1,9 +1,10 @@
-package hr.fleetman
+package hr.fleetman.resources
 
 
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
+import hr.fleetman.resources.Car;
 
 @Transactional(readOnly = true)
 class CarController {

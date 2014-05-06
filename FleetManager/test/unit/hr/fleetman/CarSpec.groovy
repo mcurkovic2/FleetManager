@@ -1,6 +1,7 @@
 package hr.fleetman
 
 import grails.test.mixin.TestFor
+import hr.fleetman.resources.Car;
 import spock.lang.Specification
 
 /**

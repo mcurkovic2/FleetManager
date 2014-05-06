@@ -1,14 +1,14 @@
-package hr.fleetman
+package hr.fleetman.common
 
 import grails.test.mixin.TestFor
-import hr.fleetman.common.ServiceFacility;
+import hr.fleetman.common.City;
 import spock.lang.Specification
 
 /**
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
  */
-@TestFor(ServiceFacility)
-class ServiceFacilitySpec extends Specification {
+@TestFor(City)
+class CitySpec extends Specification {
 
     def setup() {
     }

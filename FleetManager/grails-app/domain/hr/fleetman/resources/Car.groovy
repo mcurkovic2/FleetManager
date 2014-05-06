@@ -1,4 +1,4 @@
-package hr.fleetman
+package hr.fleetman.resources
 
 import hr.fleetman.common.Country
 import hr.fleetman.common.DrivingDistance
@@ -8,7 +8,7 @@ import hr.fleetman.events.ServiceEvent
 import hr.fleetman.events.TireChangeEvent
 
 
-class Car {
+class Car extends Resource{
 
 	static constraints = {
 		vin unique: true, nullable :false, size: 10..30

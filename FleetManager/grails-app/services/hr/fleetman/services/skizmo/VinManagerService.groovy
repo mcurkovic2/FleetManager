@@ -1,4 +1,4 @@
-package hr.fleetman.vnapi.skizmo
+package hr.fleetman.services.skizmo
 
 import grails.transaction.Transactional
 

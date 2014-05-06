@@ -1,4 +1,4 @@
-package hr.fleetman
+package hr.foobar.dashboard
 
 class DashboardController {
 

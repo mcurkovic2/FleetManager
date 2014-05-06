@@ -3,6 +3,8 @@ package hr.fleetman
 
 
 import grails.test.mixin.*
+import hr.fleetman.resources.Car;
+import hr.fleetman.resources.CarController;
 import spock.lang.*
 
 @TestFor(CarController)

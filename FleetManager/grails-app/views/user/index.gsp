@@ -24,6 +24,20 @@
 --%>
 <div class="row">
 	<div class="col-lg-12">
+		<h1>
+			Users <small>Manage your users</small>
+		</h1>
+		<ol class="breadcrumb">
+			<li><a href="index.html"><i class="icon-dashboard"></i>
+					Dashboard</a></li>
+			<li class="active"><i class="icon-file-alt"></i> Blank Page</li>
+		</ol>
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="col-lg-12">
 		<div class="alert alert-info alert-dismissable">
 			<button aria-hidden="true" class="close" data-dismiss="alert"
 				type="submit">&times;</button>

@@ -1,14 +1,14 @@
-package hr.fleetman
+package hr.fleetman.events
 
 import grails.test.mixin.TestFor
-import hr.fleetman.common.Address;
+import hr.fleetman.events.ServiceEvent;
 import spock.lang.Specification
 
 /**
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
  */
-@TestFor(Address)
-class AddressSpec extends Specification {
+@TestFor(ServiceEvent)
+class ServiceEventSpec extends Specification {
 
     def setup() {
     }

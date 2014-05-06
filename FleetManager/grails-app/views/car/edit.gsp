@@ -1,4 +1,4 @@
-<%@ page import="hr.fleetman.Car" %>
+<%@ page import="hr.fleetman.resources.Car" %>
 <!DOCTYPE html>
 <html>
 	<head>

@@ -1,4 +1,4 @@
-package hr.fleetman
+package hr.fleetman.events
 
 import grails.test.mixin.TestFor
 import hr.fleetman.events.TireChangeEvent;

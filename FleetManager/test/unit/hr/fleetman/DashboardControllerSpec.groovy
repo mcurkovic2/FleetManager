@@ -1,6 +1,7 @@
 package hr.fleetman
 
 import grails.test.mixin.TestFor
+import hr.foobar.dashboard.DashboardController;
 import spock.lang.Specification
 
 /**

@@ -1,4 +1,4 @@
-<%@ page import="hr.fleetman.Car"%>
+<%@ page import="hr.fleetman.resources.Car"%>
 
 
 <div class="form-group ${hasErrors(bean: carInstance, field: 'vin', 'has-error')}">
@@ -36,7 +36,7 @@
 <div class="form-group ${hasErrors(bean: carInstance, field: 'fuelType', 'error')} required">
 	<label class="control-label" for="fuelType"> <g:message code="car.fuelType.label" default="Fuel Type" />
 	</label>
-	<g:select name="fuelType" from="${hr.fleetman.Car$FuelType?.values()}" keys="${hr.fleetman.Car$FuelType.values()*.name()}" required=""
+	<g:select name="fuelType" from="${hr.fleetman.resources.Car$FuelType?.values()}" keys="${hr.fleetman.resources.Car$FuelType.values()*.name()}" required=""
 		value="${carInstance?.fuelType?.name()}" />
 </div>
 

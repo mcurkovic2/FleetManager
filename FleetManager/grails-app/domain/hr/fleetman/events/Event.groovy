@@ -1,7 +1,7 @@
 package hr.fleetman.events
 
-import hr.fleetman.Car
 import hr.fleetman.common.Money
+import hr.fleetman.resources.Car
 
 abstract class  Event {
 
