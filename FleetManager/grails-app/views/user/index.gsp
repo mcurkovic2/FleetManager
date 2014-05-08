@@ -3,51 +3,31 @@
 <html>
 <head>
 <meta name="layout" content="main">
-<g:set var="entityName"
-	value="${message(code: 'user.label', default: 'User')}" />
+<g:set var="entityName"	value="${message(code: 'user.label', default: 'User')}" />
 <title><g:message code="default.list.label" args="[entityName]" /></title>
 </head>
-<%--<p>
-	<a class="skip" href="#list-user" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content"></g:message></a>
-</p>
 
---%>
-<%--<div class="nav" role="navigation">
-	<ul>
-		<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"></g:message></a></li>
-		<li><g:link action="create" class="create">
-				<g:message args="[entityName]" code="default.new.label"></g:message>
-			</g:link></li>
-	</ul>
-</div>
-
---%>
-<div class="row">
-	<div class="col-lg-12">
-		<h1>
-			Users <small>Manage your users</small>
-		</h1>
-		<ol class="breadcrumb">
-			<li><a href="index.html"><i class="icon-dashboard"></i>
-					Dashboard</a></li>
-			<li class="active"><i class="icon-file-alt"></i> Blank Page</li>
-		</ol>
-	</div>
-</div>
+<%--<div class="row">--%>
+<%--	<div class="col-lg-12">--%>
+<%--		<h1>--%>
+<%--			Users <small>Manage your users</small>--%>
+<%--		</h1>--%>
+<%--	</div>--%>
+<%--</div>--%>
 
 
-<div class="row">
-	<div class="col-lg-12">
-		<div class="alert alert-info alert-dismissable">
-			<button aria-hidden="true" class="close" data-dismiss="alert"
-				type="submit">&times;</button>
-			We&#39;re using <a class="alert-link"
-				href="http://tablesorter.com/docs/">Tablesorter 2.0</a> for the sort
-			function on the tables. Read the documentation for more customization
-			options or feel free to use something else!
-		</div>
-	</div>
-</div>
+<%--<div class="row">--%>
+<%--	<div class="col-lg-12">--%>
+<%--		<div class="alert alert-info alert-dismissable">--%>
+<%--			<button aria-hidden="true" class="close" data-dismiss="alert"--%>
+<%--				type="submit">&times;</button>--%>
+<%--			We&#39;re using <a class="alert-link"--%>
+<%--				href="http://tablesorter.com/docs/">Tablesorter 2.0</a> for the sort--%>
+<%--			function on the tables. Read the documentation for more customization--%>
+<%--			options or feel free to use something else!--%>
+<%--		</div>--%>
+<%--	</div>--%>
+<%--</div>--%>
 
 <div class="row">
 

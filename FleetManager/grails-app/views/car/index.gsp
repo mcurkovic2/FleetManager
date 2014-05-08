@@ -25,7 +25,7 @@
 		</div>
 
 	</div>
-	<g:render template="/shared/flashMessage"></g:render>
+	
 	<%--<div class="row">
 		<div class="col-lg-12">
 			<g:if test="${flash.message}">
