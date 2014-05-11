@@ -7,7 +7,8 @@
 			<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
 			<span class="icon-bar"></span> <span class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand" href="index.html">FleetManager</a>
+		<a class="navbar-brand"
+			href="${createLink(controller : 'dashboard', action: 'index')}">FleetManager</a>
 	</div>
 
 	<!-- Collect the nav links, forms, and other content for toggling -->
@@ -77,14 +78,16 @@
 				</ul></li>
 			<li class="dropdown user-dropdown"><a href="#"
 				class="dropdown-toggle" data-toggle="dropdown"><i
-					class="fa fa-user"></i> John Smith <b class="caret"></b></a>
+					class="fa fa-user"></i>&nbsp;<shiro:principal /><b class="caret"></b></a>
 				<ul class="dropdown-menu">
 					<li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
 					<li><a href="#"><i class="fa fa-envelope"></i> Inbox <span
 							class="badge">7</span></a></li>
 					<li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
 					<li class="divider"></li>
-					<li><a href="#"><i class="fa fa-power-off"></i> Log Out</a></li>
+					<li><a
+						href="${createLink(controller : 'auth', action: 'signOut')}"><i
+							class="fa fa-power-off"></i> Log Out</a></li>
 				</ul></li>
 		</ul>
 	</div>
