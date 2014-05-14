@@ -1,4 +1,4 @@
-package hr.foobar.users
+package hr.fleetman.users
 
 class RegisteredRole {
     String name

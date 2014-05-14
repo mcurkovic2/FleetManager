@@ -99,17 +99,21 @@ environments {
     }
 }
 
-//breadcrumbs config
-breadcrumbs.selector="title"
-
 // log4j configuration
 log4j = {
     // Example of changing the log pattern for the default console appender:
     //
-    //appenders {
-    //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
-    //}
-
+    appenders {
+        console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
+    }
+	
+	/*appenders {
+		rollingFile name: "myAppender",
+					maxFileSize: 1024,
+					file: "/tmp/logs/myApp.log"
+	}*/
+	debug "grails.app.conf"
+	debug   stdout: ['hr.fleetman']
     error  'org.codehaus.groovy.grails.web.servlet',        // controllers
            'org.codehaus.groovy.grails.web.pages',          // GSP
            'org.codehaus.groovy.grails.web.sitemesh',       // layouts
