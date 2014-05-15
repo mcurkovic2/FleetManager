@@ -1,4 +1,4 @@
-package hr.fleetman.users
+package hr.fleetman.auth
 
 import org.apache.shiro.SecurityUtils
 import org.apache.shiro.authc.AuthenticationException

@@ -14,22 +14,36 @@
 	<!-- Collect the nav links, forms, and other content for toggling -->
 	<div class="collapse navbar-collapse navbar-ex1-collapse">
 		<ul class="nav navbar-nav side-nav">
-			<li><g:link controller="Dashboard">
-					<i class="fa fa-dashboard"></i>
-					<g:message code="main.menu.menuItem.dashboard" />
-				</g:link></li>
-			<li><g:link controller="Car">
-					<i class="fa fa-bar-chart-o"></i>
-					<g:message code="main.menu.menuItem.resources" />
-				</g:link></li>
-			<li><g:link controller="User">
-					<i class="fa fa-table"></i>
-					<g:message code="main.menu.menuItem.users" />
-				</g:link></li>
-			<li><g:link controller="Reports">
-					<i class="fa fa-edit"></i>
-					<g:message code="main.menu.menuItem.reports" />
-				</g:link></li>
+			<shiro:hasPermission name="dashboard:*">
+				<li><g:link controller="Dashboard">
+						<i class="fa fa-dashboard"></i>
+						<g:message code="main.menu.menuItem.dashboard" />
+					</g:link></li>
+			</shiro:hasPermission>
+
+
+			<shiro:hasPermission name="car:*">
+				<li><g:link controller="Car">
+						<i class="fa fa-bar-chart-o"></i>
+						<g:message code="main.menu.menuItem.resources" />
+					</g:link></li>
+			</shiro:hasPermission>
+
+
+			<shiro:hasPermission name="user:*">
+				<li><g:link controller="User">
+						<i class="fa fa-table"></i>
+						<g:message code="main.menu.menuItem.users" />
+					</g:link></li>
+			</shiro:hasPermission>
+
+			<shiro:hasPermission name="reports:*">
+				<li><g:link controller="Reports">
+						<i class="fa fa-edit"></i>
+						<g:message code="main.menu.menuItem.reports" />
+					</g:link></li>
+			</shiro:hasPermission>
+
 		</ul>
 
 		<ul class="nav navbar-nav navbar-right navbar-user">

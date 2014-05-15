@@ -7,28 +7,6 @@
 <title><g:message code="default.list.label" args="[entityName]" /></title>
 </head>
 
-<%--<div class="row">--%>
-<%--	<div class="col-lg-12">--%>
-<%--		<h1>--%>
-<%--			Users <small>Manage your users</small>--%>
-<%--		</h1>--%>
-<%--	</div>--%>
-<%--</div>--%>
-
-
-<%--<div class="row">--%>
-<%--	<div class="col-lg-12">--%>
-<%--		<div class="alert alert-info alert-dismissable">--%>
-<%--			<button aria-hidden="true" class="close" data-dismiss="alert"--%>
-<%--				type="submit">&times;</button>--%>
-<%--			We&#39;re using <a class="alert-link"--%>
-<%--				href="http://tablesorter.com/docs/">Tablesorter 2.0</a> for the sort--%>
-<%--			function on the tables. Read the documentation for more customization--%>
-<%--			options or feel free to use something else!--%>
-<%--		</div>--%>
-<%--	</div>--%>
-<%--</div>--%>
-
 <div class="row">
 
 	<div class="col-lg-12">
