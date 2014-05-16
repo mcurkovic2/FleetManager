@@ -14,7 +14,7 @@
 	<!-- Collect the nav links, forms, and other content for toggling -->
 	<div class="collapse navbar-collapse navbar-ex1-collapse">
 		<ul class="nav navbar-nav side-nav">
-			<shiro:hasPermission name="dashboard:*">
+			<shiro:hasPermission permission="dashboard:*">
 				<li><g:link controller="Dashboard">
 						<i class="fa fa-dashboard"></i>
 						<g:message code="main.menu.menuItem.dashboard" />
@@ -22,7 +22,7 @@
 			</shiro:hasPermission>
 
 
-			<shiro:hasPermission name="car:*">
+			<shiro:hasPermission permission="car:*">
 				<li><g:link controller="Car">
 						<i class="fa fa-bar-chart-o"></i>
 						<g:message code="main.menu.menuItem.resources" />
@@ -30,14 +30,14 @@
 			</shiro:hasPermission>
 
 
-			<shiro:hasPermission name="user:*">
+			<shiro:hasPermission permission="user:*">
 				<li><g:link controller="User">
 						<i class="fa fa-table"></i>
 						<g:message code="main.menu.menuItem.users" />
 					</g:link></li>
 			</shiro:hasPermission>
 
-			<shiro:hasPermission name="reports:*">
+			<shiro:hasPermission permission="reports:*">
 				<li><g:link controller="Reports">
 						<i class="fa fa-edit"></i>
 						<g:message code="main.menu.menuItem.reports" />

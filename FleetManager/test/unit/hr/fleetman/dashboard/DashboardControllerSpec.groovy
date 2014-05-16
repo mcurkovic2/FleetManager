@@ -1,7 +1,6 @@
-package hr.fleetman
+package hr.fleetman.dashboard
 
-import grails.test.mixin.TestFor
-import hr.foobar.dashboard.DashboardController;
+import grails.test.mixin.*
 import spock.lang.Specification
 
 /**
