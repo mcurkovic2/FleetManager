@@ -61,6 +61,7 @@ grails.project.dependency.resolution = {
         compile ':cache:1.1.1'
 		compile ":asset-pipeline:1.7.6"
 		compile ":shiro:1.2.1"
+		compile ":cache-headers:1.1.6"
 		
         // plugins needed at runtime but not for compilation
         runtime ":hibernate:3.6.10.9" // or ":hibernate4:4.3.4"

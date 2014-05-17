@@ -1,5 +1,7 @@
 package hr.fleetman.auth
 
+import javax.servlet.http.Cookie
+
 import org.apache.shiro.SecurityUtils
 import org.apache.shiro.authc.AuthenticationException
 import org.apache.shiro.authc.UsernamePasswordToken
@@ -70,7 +72,17 @@ class AuthController {
         // Log the user out of the application.
         SecurityUtils.subject?.logout()
         webRequest.getCurrentRequest().session = null
-
+		session.invalidate()
+		
+		
+		Cookie[] cookies = request.cookies;
+		if (cookies != null && cookies.length > 0) {
+			for (Cookie cookie : cookies) {
+				cookie.setValue("-");
+				cookie.setMaxAge(0);
+				response.addCookie(cookie);
+			}
+		}
         // For now, redirect back to the home page.
         redirect(uri: "/")
     }

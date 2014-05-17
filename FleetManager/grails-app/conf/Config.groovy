@@ -126,3 +126,14 @@ log4j = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
+
+cache.headers.enabled = false
+
+/*cache.headers.presets = [
+	unauthed_page: [shared:true, validFor: 300], // 5 minute refresh window
+	authed_page: false, // No caching for logged in user
+//	content: [shared:true, validFor: 3600], // 1hr on content
+//	recent_items_feed: [shared: true, validFor: 1800], // 30 minute throttle on RSS updates
+//	search_results: [validFor: 60, shared: true],
+//	taxonomy_results: [validFor: 60, shared: true]
+] */
