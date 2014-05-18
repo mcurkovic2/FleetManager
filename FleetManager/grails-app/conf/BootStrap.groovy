@@ -12,23 +12,23 @@ class BootStrap {
 		//ROLES
 		def adminRole = new RegisteredRole(name: "adminRole")
 		adminRole.addToPermissions("*:*")
-		
+
 		def basicRole = new RegisteredRole(name: "basicRole")
 		basicRole.addToPermissions("dashboard:*")
-		
-		
+
+
 		log.debug("Creating dummy users")
 		def adminUser = new RegisteredUser(userId:"12345", username: "admin", passwordHash: new Sha512Hash("admin").toHex())
-		//adminUser.addToPermissions("*:*")
+		adminUser.addToPermissions("*:*")
 		adminUser.addToRoles(adminRole)
 		adminUser.save()
-		
-		def user = new RegisteredUser(userId:"22222", username: "user", passwordHash: new Sha512Hash("user").toHex())
+
+		def user = new RegisteredUser(userId: "22222", username: "user", passwordHash: new Sha512Hash("user").toHex())
 		user.addToRoles(basicRole)
 		user.save()
-		
-
 	}
+	
 	def destroy = {
+		
 	}
 }

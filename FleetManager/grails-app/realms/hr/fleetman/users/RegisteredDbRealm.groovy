@@ -1,4 +1,4 @@
-package hr.fleetman.auth
+package hr.fleetman.users
 
 import org.apache.shiro.authc.AccountException
 import org.apache.shiro.authc.IncorrectCredentialsException

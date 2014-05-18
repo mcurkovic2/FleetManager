@@ -113,6 +113,7 @@ log4j = {
 					file: "/tmp/logs/myApp.log"
 	}*/
 	debug "grails.app.conf"
+	debug "grails.app.controllers.hr.fleetman.auth.AuthController"
 	debug   stdout: ['hr.fleetman']
     error  'org.codehaus.groovy.grails.web.servlet',        // controllers
            'org.codehaus.groovy.grails.web.pages',          // GSP
@@ -127,7 +128,7 @@ log4j = {
            'net.sf.ehcache.hibernate'
 }
 
-cache.headers.enabled = false
+//cache.headers.enabled = false
 
 /*cache.headers.presets = [
 	unauthed_page: [shared:true, validFor: 300], // 5 minute refresh window

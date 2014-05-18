@@ -7,7 +7,7 @@ class User {
 	}
 	
 	String userId, firstName, lastName, description
-	boolean active
+	boolean active = 1
 
 	static constraints = {
 		userId(nullable: false, blank: false, unique: false)
