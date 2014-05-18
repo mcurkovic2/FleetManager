@@ -24,3 +24,43 @@
 			<thead>
 					<tr>
 					
+						<g:sortableColumn property="userId" title="${message(code: 'registeredUser.userId.label', default: 'User Id')}" />
+					
+						<g:sortableColumn property="firstName" title="${message(code: 'registeredUser.firstName.label', default: 'First Name')}" />
+					
+						<g:sortableColumn property="lastName" title="${message(code: 'registeredUser.lastName.label', default: 'Last Name')}" />
+					
+						<g:sortableColumn property="description" title="${message(code: 'registeredUser.description.label', default: 'Description')}" />
+					
+						<g:sortableColumn property="active" title="${message(code: 'registeredUser.active.label', default: 'Active')}" />
+					
+						<g:sortableColumn property="username" title="${message(code: 'registeredUser.username.label', default: 'Username')}" />
+					
+					</tr>
+				</thead>
+				<tbody>
+				<g:each in="${registeredUserInstanceList}" status="i" var="registeredUserInstance">
+					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+					
+						<td><g:link action="show" id="${registeredUserInstance.id}">${fieldValue(bean: registeredUserInstance, field: "userId")}</g:link></td>
+					
+						<td>${fieldValue(bean: registeredUserInstance, field: "firstName")}</td>
+					
+						<td>${fieldValue(bean: registeredUserInstance, field: "lastName")}</td>
+					
+						<td>${fieldValue(bean: registeredUserInstance, field: "description")}</td>
+					
+						<td><g:formatBoolean boolean="${registeredUserInstance.active}" /></td>
+					
+						<td>${fieldValue(bean: registeredUserInstance, field: "username")}</td>
+					
+					</tr>
+				</g:each>
+				</tbody>
+			</table>
+			<div class="pagination">
+				<g:paginate total="${registeredUserInstanceCount ?: 0}" />
+			</div>
+		</div>
+	</body>
+</html>
