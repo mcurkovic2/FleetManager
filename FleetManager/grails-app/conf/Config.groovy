@@ -128,8 +128,15 @@ log4j = {
            'net.sf.ehcache.hibernate'
 }
 
-//cache.headers.enabled = false
 
+/**
+ * Disables caching of pages
+ */
+cache.headers.enabled = false
+
+/**
+ * caching can be configured per part of app:
+ */
 /*cache.headers.presets = [
 	unauthed_page: [shared:true, validFor: 300], // 5 minute refresh window
 	authed_page: false, // No caching for logged in user
