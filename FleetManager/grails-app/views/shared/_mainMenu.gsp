@@ -31,7 +31,7 @@
 
 
 			<shiro:hasPermission permission="user:*">
-				<li><g:link controller="User">
+				<li><g:link controller="RegisteredUser">
 						<i class="fa fa-table"></i>
 						<g:message code="main.menu.menuItem.users" />
 					</g:link></li>
