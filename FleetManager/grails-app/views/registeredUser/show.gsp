@@ -10,10 +10,10 @@
 </head>
 <body>
 	<div class="row">
-		<div class="col-lg-6">
+		<div class="col-lg-4">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<g:message code="user.details" />
+					<g:message code="user.details.panelTitle" />
 				</div>
 				<div class="panel-body">
 
@@ -66,6 +66,51 @@
 				</div>
 			</div>
 		</div>
+		<shiro:hasPermission permission="registeredUser:administration">
+		<div class="col-lg-6">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<g:message code="user.roles" />
+				</div>
+				<div class="panel-body">
+
+					<div class="table-responsive">
+						<table
+							class="table table-bordered table-hover table-striped tablesorter">
+							<thead>
+								<tr>
+									<th>
+										${message(code: 'registeredRole.name.tableHeader', default: 'Name')} <i
+										class="fa fa-sort"></i>
+									</th>
+									<th>
+										${message(code: 'registeredRole.description.tableHeader', default: 'Description')} <i
+										class="fa fa-sort"></i>
+									</th>
+							</thead>
+							<tbody>
+								<g:each in="${registeredUserInstance.roles}" status="i"
+									var="registeredRoleInstance">
+									<tr>
+										<td>
+											${fieldValue(bean: registeredRoleInstance, field: 'name')}
+										</td>
+										<td>
+											${fieldValue(bean: registeredRoleInstance, field: 'description')}
+										</td>
+									</tr>
+								</g:each>
+							</tbody>
+						</table>
+
+						<div class="pagination">
+							<g:paginate total="${registeredUserInstance.roles ?: 0}"></g:paginate>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</shiro:hasPermission>
 	</div>
 
 	<div>

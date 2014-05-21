@@ -10,7 +10,7 @@ class BootStrap {
 		log.debug("Creating dummy roles")
 
 		//ROLES
-		def adminRole = new RegisteredRole(name: "adminRole")
+		def adminRole = new RegisteredRole(name: "adminRole", description: "Role for administering application")
 		adminRole.addToPermissions("*:*")
 
 		def basicRole = new RegisteredRole(name: "basicRole")

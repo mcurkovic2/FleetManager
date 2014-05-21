@@ -13,7 +13,7 @@
 		<div class="col-lg-6">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<g:message code="user.details" />
+					<g:message code="user.details.panelTitle" />
 				</div>
 				<div class="panel-body">
 					<dl>
