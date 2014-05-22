@@ -20,7 +20,7 @@
 
 	--%>
 	<div class="row">
-		<div class="col-lg-6">
+		<div class="col-lg-4">
 			<div id="create-user" class="content scaffold-create" role="main">
 				<h1>
 					<g:message code="default.create.label" args="[entityName]" />
