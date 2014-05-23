@@ -9,8 +9,43 @@
 	</label>
 	<g:textField class="form-control" name="userId"
 		value="${registeredUserInstance?.userId}" />
-
 </div>
+
+<div
+	class="form-group ${hasErrors(bean: registeredUserInstance, field: 'username', 'has-error')} ">
+	<label class="control-label" for="username"> <g:message code="user.username.label"
+			default="Username" />
+	</label>
+	<g:textField class="form-control" name="username"
+		value="${registeredUserInstance?.username}" />
+</div>
+
+<div
+	class="form-group ${hasErrors(bean: registeredUserInstance, field: 'passwordHash', 'has-error')} ">
+	<label class="control-label" for="password1"> <g:message code="user.password1.label"
+			default="Password" />
+	</label>
+	<g:textField class="form-control" id="password1" name="passwordHash1"
+		value="" />
+</div>
+
+<div
+	class="form-group ${hasErrors(bean: registeredUserInstance, field: 'passwordHash', 'has-error')} ">
+	<label class="control-label" for="password2"> <g:message code="user.password2.label"
+			default="Confirm Password" /></label>
+	<g:textField class="form-control" id="password2" name="passwordHash"
+		value="" />
+</div>
+
+<%--<div--%>
+<%--	class="form-group ${hasErrors(bean: registeredUserInstance, field: 'passwordHash', 'has-error')} ">--%>
+<%--	<span id="validate-status"></span>--%>
+<%--</div>--%>
+
+<div id="passMatch" style="display:none;" class="alert alert-dismissable alert-danger">
+    <span id="validate-status"></span>
+</div>
+
 <div
 	class="form-group ${hasErrors(bean: registeredUserInstance, field: 'firstName', 'has-error')} ">
 	<label class="control-label" for="firstName"> <g:message
@@ -37,12 +72,12 @@
 	<label class="control-label" for="description"> <g:message
 			code="user.description.label" default="Description" />
 	</label>
-	<g:textArea rows="5" cols="10" class="form-control" name="description"
+	<g:textArea rows="3" cols="10" class="form-control" name="description"
 		value="${registeredUserInstance?.description}" />
 </div>
 
 <div
-	class="form-group ${hasErrors(bean: registeredUserInstance, field: 'active', 'error')} ">
+	class="form-group ${hasErrors(bean: registeredUserInstance, field: 'active', 'has-error')} ">
 	<label for="active"> <g:message code="user.active.label"
 			default="Active" />
 	</label>
@@ -50,61 +85,45 @@
 		checked="true" />
 </div>
 
-<div
-	class="form-group ${hasErrors(bean: registeredUserInstance, field: 'username', 'error')} ">
-	<label for="active"> <g:message code="user.username.label"
-			default="Active" />
-	</label>
-	<g:textField class="form-control" name="username"
-		value="${registeredUserInstance?.username}" />
-</div>
-
-<div
-	class="form-group ${hasErrors(bean: registeredUserInstance, field: 'passwordHash', 'error')} ">
-	<label for="active"> <g:message code="user.password1.label"
-			default="Password" />
-	</label>
-	<g:textField class="form-control" id="password1" name="password1" value="" />
-</div>
-
-
-<div
-	class="form-group ${hasErrors(bean: registeredUserInstance, field: 'passwordHash', 'error')} ">
-	<label for="active"> <g:message code="user.password2.label"
-			default="Confirm Password" />
-	</label>
-	<g:textField class="form-control" id="password2" name="password2" value="" />
-</div>
-
-<div
-	class="form-group ${hasErrors(bean: registeredUserInstance, field: 'passwordHash', 'error')} ">
-	<span id="validate-status"></span>
-</div>
-
-
 <script>
 	$(document).ready(function() {
 		$("#password2").keyup(validate);
+	});
+
+	$(document).ready(function() {
+		$("#password1").keyup(validate);
 	});
 
 	function validate() {
 		var password1 = $("#password1").val();
 		var password2 = $("#password2").val();
 
-		if (password1 == password2) {
-			$("#validate-status").removeClass("text-danger");
-			$("#validate-status").addClass("text-success");
-			$("#validate-status")
-					.text(
-							'<g:message code="user.passwordMatch.label"
-			default="OK" />');
-		} else {
-			$("#validate-status").removeClass("text-success");
-			$("#validate-status").addClass("text-danger");
-			$("#validate-status").text(
-							'<g:message code="user.passwordDoesNotMatch.label"
-			default="No match" />');
-		}
+		var isPopulated = function(val) {
+			return ((typeof val === 'string') && (val !== ''));
+		};
+		
+		if (isPopulated(password1) || isPopulated(password2)) {
 
+			$("#passMatch").show();
+			
+			if (password1 == password2) {
+				$("#passMatch").removeClass("alert-danger");
+				$("#passMatch").addClass("alert-success");
+				$("#validate-status")
+						.text(
+								'<g:message code="user.passwordMatch.label"
+				default="OK" />');
+			} else {
+				$("#passMatch").removeClass("alert-success");
+				$("#passMatch").addClass("alert-danger");
+				$("#validate-status")
+						.text(
+								'<g:message code="user.passwordDoesNotMatch.label"
+				default="No match" />');
+			}
+		} else {
+			console.log('bbb');
+			$("#passMatch").hide();
+		}
 	}
 </script>

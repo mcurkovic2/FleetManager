@@ -4,6 +4,10 @@ package hr.fleetman.users
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
+import hr.fleetman.Utils.Utils;
+
+import org.apache.shiro.crypto.hash.Sha512Hash
+import org.springframework.util.Assert;
 
 @Transactional(readOnly = true)
 class RegisteredUserController {
@@ -34,7 +38,9 @@ class RegisteredUserController {
             respond registeredUserInstance.errors, view:'create'
             return
         }
-
+		
+		Assert.hasText(params.passwordHash);
+		registeredUserInstance.passwordHash = Utils.encrypt(params.passwordHash);
         registeredUserInstance.save flush:true
 
         request.withFormat {

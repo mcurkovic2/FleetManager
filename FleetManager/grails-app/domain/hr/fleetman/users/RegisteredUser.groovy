@@ -10,6 +10,7 @@ class RegisteredUser extends User{
     static hasMany = [ roles: RegisteredRole, permissions: String ]
 
 	static constraints = {
-		username(nullable: false, blank: false, unique: true)
+		username(nullable: false, blank: false, unique: true, maxLength: 50, minLength: 3)
+		passwordHash(nullable: false, blank: false, unique: false, maxLength: 100, minLength:3)
 	}
 }
