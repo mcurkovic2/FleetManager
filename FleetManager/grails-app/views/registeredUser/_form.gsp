@@ -25,7 +25,7 @@
 	<label class="control-label" for="password1"> <g:message code="user.password1.label"
 			default="Password" />
 	</label>
-	<g:textField class="form-control" id="password1" name="passwordHash1"
+	<g:passwordField class="form-control" id="password1" name="passwordHash1"
 		value="" />
 </div>
 
@@ -33,7 +33,7 @@
 	class="form-group ${hasErrors(bean: registeredUserInstance, field: 'passwordHash', 'has-error')} ">
 	<label class="control-label" for="password2"> <g:message code="user.password2.label"
 			default="Confirm Password" /></label>
-	<g:textField class="form-control" id="password2" name="passwordHash"
+	<g:passwordField class="form-control" id="password2" name="passwordHash"
 		value="" />
 </div>
 
