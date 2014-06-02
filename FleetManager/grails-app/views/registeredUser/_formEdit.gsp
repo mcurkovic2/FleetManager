@@ -11,7 +11,7 @@
 		value="${registeredUserInstance?.username}" />
 </div>
 
-<div
+<%--<div
 	class="form-group ${hasErrors(bean: registeredUserInstance, field: 'passwordHash', 'has-error')} ">
 	<label class="control-label" for="password1"> <g:message code="user.password1.label"
 			default="Password" />
@@ -28,7 +28,7 @@
 		value="" />
 </div>
 
-<div id="passMatch" style="display:none;" class="alert alert-dismissable alert-danger">
+--%><div id="passMatch" style="display:none;" class="alert alert-dismissable alert-danger">
     <span id="validate-status"></span>
 </div>
 
@@ -62,45 +62,4 @@
 		value="${registeredUserInstance?.description}" />
 </div>
 
-<script>
-	$(document).ready(function() {
-		$("#password2").keyup(validate);
-	});
 
-	$(document).ready(function() {
-		$("#password1").keyup(validate);
-	});
-
-	function validate() {
-		var password1 = $("#password1").val();
-		var password2 = $("#password2").val();
-
-		var isPopulated = function(val) {
-			return ((typeof val === 'string') && (val !== ''));
-		};
-		
-		if (isPopulated(password1) || isPopulated(password2)) {
-
-			$("#passMatch").show();
-			
-			if (password1 == password2) {
-				$("#passMatch").removeClass("alert-danger");
-				$("#passMatch").addClass("alert-success");
-				$("#validate-status")
-						.text(
-								'<g:message code="user.passwordMatch.label"
-				default="OK" />');
-			} else {
-				$("#passMatch").removeClass("alert-success");
-				$("#passMatch").addClass("alert-danger");
-				$("#validate-status")
-						.text(
-								'<g:message code="user.passwordDoesNotMatch.label"
-				default="No match" />');
-			}
-		} else {
-			console.log('bbb');
-			$("#passMatch").hide();
-		}
-	}
-</script>

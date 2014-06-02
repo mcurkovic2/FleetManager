@@ -23,17 +23,10 @@
 						</thead>
 						<tbody>
 							<tr>
-								<th><g:message code="user.userId.label" default="Id" /></th>
+								<th><g:message code="user.username.label"
+										default="Username" /></th>
 								<td><g:fieldValue bean="${registeredUserInstance}"
-										field="userId" /></td>
-							</tr>
-
-							<tr>
-								<th><g:message code="user.active.label" default="Active" />
-								</th>
-								<td><g:checkBox name="active " value="true"
-										checked="${registeredUserInstance?.active == true}"
-										disabled="true" /></td>
+										field="username" /></td>
 							</tr>
 							<tr>
 								<th><g:message code="user.firstName.label"
@@ -53,14 +46,6 @@
 								<td><g:fieldValue bean="${registeredUserInstance}"
 										field="description" /></td>
 							</tr>
-							<shiro:hasPermission permission="registeredUser:administration">
-								<tr>
-									<th><g:message code="user.username.label"
-											default="Username" /></th>
-									<td><g:fieldValue bean="${registeredUserInstance}"
-											field="username" /></td>
-								</tr>
-							</shiro:hasPermission>
 						</tbody>
 					</table>
 

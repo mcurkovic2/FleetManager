@@ -18,17 +18,26 @@ class BootStrap {
 
 
 		log.debug("Creating dummy users")
-		def adminUser = new RegisteredUser(userId:"12345", username: "admin", passwordHash: new Sha512Hash("admin").toHex())
+		def adminUser = new RegisteredUser(
+				username: "admin",
+				passwordHash: new Sha512Hash("admin").toHex(),
+				firstName : "James",
+				lastName : "Hetfield");
+
 		adminUser.addToPermissions("*:*")
 		adminUser.addToRoles(adminRole)
 		adminUser.save()
 
-		def user = new RegisteredUser(userId: "22222", username: "user", passwordHash: new Sha512Hash("user").toHex())
+		def user = new RegisteredUser(
+			username: "user", 
+			passwordHash: new Sha512Hash("user").toHex(),
+			firstName : "Lars",
+			lastName : "Ulrich");
+		
 		user.addToRoles(basicRole)
 		user.save()
 	}
-	
+
 	def destroy = {
-		
 	}
 }

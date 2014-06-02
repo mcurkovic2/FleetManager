@@ -38,11 +38,11 @@
 					class="table table-bordered table-hover table-striped tablesorter">
 					<thead>
 						<tr>
-							<th>
+							<%--<th>
 								${message(code: 'user.userId.label', default: 'User Id')} <i
 								class="fa fa-sort"></i>
 							</th>
-							<th>
+							--%><th>
 								${message(code: 'user.username.label', default: 'Username')} <i
 								class="fa fa-sort"></i>
 							</th>
@@ -63,12 +63,15 @@
 						<g:each in="${registeredUserInstanceList}" status="i"
 							var="registeredUserInstance">
 							<tr>
+<%--								<td><g:link action="show" id="${registeredUserInstance.id}">--%>
+<%--										${fieldValue(bean: registeredUserInstance, field: 'userId')}--%>
+<%--									</g:link></td>--%>
 								<td><g:link action="show" id="${registeredUserInstance.id}">
-										${fieldValue(bean: registeredUserInstance, field: 'userId')}
-									</g:link></td>
-								<td>
-									${fieldValue(bean: registeredUserInstance, field: 'username')}
-								</td>
+										${fieldValue(bean: registeredUserInstance, field: 'username')}
+									</g:link></td>	
+<%--								<td>--%>
+<%--									${fieldValue(bean: registeredUserInstance, field: 'username')}--%>
+<%--								</td>--%>
 								<td>
 									${fieldValue(bean: registeredUserInstance, field: 'firstName')}
 								</td>
