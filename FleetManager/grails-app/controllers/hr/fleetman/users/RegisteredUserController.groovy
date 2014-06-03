@@ -4,10 +4,11 @@ package hr.fleetman.users
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
-import hr.fleetman.Utils.Utils;
+import hr.fleetman.Utils.Utils
 
-import org.apache.shiro.crypto.hash.Sha512Hash
-import org.springframework.util.Assert;
+import org.apache.shiro.SecurityUtils
+import org.apache.shiro.subject.Subject
+import org.springframework.util.Assert
 
 @Transactional(readOnly = true)
 class RegisteredUserController {
@@ -45,7 +46,7 @@ class RegisteredUserController {
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'registeredUserInstance.label', default: 'RegisteredUser'), registeredUserInstance.id])
+                flash.message = message(code: 'default.created.message', args: [message(code: 'registeredUserInstance.label', default: 'RegisteredUser'), registeredUserInstance.username])
                 redirect registeredUserInstance
             }
             '*' { respond registeredUserInstance, [status: CREATED] }
@@ -72,7 +73,7 @@ class RegisteredUserController {
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'RegisteredUser.label', default: 'RegisteredUser'), registeredUserInstance.id])
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'RegisteredUser.label', default: 'RegisteredUser'), registeredUserInstance.username])
                 redirect registeredUserInstance
             }
             '*'{ respond registeredUserInstance, [status: OK] }
@@ -81,17 +82,23 @@ class RegisteredUserController {
 
     @Transactional
     def delete(RegisteredUser registeredUserInstance) {
-
+		
         if (registeredUserInstance == null) {
             notFound()
             return
         }
-
+		Subject currentUser = SecurityUtils.getSubject();
+		if (registeredUserInstance.username.equals(currentUser.getPrincipal())){
+			flash.message = message(code: 'RegisteredUser.delete.currentUser.error', args: [registeredUserInstance.username])
+			redirect registeredUserInstance
+			return
+		}
+		
         registeredUserInstance.delete flush:true
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'RegisteredUser.label', default: 'RegisteredUser'), registeredUserInstance.id])
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'RegisteredUser.label', default: 'RegisteredUser'), registeredUserInstance.username])
                 redirect action:"index", method:"GET"
             }
             '*'{ render status: NO_CONTENT }
@@ -101,7 +108,7 @@ class RegisteredUserController {
     protected void notFound() {
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.not.found.message', args: [message(code: 'registeredUserInstance.label', default: 'RegisteredUser'), params.id])
+                flash.message = message(code: 'default.not.found.message', args: [message(code: 'registeredUserInstance.label', default: 'RegisteredUser'), params.username])
                 redirect action: "index", method: "GET"
             }
             '*'{ render status: NOT_FOUND }
