@@ -10,7 +10,7 @@
 </head>
 <body>
 	<div class="row">
-		<div class="col-lg-4">
+		<div class="col-lg-6">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<g:message code="user.details.panelTitle" />
@@ -69,68 +69,59 @@
 		</div>
 		<shiro:hasPermission permission="registeredUser:administration">
 			<div class="col-lg-6">
-				<%--				<div class="panel panel-primary">--%>
-				<%--					<div class="panel-heading">--%>
-				<%--						<g:message code="user.roles" />--%>
-				<%--					</div>--%>
-				<%--					<div class="panel-body">--%>
-				<div class="row">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<g:message code="user.roles" />
+					</div>
+					<div class="panel-body">
+						<div class="row">
 
-					<div class="col-lg-12">
-						<g:link action="create" class="btn btn-default">
-							<g:message args="[entityName]" code="default.new.label"></g:message>
-						</g:link>
-						<button type="button" class="btn btn-default">Show List</button>
-						<div class="btn-group">
-							<button type="button" class="btn btn-default">New
-								Service</button>
-							<button type="button" class="btn btn-default">New
-								Registration</button>
-							<button type="button" class="btn btn-default">New Tire
-								Change</button>
+							<div class="col-lg-12">
+								<g:link action="editRole" class="btn btn-default" resource="${registeredUserInstance}">
+									<g:message code="RegisteredUser.editRole.label"></g:message>
+								</g:link>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-12">&nbsp;</div>
+						</div>
+						<div class="table-responsive">
+							<table
+								class="table table-bordered table-hover table-striped tablesorter">
+								<thead>
+									<tr>
+										<th>
+											${message(code: 'registeredRole.name.tableHeader', default: 'Name')}
+											<i class="fa fa-sort"></i>
+										</th>
+										<th>
+											${message(code: 'registeredRole.description.tableHeader', default: 'Description')}
+											<i class="fa fa-sort"></i>
+										</th>
+								</thead>
+								<tbody>
+									<g:each in="${registeredUserInstance.roles}" status="i"
+										var="registeredRoleInstance">
+										<tr>
+											<td>
+												${fieldValue(bean: registeredRoleInstance, field: 'name')}
+											</td>
+											<td>
+												${fieldValue(bean: registeredRoleInstance, field: 'description')}
+											</td>
+										</tr>
+									</g:each>
+								</tbody>
+							</table>
+
+							<div class="pagination">
+								<g:paginate total="${registeredUserInstance.roles ?: 0}"></g:paginate>
+							</div>
+
+
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-lg-12">&nbsp;</div>
-				</div>
-				<div class="table-responsive">
-					<table
-						class="table table-bordered table-hover table-striped tablesorter">
-						<thead>
-							<tr>
-								<th>
-									${message(code: 'registeredRole.name.tableHeader', default: 'Name')}
-									<i class="fa fa-sort"></i>
-								</th>
-								<th>
-									${message(code: 'registeredRole.description.tableHeader', default: 'Description')}
-									<i class="fa fa-sort"></i>
-								</th>
-						</thead>
-						<tbody>
-							<g:each in="${registeredUserInstance.roles}" status="i"
-								var="registeredRoleInstance">
-								<tr>
-									<td>
-										${fieldValue(bean: registeredRoleInstance, field: 'name')}
-									</td>
-									<td>
-										${fieldValue(bean: registeredRoleInstance, field: 'description')}
-									</td>
-								</tr>
-							</g:each>
-						</tbody>
-					</table>
-
-					<div class="pagination">
-						<g:paginate total="${registeredUserInstance.roles ?: 0}"></g:paginate>
-					</div>
-
-
-				</div>
-				<%--					</div>--%>
-				<%--				</div>--%>
 			</div>
 		</shiro:hasPermission>
 	</div>

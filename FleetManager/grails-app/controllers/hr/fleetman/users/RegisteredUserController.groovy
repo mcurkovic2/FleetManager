@@ -27,6 +27,11 @@ class RegisteredUserController {
     def create() {
         respond new RegisteredUser(params)
     }
+	
+	@Transactional
+	def editRole(RegisteredUser registeredUserInstance) {
+		respond registeredUserInstance
+	}
 
     @Transactional
     def save(RegisteredUser registeredUserInstance) {
