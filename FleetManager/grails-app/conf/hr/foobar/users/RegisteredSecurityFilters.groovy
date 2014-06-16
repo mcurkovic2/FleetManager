@@ -6,7 +6,7 @@ package hr.foobar.users
  */
 class RegisteredSecurityFilters {
     def filters = {
-        all(uri: "/**") {
+       all(uri: "/**", uriExclude:"/assets/**") {
             before = {
                 // Ignore direct views (e.g. the default main index page).
                 if (!controllerName) return true

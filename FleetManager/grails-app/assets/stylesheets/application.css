@@ -1,6 +1,8 @@
 /*
-*= require bootstrap
-*= require font-awesome
-*= require sb-admin
+*= require ../vendor/css/plugins/bootstrap/css/bootstrap.css
+*= require ../vendor/icons/font-awesome/css/font-awesome.css
+*= require ../vendor/css/style.css
+*= require ../vendor/css/plugins.css
+*= require ../vendor/css/demo.css
 *= encoding UTF-8
 */
