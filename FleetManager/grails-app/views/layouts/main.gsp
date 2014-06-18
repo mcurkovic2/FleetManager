@@ -40,15 +40,20 @@
 		<!-- begin MAIN PAGE CONTENT -->
 		<div id="page-wrapper">
 
-			<div class="page-content">
-
+			<div class="page-content page-content-ease-in">
+			
 				<!-- begin PAGE TITLE ROW -->
-				<div class="row">
-
-					<!-- /.col-lg-12 -->
-				</div>
-				<!-- /.row -->
-				<!-- end PAGE TITLE ROW -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="page-title">
+                            <g:render template="/shared/pageTitle"></g:render>
+                            <g:render template="/shared/breadcrumbs"></g:render>
+                        </div>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+                <!-- end PAGE TITLE ROW -->
 				<g:layoutBody />
 			</div>
 			<!-- /.page-content -->
