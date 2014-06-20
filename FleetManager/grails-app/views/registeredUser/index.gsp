@@ -3,12 +3,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="layout" content="main">
-<g:set var="entityName"
-	value="${message(code: 'registeredUser.label', default: 'RegisteredUser')}" />
-<title><g:message code="default.list.label" args="[entityName]" /></title>
+<meta name="layout" content="bodySingleColumn" />
+<title><g:message code="title.homepage" /></title>
 </head>
 <body>
+	<content tag="mainContent">
 	<div class="row">
 		<div class="col-lg-8">
 			<div class="panel panel-primary">
@@ -97,6 +96,6 @@
 
 		</div>
 	</div>
-
+	</content>
 </body>
 </html>

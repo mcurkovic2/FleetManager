@@ -351,9 +351,10 @@
 					class="fa fa-caret-down"></i>
 			</a>
 				<ul class="dropdown-menu dropdown-user">
-					<li><a href="profile.html"> <i class="fa fa-user"></i> My
-							Profile
-					</a></li>
+					<li><a href="${createLink(controller:'registerdUser' , action:'profile')}">
+							<i class="fa fa-user"></i>
+							<g:message code="top.menu.profile.myProfile.label" />
+						</a></li>
 					<li><a href="mailbox.html"> <i class="fa fa-envelope"></i>
 							My Messages <span class="badge green pull-right">4</span>
 					</a></li>

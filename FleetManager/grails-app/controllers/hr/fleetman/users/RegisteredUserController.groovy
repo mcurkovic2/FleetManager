@@ -119,4 +119,10 @@ class RegisteredUserController {
             '*'{ render status: NOT_FOUND }
         }
     }
+	
+	def profile() {
+		RegisteredUser registeredUserInstance = SecurityUtils.getSubject();
+		
+		respond registeredUserInstance
+	}
 }
