@@ -109,6 +109,14 @@ class RegisteredUserController {
             '*'{ render status: NO_CONTENT }
         }
     }
+	
+	def profile() {
+//		String username = SecurityUtils.getSubject();
+//		RegisteredUser registeredUserInstance = RegisteredUser.findByUsername(username)
+//		
+//		respond registeredUserInstance
+		return
+	}
 
     protected void notFound() {
         request.withFormat {
@@ -119,10 +127,4 @@ class RegisteredUserController {
             '*'{ render status: NOT_FOUND }
         }
     }
-	
-	def profile() {
-		RegisteredUser registeredUserInstance = SecurityUtils.getSubject();
-		
-		respond registeredUserInstance
-	}
 }

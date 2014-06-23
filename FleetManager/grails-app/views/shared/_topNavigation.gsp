@@ -351,7 +351,7 @@
 					class="fa fa-caret-down"></i>
 			</a>
 				<ul class="dropdown-menu dropdown-user">
-					<li><a href="${createLink(controller:'registerdUser' , action:'profile')}">
+					<li><a href="${createLink(controller:'registeredUser' , action:'profile')}">
 							<i class="fa fa-user"></i>
 							<g:message code="top.menu.profile.myProfile.label" />
 						</a></li>

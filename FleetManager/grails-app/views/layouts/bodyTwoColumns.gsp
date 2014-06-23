@@ -10,11 +10,8 @@
 	<div class="row">
 
 		<!-- /.col-lg-12 -->
-		<div class="col-lg-6">
-			<g:pageProperty name="page.col1" />
-		</div>
-		<div class="col-lg-6">
-			<g:pageProperty name="page.col2" />
+		<div class="col-lg-12">
+			<g:pageProperty name="page.mainContent" />
 		</div>
 	</div>
 

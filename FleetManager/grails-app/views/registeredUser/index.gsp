@@ -7,14 +7,19 @@
 <title><g:message code="title.homepage" /></title>
 </head>
 <body>
-	<content tag="mainContent">
-	<div class="row">
-		<div class="col-lg-8">
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<g:message code="user.users.panelTitle" />
+	<content tag="col1">
+<%--	<div class="row">--%>
+<%--		<div class="col-lg-8">--%>
+
+			<div class="portlet portlet-default">
+				<div class="portlet-heading">
+					<div class="portlet-title">
+						<h4><g:message code="user.users.panelTitle" /></h4>
+					</div>
+					<div class="clearfix"></div>
 				</div>
-				<div class="panel-body">
+				
+				<div class="portlet-body">
 					<div class="row">
 						<div class="col-lg-12">
 							<g:link action="create" class="btn btn-default">
@@ -94,8 +99,8 @@
 				</div>
 			</div>
 
-		</div>
-	</div>
+<%--		</div>--%>
+<%--	</div>--%>
 	</content>
 </body>
 </html>
