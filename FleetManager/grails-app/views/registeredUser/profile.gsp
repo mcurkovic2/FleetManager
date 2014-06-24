@@ -46,8 +46,10 @@
 <%--								<li><i class="fa fa-group fa-muted"></i> Sales, Marketing,--%>
 <%--									Management</li>--%>
 <%--								<li><i class="fa fa-trophy fa-muted"></i> Top Seller</li>--%>
-								<li><i class="fa fa-calendar fa-muted"></i><g:message code="profile.memberSince.label"> Member Since:
-									5/13/11</li>
+								<li><i class="fa fa-calendar fa-muted"></i>&nbsp;<g:message code="RegisteredUser.memberSince.label"/>&nbsp;
+<%--									<g:fieldValue bean="${registeredUserInstance}"--%>
+<%--										field="dateCreated" />--%>
+										<g:formatDate date="${registeredUserInstance.dateCreated}" type="datetime" style="LONG" timeStyle="SHORT"/></li>
 							</ul>
 							<h3>Recent Sales</h3>
 							<div class="table-responsive">
