@@ -111,11 +111,14 @@ class RegisteredUserController {
     }
 	
 	def profile() {
-//		String username = SecurityUtils.getSubject();
-//		RegisteredUser registeredUserInstance = RegisteredUser.findByUsername(username)
-//		
-//		respond registeredUserInstance
-		return
+		Subject currentUser = SecurityUtils.getSubject();
+		RegisteredUser registeredUserInstance = RegisteredUser.findByUsername(currentUser.getPrincipal())
+		if (registeredUserInstance != null) {
+			respond registeredUserInstance
+		} else {
+		 throw new IllegalStateException("No user in session!");
+		}
+
 	}
 
     protected void notFound() {

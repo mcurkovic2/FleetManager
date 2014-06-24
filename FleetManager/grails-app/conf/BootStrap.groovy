@@ -22,7 +22,8 @@ class BootStrap {
 				username: "admin",
 				passwordHash: new Sha512Hash("admin").toHex(),
 				firstName : "James",
-				lastName : "Hetfield");
+				lastName : "Hetfield",
+				description: "James Alan Hetfield is the main songwriter, co-founder, lead vocalist, rhythm guitarist and lyricist for the American heavy metal band Metallica.");
 
 		adminUser.addToPermissions("*:*")
 		adminUser.addToRoles(adminRole)
@@ -32,7 +33,8 @@ class BootStrap {
 			username: "user", 
 			passwordHash: new Sha512Hash("user").toHex(),
 			firstName : "Lars",
-			lastName : "Ulrich");
+			lastName : "Ulrich",
+			description: "Lars Ulrich is a Danish-American drummer and one of the founding members of American heavy metal band Metallica. He was born in Gentofte, Denmark to an upper-middle-class family.");
 		
 		user.addToRoles(basicRole)
 		user.save()

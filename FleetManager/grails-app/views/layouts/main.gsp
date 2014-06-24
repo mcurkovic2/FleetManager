@@ -54,6 +54,13 @@
                 </div>
                 <!-- /.row -->
                 <!-- end PAGE TITLE ROW -->
+                
+                <!-- VALIDATION MESSAGE-->
+				<div class="row">
+					<div class="col-lg-12">
+						<g:pageProperty name="page.validation" />
+					</div>
+				</div>
 				<g:layoutBody />
 			</div>
 			<!-- /.page-content -->
@@ -67,6 +74,10 @@
 
 	<!-- GLOBAL SCRIPTS -->
 	<asset:javascript src="application.js" />
+	<!-- Custom Page JavaScript  -->
+	<g:pageProperty name="page.javascript"/>
+
 	<g:render template="/shared/logoutModule"></g:render>
+	
 </body>
 </html>

@@ -62,7 +62,18 @@
 		value="${registeredUserInstance?.description}" />
 </div>
 
-<script>
+<content tag="javascript">
+		<script src="${assetPath(src: 'passCheck.js')}"></script>
+		<script>
+			$(document).ready(function() {
+				passCheck.init('<g:message code="user.passwordMatch.label"
+				default="OK" />', '<g:message code="user.passwordDoesNotMatch.label"
+				default="No match" />');
+			});
+		</script>
+</content>
+	
+<%--<script>
 	$(document).ready(function() {
 		$("#password2").keyup(validate);
 	});
@@ -104,3 +115,4 @@
 		}
 	}
 </script>
+--%>

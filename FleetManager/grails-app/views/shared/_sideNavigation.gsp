@@ -6,7 +6,7 @@
 			<li class="side-user hidden-xs"><img class="img-circle"
 				src="${assetPath(src: 'img/profile-pic.jpg')}" alt="">
 				<p class="welcome">
-					<i class="fa fa-key"></i> Logged in as
+					<i class="fa fa-key"></i> <g:message code="main.menu.loggedInAs.label"/>
 				</p>
 				<p class="name tooltip-sidebar-logout">
 					John <span class="last-name">Smith</span> <a style="color: inherit"

@@ -35,20 +35,18 @@
 							</div>
 						</div>
 						<div class="col-lg-7 col-md-5">
-							<h1>John Smith</h1>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-								Nunc placerat diam quis nisl vestibulum dignissim. In hac
-								habitasse platea dictumst. Interdum et malesuada fames ac ante
-								ipsum primis in faucibus. Pellentesque habitant morbi tristique
-								senectus et netus et malesuada fames ac turpis egestas. Etiam
-								placerat nunc ut tellus tristique, non posuere neque iaculis.</p>
+							<h1><g:fieldValue bean="${registeredUserInstance}"
+										field="firstName" />&nbsp;<g:fieldValue bean="${registeredUserInstance}"
+										field="lastName" /></h1>
+							<p><g:fieldValue bean="${registeredUserInstance}"
+										field="description" /></p>
 							<ul class="list-inline">
-								<li><i class="fa fa-map-marker fa-muted"></i> Bayville, FL</li>
-								<li><i class="fa fa-user fa-muted"></i> Administrator</li>
-								<li><i class="fa fa-group fa-muted"></i> Sales, Marketing,
-									Management</li>
-								<li><i class="fa fa-trophy fa-muted"></i> Top Seller</li>
-								<li><i class="fa fa-calendar fa-muted"></i> Member Since:
+<%--								<li><i class="fa fa-map-marker fa-muted"></i> Bayville, FL</li>--%>
+<%--								<li><i class="fa fa-user fa-muted"></i> Administrator</li>--%>
+<%--								<li><i class="fa fa-group fa-muted"></i> Sales, Marketing,--%>
+<%--									Management</li>--%>
+<%--								<li><i class="fa fa-trophy fa-muted"></i> Top Seller</li>--%>
+								<li><i class="fa fa-calendar fa-muted"></i><g:message code="profile.memberSince.label"> Member Since:
 									5/13/11</li>
 							</ul>
 							<h3>Recent Sales</h3>

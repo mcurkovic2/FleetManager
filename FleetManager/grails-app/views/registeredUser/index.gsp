@@ -3,8 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="layout" content="bodySingleColumn" />
-<title><g:message code="title.homepage" /></title>
+<meta name="layout" content="bodyTwoColumns" />
+<%--<title><g:message code="title.homepage" /></title>--%>
 </head>
 <body>
 	<content tag="col1">
