@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta name="layout" content="bodySingleColumn" />
-<title><g:message code="title.homepage" /></title>
+<%--<title><g:message code="title.homepage" /></title>--%>
 </head>
 <body>
 	<content tag="mainContent">
@@ -12,44 +12,51 @@
 	<div class="portlet portlet-default">
 		<div class="portlet-body">
 			<ul id="userTab" class="nav nav-tabs">
-				<li class="active"><a href="#overview" data-toggle="tab">Overview</a>
-				</li>
-				<li><a href="#profile-settings" data-toggle="tab">Update
-						Profile</a></li>
+				<li class="active"><a href="#overview" data-toggle="tab"><g:message
+							code="RegisteredUser.profile.overview.label" /></a></li>
+				<li><a href="#profile-settings" data-toggle="tab"><g:message
+							code="RegisteredUser.profile.update.label" /></a></li>
 			</ul>
 			<div id="userTabContent" class="tab-content">
 				<div class="tab-pane fade in active" id="overview">
 
 					<div class="row">
 						<div class="col-lg-2 col-md-3">
-							<a href="#"> <span class="profile-edit">Edit</span>
-							</a><img class="img-responsive img-profile"
-								src="${assetPath(src: 'img/profile-full.jpg')}" alt=""/>
-							<div class="list-group">
-								<a href="#" class="list-group-item active">Overview</a> <a
-									href="#" class="list-group-item">Messages<span
-									class="badge green">4</span></a> <a href="#"
-									class="list-group-item">Alerts<span class="badge orange">9</span></a>
-								<a href="#" class="list-group-item">Tasks<span
-									class="badge blue">10</span></a>
+							<%--						IMAGE--%>
+							<%--							<a href="#"> <span class="profile-edit">Edit</span>--%>
+							<%--							</a><img class="img-responsive img-profile"--%>
+							<%--								src="${assetPath(src: 'img/profile-full.jpg')}" alt="" />--%>
+							<%--<div class="list-group">
+								<a href="#" class="list-group-item active"><g:message
+										code="RegisteredUser.profile.overview.label" /></a> <a href="#"
+									class="list-group-item">Messages<span class="badge green">4</span></a>
+								<a href="#" class="list-group-item">Alerts<span
+									class="badge orange">9</span></a> <a href="#"
+									class="list-group-item">Tasks<span class="badge blue">10</span></a>
 							</div>
+						--%>
 						</div>
 						<div class="col-lg-7 col-md-5">
-							<h1><g:fieldValue bean="${registeredUserInstance}"
-										field="firstName" />&nbsp;<g:fieldValue bean="${registeredUserInstance}"
-										field="lastName" /></h1>
-							<p><g:fieldValue bean="${registeredUserInstance}"
-										field="description" /></p>
+							<h1>
+								<g:fieldValue bean="${registeredUserInstance}" field="firstName" />
+								&nbsp;
+								<g:fieldValue bean="${registeredUserInstance}" field="lastName" />
+							</h1>
+							<p>
+								<g:fieldValue bean="${registeredUserInstance}"
+									field="description" />
+							</p>
 							<ul class="list-inline">
-<%--								<li><i class="fa fa-map-marker fa-muted"></i> Bayville, FL</li>--%>
-<%--								<li><i class="fa fa-user fa-muted"></i> Administrator</li>--%>
-<%--								<li><i class="fa fa-group fa-muted"></i> Sales, Marketing,--%>
-<%--									Management</li>--%>
-<%--								<li><i class="fa fa-trophy fa-muted"></i> Top Seller</li>--%>
-								<li><i class="fa fa-calendar fa-muted"></i>&nbsp;<g:message code="RegisteredUser.memberSince.label"/>&nbsp;
-<%--									<g:fieldValue bean="${registeredUserInstance}"--%>
-<%--										field="dateCreated" />--%>
-										<g:formatDate date="${registeredUserInstance.dateCreated}" type="datetime" style="LONG" timeStyle="SHORT"/></li>
+								<%--								<li><i class="fa fa-map-marker fa-muted"></i> Bayville, FL</li>--%>
+								<%--								<li><i class="fa fa-user fa-muted"></i> Administrator</li>--%>
+								<%--								<li><i class="fa fa-group fa-muted"></i> Sales, Marketing,--%>
+								<%--									Management</li>--%>
+								<%--								<li><i class="fa fa-trophy fa-muted"></i> Top Seller</li>--%>
+								<li><i class="fa fa-calendar fa-muted"></i>&nbsp;<g:message
+										code="RegisteredUser.memberSince.label" />&nbsp; <%--									<g:fieldValue bean="${registeredUserInstance}"--%>
+									<%--										field="dateCreated" />--%> <g:formatDate
+										date="${registeredUserInstance.dateCreated}" type="datetime"
+										style="LONG" timeStyle="SHORT" /></li>
 							</ul>
 							<h3>Recent Sales</h3>
 							<div class="table-responsive">
@@ -117,30 +124,33 @@
 							</div>
 						</div>
 						<div class="col-lg-3 col-md-4">
-							<h3>Contact Details</h3>
-							<p>
-								<i class="fa fa-globe fa-muted fa-fw"></i> <a href="#">http://www.website.com</a>
-							</p>
-							<p>
-								<i class="fa fa-phone fa-muted fa-fw"></i> 1+(234) 555-2039
-							</p>
-							<p>
-								<i class="fa fa-building-o fa-muted fa-fw"></i> 8516 Market St.
-								<br>Bayville, FL 55555
-							</p>
-							<p>
-								<i class="fa fa-envelope-o fa-muted fa-fw"></i> <a href="#">j.smith@website.com</a>
-							</p>
-							<ul class="list-inline">
-								<li><a class="facebook-link" href="#"><i
-										class="fa fa-facebook-square fa-2x"></i></a></li>
-								<li><a class="twitter-link" href="#"><i
-										class="fa fa-twitter-square fa-2x"></i></a></li>
-								<li><a class="linkedin-link" href="#"><i
-										class="fa fa-linkedin-square fa-2x"></i></a></li>
-								<li><a class="google-plus-link" href="#"><i
-										class="fa fa-google-plus-square fa-2x"></i></a></li>
-							</ul>
+							<h3>
+								<g:message code="RegisteredUser.profile.contactDetails.label" />
+							</h3>
+							<g:if test="${registeredUserInstance?.contact?.phone != null}">
+								<p>
+									<i class="fa fa-phone fa-muted fa-fw"></i>
+									<g:fieldValue bean="${registeredUserInstance.contact}"
+										field="phone" />
+								</p>
+							</g:if>
+							<g:if test="${registeredUserInstance?.contact?.email != null}">
+								<p>
+									<i class="fa fa-envelope-o fa-muted fa-fw"></i>
+									<g:fieldValue bean="${registeredUserInstance.contact}"
+										field="email" />
+								</p>
+							</g:if>
+<%--							<ul class="list-inline">--%>
+<%--								<li><a class="facebook-link" href="#"><i--%>
+<%--										class="fa fa-facebook-square fa-2x"></i></a></li>--%>
+<%--								<li><a class="twitter-link" href="#"><i--%>
+<%--										class="fa fa-twitter-square fa-2x"></i></a></li>--%>
+<%--								<li><a class="linkedin-link" href="#"><i--%>
+<%--										class="fa fa-linkedin-square fa-2x"></i></a></li>--%>
+<%--								<li><a class="google-plus-link" href="#"><i--%>
+<%--										class="fa fa-google-plus-square fa-2x"></i></a></li>--%>
+<%--							</ul>--%>
 						</div>
 					</div>
 
@@ -253,7 +263,8 @@
 								<div class="tab-pane fade" id="profilePicture">
 									<h3>Current Picture:</h3>
 									<img class="img-responsive img-profile"
-										src="${assetPath(src: 'img/profile-full.jpg')}" alt=""> <br>
+										src="${assetPath(src: 'img/profile-full.jpg')}" alt="">
+									<br>
 									<form role="form">
 										<div class="form-group">
 											<label>Choose a New Image</label> <input type="file">

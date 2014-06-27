@@ -4,7 +4,7 @@ package hr.fleetman.users
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
-import hr.fleetman.Utils.Utils
+import hr.fleetman.utils.Utils
 
 import org.apache.shiro.SecurityUtils
 import org.apache.shiro.subject.Subject

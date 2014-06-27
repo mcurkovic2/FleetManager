@@ -1,4 +1,4 @@
-package hr.fleetman.Utils
+package hr.fleetman.utils
 
 import org.apache.shiro.crypto.hash.Sha512Hash
 
