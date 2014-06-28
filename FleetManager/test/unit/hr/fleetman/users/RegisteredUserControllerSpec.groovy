@@ -146,4 +146,6 @@ class RegisteredUserControllerSpec extends Specification {
             response.redirectedUrl == '/registeredUser/index'
             flash.message != null
     }
+	
+	
 }

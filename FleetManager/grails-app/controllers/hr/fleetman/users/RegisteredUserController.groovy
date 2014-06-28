@@ -79,7 +79,8 @@ class RegisteredUserController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'RegisteredUser.label', default: 'RegisteredUser'), registeredUserInstance.username])
-                redirect registeredUserInstance
+                //redirect registeredUserInstance
+				redirect (action: "profile", model:[registeredUserInstance])
             }
             '*'{ respond registeredUserInstance, [status: OK] }
         }
@@ -118,8 +119,28 @@ class RegisteredUserController {
 		} else {
 		 throw new IllegalStateException("No user in session!");
 		}
-
 	}
+	
+	def profileById() {
+		Assert.hasText(params.id);
+		RegisteredUser registeredUserInstance = RegisteredUser.findById(params.id)
+		if (registeredUserInstance != null) {
+			respond registeredUserInstance, [view:"profile"]
+		} else {
+		 throw new IllegalStateException("No user in session!");
+		}
+	}
+	
+//	def profileByRef(RegisteredUser registeredUserInstance) {
+//		Assert.notNull(registeredUserInstance);
+//		
+//		if (registeredUserInstance != null) {
+//			redirect  registeredUserInstance
+//		} else {
+//		 throw new IllegalStateException("No user in session!");
+//		}
+//	}
+
 
     protected void notFound() {
         request.withFormat {

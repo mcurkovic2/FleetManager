@@ -10,7 +10,7 @@
 	<div class="row">
 
 		<!-- /.col-lg-12 -->
-		<div class="col-lg-7">
+		<div class="col-lg-9">
 			<g:pageProperty name="page.col1" />
 		</div>
 		<div class="col-lg-3">

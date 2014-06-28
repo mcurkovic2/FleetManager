@@ -4,7 +4,6 @@
 <html>
 <head>
 <meta name="layout" content="bodyTwoColumns" />
-<%--<title><g:message code="title.homepage" /></title>--%>
 </head>
 <body>
 	<content tag="col1">
@@ -60,7 +59,7 @@
 								<g:each in="${registeredUserInstanceList}" status="i"
 									var="registeredUserInstance">
 									<tr>
-										<td><g:link action="show"
+										<td><g:link action="profileById"
 												id="${registeredUserInstance.id}">
 												${fieldValue(bean: registeredUserInstance, field: 'username')}
 											</g:link></td>

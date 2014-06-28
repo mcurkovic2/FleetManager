@@ -15,6 +15,3 @@
 		</g:hasErrors>
 	</div>
 </div>
-<div class="row">
-	<div class="col-lg-12">&nbsp</div>
-</div>

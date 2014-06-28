@@ -6,12 +6,12 @@
 </head>
 <body>
 
-<%--	<!-- VALIDATION MESSAGE-->--%>
-<%--	<div class="row">--%>
-<%--		<div class="col-lg-12">--%>
-<%--			<g:pageProperty name="page.validation" />--%>
-<%--		</div>--%>
-<%--	</div>--%>
+	<%--	<!-- VALIDATION MESSAGE-->--%>
+	<div class="row">
+		<div class="col-lg-12">
+			<g:pageProperty name="page.validation" />
+		</div>
+	</div>
 
 	<div class="row">
 		<div class="col-lg-12">
