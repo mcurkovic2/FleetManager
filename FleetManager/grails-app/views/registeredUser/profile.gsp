@@ -4,14 +4,17 @@
 <html>
 <head>
 <meta name="layout" content="bodySingleColumn" />
-<%--<title><g:message code="title.homepage" /></title>--%>
 </head>
 <body>
 	<content tag="validation"> <g:render
 		template="/shared/validationMessage"
 		model="[instance: registeredUserInstance]"></g:render> 
 	</content>
-
+	
+	<content tag="message"> <g:render
+		template="/shared/flashMessage"></g:render> 
+	</content>
+	
 	<content tag="mainContent">
 
 	<div class="portlet portlet-default">
