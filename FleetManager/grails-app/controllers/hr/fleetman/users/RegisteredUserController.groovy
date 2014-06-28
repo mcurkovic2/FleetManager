@@ -131,17 +131,6 @@ class RegisteredUserController {
 		}
 	}
 	
-//	def profileByRef(RegisteredUser registeredUserInstance) {
-//		Assert.notNull(registeredUserInstance);
-//		
-//		if (registeredUserInstance != null) {
-//			redirect  registeredUserInstance
-//		} else {
-//		 throw new IllegalStateException("No user in session!");
-//		}
-//	}
-
-
     protected void notFound() {
         request.withFormat {
             form multipartForm {
