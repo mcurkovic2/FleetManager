@@ -3,13 +3,13 @@
 	<div class="navbar-collapse sidebar-collapse collapse">
 		<ul id="side" class="nav navbar-nav side-nav">
 			<!-- begin SIDE NAV USER PANEL -->
-			<li class="side-user hidden-xs"><img class="img-circle"
+			<li class="side-user hidden-xs"><%--<img class="img-circle"
 				src="${assetPath(src: 'img/profile-pic.jpg')}" alt="">
-				<p class="welcome">
+				--%><p class="welcome">
 					<i class="fa fa-key"></i> <g:message code="main.menu.loggedInAs.label"/>
 				</p>
-				<p class="name tooltip-sidebar-logout">
-					John <span class="last-name">Smith</span> <a style="color: inherit"
+				<p class="name tooltip-sidebar-logout"><shiro:principal />
+					<a style="color: inherit"
 						class="logout_open" href="#logout" data-toggle="tooltip"
 						data-placement="top" title="Logout"><i class="fa fa-sign-out"></i></a>
 				</p>
