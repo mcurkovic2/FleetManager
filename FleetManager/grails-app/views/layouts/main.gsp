@@ -33,9 +33,9 @@
 <body>
 	<div id="wrapper">
 
-		<!--AAA RENDER TOP MENU -->
+		<!--RENDER TOP MENU -->
 		<g:render template="/shared/topNavigation"></g:render>
-		<!-- AAA SIDE NAV -->
+		<!-- SIDE NAV -->
 		<g:render template="/shared/sideNavigation"></g:render>
 		<!-- begin MAIN PAGE CONTENT -->
 		<div id="page-wrapper">

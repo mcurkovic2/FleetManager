@@ -79,7 +79,6 @@ class RegisteredUserController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'RegisteredUser.label', default: 'RegisteredUser'), registeredUserInstance.username])
-                //redirect registeredUserInstance
 				redirect (action: "profile", model:[registeredUserInstance])
             }
             '*'{ respond registeredUserInstance, [status: OK] }
