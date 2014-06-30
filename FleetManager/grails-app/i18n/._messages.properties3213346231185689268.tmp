@@ -64,9 +64,6 @@ editRoleGsp.pageTitle.label = Edit Role
 general.text.cancel = Cancel
 general.text.ok     = Ok
 
-hr.fleetman.users.RegisteredUser.username.blank    = Username must be populated
-hr.fleetman.users.RegisteredUser.username.nullable = Username must be populated
-
 login.button.login.label       = Sign In
 login.button.signup.label      = Sign Up
 login.checbox.rememberme.label = Remember Me

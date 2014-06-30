@@ -70,7 +70,9 @@ class RegisteredUserController {
         }
 
         if (registeredUserInstance.hasErrors()) {
-            respond registeredUserInstance.errors, view:'edit'
+            respond registeredUserInstance.errors, view:'profile'
+			flash.tab = "UPDATE"
+			flash.subMenu = "BASICINFO"
             return
         }
 
