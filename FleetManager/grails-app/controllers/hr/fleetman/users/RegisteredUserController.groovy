@@ -4,6 +4,8 @@ package hr.fleetman.users
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
+import hr.fleetman.common.Contact
+import hr.fleetman.security.SecurityService;
 import hr.fleetman.utils.Utils
 
 import org.apache.shiro.SecurityUtils
@@ -12,133 +14,237 @@ import org.springframework.util.Assert
 
 @Transactional(readOnly = true)
 class RegisteredUserController {
-
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
-
-    def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond RegisteredUser.list(params), model:[registeredUserInstanceCount: RegisteredUser.count()]
-    }
-
-    def show(RegisteredUser registeredUserInstance) {
-        respond registeredUserInstance
-    }
-
-    def create() {
-        respond new RegisteredUser(params)
-    }
 	
+	static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+	
+	def securityService
+
+	def index(Integer max) {
+		params.max = Math.min(max ?: 10, 100)
+		respond RegisteredUser.list(params), model:[registeredUserInstanceCount: RegisteredUser.count()]
+	}
+
+	def show(RegisteredUser registeredUserInstance) {
+		respond registeredUserInstance
+	}
+
+	//    def create() {
+	//        respond new RegisteredUser(params)
+	//    }
+
+	def create() {
+		respond new NewRegisteredUserCommand()
+	}
+
 	@Transactional
 	def editRole(RegisteredUser registeredUserInstance) {
 		respond registeredUserInstance
 	}
 
-    @Transactional
-    def save(RegisteredUser registeredUserInstance) {
-        if (registeredUserInstance == null) {
-            notFound()
-            return
-        }
+	@Transactional
+	def save(NewRegisteredUserCommand newRegisteredUserCommand) {
+		if (newRegisteredUserCommand == null) {
+			notFound()
+			return
+		}
 
-        if (registeredUserInstance.hasErrors()) {
-            respond registeredUserInstance.errors, view:'create'
-            return
-        }
-		
-		Assert.hasText(params.passwordHash);
-		registeredUserInstance.passwordHash = Utils.encrypt(params.passwordHash);
-        registeredUserInstance.save flush:true
+		newRegisteredUserCommand.validate()
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'registeredUserInstance.label', default: 'RegisteredUser'), registeredUserInstance.username])
-                redirect registeredUserInstance
-            }
-            '*' { respond registeredUserInstance, [status: CREATED] }
-        }
-    }
+		if (newRegisteredUserCommand.hasErrors()) {
+			def map = [newRegisteredUserCommandInstance: newRegisteredUserCommand]
+			render(view: "create", model: map)
+			return
+		}
 
-    def edit(RegisteredUser registeredUserInstance) {
-        respond registeredUserInstance
-    }
+		def passwordHash = Utils.encrypt(newRegisteredUserCommand.confirmedPassword);
 
-    @Transactional
-    def update(RegisteredUser registeredUserInstance) {
-        if (registeredUserInstance == null) {
-            notFound()
-            return
-        }
+		def registeredUserInstance = new RegisteredUser()
 
-        if (registeredUserInstance.hasErrors()) {
-            respond registeredUserInstance.errors, view:'profile'
+		bindData(registeredUserInstance, newRegisteredUserCommand)
+		bindData(registeredUserInstance, [passwordHash: passwordHash])
+		bindData(registeredUserInstance, [active: 1])
+
+		if (registeredUserInstance.save(flush:true)) {
+			request.withFormat {
+				form multipartForm {
+					flash.message = message(code: 'default.created.message',
+					args: [
+						message(code: 'registeredUserInstance.label', default: 'RegisteredUser'),
+						registeredUserInstance.username
+					])
+					redirect registeredUserInstance
+				}
+				'*' { respond registeredUserInstance, [status: CREATED] }
+			}
+
+		} else {
+			log error "Could not save registeredUser instance. username = "	 registeredUserInstance.username
+		}
+
+
+	}
+
+	def edit(RegisteredUser registeredUserInstance) {
+		respond registeredUserInstance
+	}
+
+	@Transactional
+	def update(RegisteredUser registeredUserInstance) {
+		if (registeredUserInstance == null) {
+			notFound()
+			return
+		}
+
+		if (registeredUserInstance.hasErrors()) {
+			respond registeredUserInstance.errors, view:'profile'
 			flash.tab = "UPDATE"
 			flash.subMenu = "BASICINFO"
-            return
-        }
+			return
+		}
 
-        registeredUserInstance.save flush:true
+		registeredUserInstance.save flush:true
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'RegisteredUser.label', default: 'RegisteredUser'), registeredUserInstance.username])
+		request.withFormat {
+			form multipartForm {
+				flash.message = message(code: 'default.updated.message', args: [
+					message(code: 'RegisteredUser.label', default: 'RegisteredUser'),
+					registeredUserInstance.username
+				])
 				redirect (action: "profile", model:[registeredUserInstance])
-            }
-            '*'{ respond registeredUserInstance, [status: OK] }
-        }
-    }
+			}
+			'*'{ respond registeredUserInstance, [status: OK] }
+		}
+	}
 
-    @Transactional
-    def delete(RegisteredUser registeredUserInstance) {
-		
-        if (registeredUserInstance == null) {
-            notFound()
-            return
-        }
-		Subject currentUser = SecurityUtils.getSubject();
-		if (registeredUserInstance.username.equals(currentUser.getPrincipal())){
-			flash.message = message(code: 'RegisteredUser.delete.currentUser.error', args: [registeredUserInstance.username])
+	@Transactional
+	def delete(RegisteredUser registeredUserInstance) {
+
+		if (registeredUserInstance == null) {
+			notFound()
+			return
+		}
+
+		def loggedRegisteredUser = securityService.getLoggedRegisteredUser()
+		if (registeredUserInstance.username == loggedRegisteredUser.username){
+			flash.message = message(code: 'RegisteredUser.delete.currentUser.error', args: [
+				registeredUserInstance.username
+			])
 			redirect registeredUserInstance
 			return
 		}
-		
-        registeredUserInstance.delete flush:true
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'RegisteredUser.label', default: 'RegisteredUser'), registeredUserInstance.username])
-                redirect action:"index", method:"GET"
-            }
-            '*'{ render status: NO_CONTENT }
-        }
-    }
-	
-	def profile() {
-		Subject currentUser = SecurityUtils.getSubject();
-		RegisteredUser registeredUserInstance = RegisteredUser.findByUsername(currentUser.getPrincipal())
-		if (registeredUserInstance != null) {
-			respond registeredUserInstance
-		} else {
-		 throw new IllegalStateException("No user in session!");
+		registeredUserInstance.delete flush:true
+
+		request.withFormat {
+			form multipartForm {
+				flash.message = message(code: 'default.deleted.message', args: [
+					message(code: 'RegisteredUser.label', default: 'RegisteredUser'),
+					registeredUserInstance.username
+				])
+				redirect action:"index", method:"GET"
+			}
+			'*'{ render status: NO_CONTENT }
 		}
 	}
+
+	@Transactional
+	def changePassword(ChangePasswordCommand changePasswordCommand) {
+		
+		respond changePasswordCommand, [view:"profile"]
+		return
 	
+//		if (changePasswordCommand == null) {
+//			notFound()
+//			return
+//		}
+//
+//		if (changePasswordCommand.hasErrors()) {
+//			respond changePasswordCommand.errors, view:'profile'
+//			flash.tab = "UPDATE"
+//			flash.subMenu = "changePassword"
+//			return
+//		}
+//
+//		RegisteredUser registeredUserInstance = RegisteredUser.findByUsername(changePasswordCommand.username)
+//		
+//		if (registeredUserInstance != null) {
+//			respond registeredUserInstance, view:'profile'
+//		} else {
+//			notFound()
+//			return
+//		}
+	}
+
+	def profile() {
+		RegisteredUser registeredUserInstance = securityService.getLoggedRegisteredUser()
+		if (registeredUserInstance != null) {
+			respond registeredUserInstance, [view:"profile"]
+		} else {
+			throw new IllegalStateException("No user in session!");
+		}
+	}
+
 	def profileById() {
 		Assert.hasText(params.id);
 		RegisteredUser registeredUserInstance = RegisteredUser.findById(params.id)
 		if (registeredUserInstance != null) {
 			respond registeredUserInstance, [view:"profile"]
 		} else {
-		 throw new IllegalStateException("No user in session!");
+			throw new IllegalStateException("No user in session!");
 		}
 	}
-	
-    protected void notFound() {
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.not.found.message', args: [message(code: 'registeredUserInstance.label', default: 'RegisteredUser'), params.username])
-                redirect action: "index", method: "GET"
-            }
-            '*'{ render status: NOT_FOUND }
-        }
-    }
+
+	protected void notFound() {
+		request.withFormat {
+			form multipartForm {
+				flash.message = message(code: 'default.not.found.message', args: [
+					message(code: 'registeredUserInstance.label', default: 'RegisteredUser'),
+					params.username
+				])
+				redirect action: "index", method: "GET"
+			}
+			'*'{ render status: NOT_FOUND }
+		}
+	}
 }
+
+class ChangePasswordCommand {
+	def sha512CryptoService
+
+	String username
+	String newPassword
+	String confirmedPassword
+	String oldPassword
+
+	static constraints = {
+
+	}
+
+	String getPasswordHash() {
+		sha512CryptoService.encrypt(newPassword)
+	}
+}
+
+class NewRegisteredUserCommand {
+	def sha512CryptoService
+
+	String username
+	String firstName
+	String lastName
+	String description
+	String email
+	String phone
+	String newPassword
+	String confirmedPassword
+
+	static constraints = {
+		newPassword (nullable: false, blank: false, size: 3..20,)
+		confirmedPassword (nullable: false, blank: false,			
+			validator: { passwd, cmd ->
+				return passwd == cmd.newPassword
+			}
+		);
+	}
+
+}
+

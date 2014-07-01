@@ -4,16 +4,9 @@
 <meta name="layout" content="bodyTwoColumns" />
 <g:set var="entityName"
 	value="${message(code: 'registeredUser.label', default: 'RegisteredUser')}" />
-<%--<title><g:message code="default.create.label"--%>
-<%--		args="[entityName]" /></title>--%>
-
 </head>
 <body>
-	<%--	<content tag="validation">--%>
-	<%--		<g:render template="/shared/validationMessage"--%>
-	<%--			model="[instance: registeredUserInstance]" />--%>
-	<%--	</content>--%>
-	<content tag="col1">
+    <content tag="col1">
 	<div class="portlet portlet-default">
 		<div class="portlet-heading">
 			<div class="portlet-title">
@@ -44,6 +37,6 @@
 		</div>
 	</div>
 	</content>
-	
+
 </body>
 </html>

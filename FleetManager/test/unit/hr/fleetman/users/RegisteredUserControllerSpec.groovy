@@ -1,20 +1,48 @@
+
+
+
 package hr.fleetman.users
 
-
-
 import grails.test.mixin.*
+import hr.fleetman.common.Contact
+import hr.fleetman.security.SecurityService
+import hr.fleetman.utils.Utils
+
+import org.apache.shiro.crypto.hash.Sha512Hash
+
 import spock.lang.*
 
 @TestFor(RegisteredUserController)
-@Mock(RegisteredUser)
+@Mock([RegisteredUser, SecurityService])
 class RegisteredUserControllerSpec extends Specification {
-
-    def populateValidParams(params) {
+	
+	def securityServiceMock
+   
+	def populateValidParams(params) {
         assert params != null
         // TODO: Populate valid properties like...
-        //params["name"] = 'someValidName'
+        params["username"] = 'someValidName'
+		params["passwordHash"] = Utils.encrypt("aaaaaa");
+		params["firstName"] = "firstName"
+		params["lastName"] = "lastName"
+		params["description"] = "descr"
     }
-
+	
+	void setup() {
+		securityServiceMock = mockFor(SecurityService)
+		securityServiceMock.demand.getLoggedRegisteredUser { -> new RegisteredUser(
+				username: "admin",
+				passwordHash: new Sha512Hash("admin").toHex(),
+				firstName : "James",
+				lastName : "Hetfield",
+				description: "James Alan Hetfield is the main songwriter, co-founder, lead vocalist, rhythm guitarist and lyricist for the American heavy metal band Metallica.",
+				contact: new Contact(email: "test@gmail.com", phone:"0993100144")
+				); 
+			}
+		
+		controller.securityService = securityServiceMock.createMock()
+	}
+	
     void "Test the index action returns the correct model"() {
 
         when:"The index action is executed"
@@ -30,27 +58,30 @@ class RegisteredUserControllerSpec extends Specification {
             controller.create()
 
         then:"The model is correctly created"
-            model.registeredUserInstance!= null
+            model.newRegisteredUserCommandInstance!= null
+			model.newRegisteredUserCommandInstance.username == null
     }
 
     void "Test the save action correctly persists an instance"() {
 
         when:"The save action is executed with an invalid instance"
             request.contentType = FORM_CONTENT_TYPE
-            def registeredUser = new RegisteredUser()
-            registeredUser.validate()
-            controller.save(registeredUser)
+			
+			//NO PASSWORD PROVIDED
+            def newRegisteredUserCommand = new NewRegisteredUserCommand(username: "aaa", confirmedPassword:"")
+			controller.save(newRegisteredUserCommand)
 
         then:"The create view is rendered again with the correct model"
-            model.registeredUserInstance!= null
-            view == 'create'
+		
+			
+           	model.newRegisteredUserCommandInstance != null
+            view == '/registeredUser/create'
 
         when:"The save action is executed with a valid instance"
             response.reset()
-            populateValidParams(params)
-            registeredUser = new RegisteredUser(params)
+            def validNewRegisteredUserCommand = new NewRegisteredUserCommand(username: "aaa", newPassword:"aaa123456", confirmedPassword: "aaa123456")
 
-            controller.save(registeredUser)
+            controller.save(validNewRegisteredUserCommand)
 
         then:"A redirect is issued to the show action"
             response.redirectedUrl == '/registeredUser/show/1'
@@ -107,8 +138,10 @@ class RegisteredUserControllerSpec extends Specification {
             controller.update(registeredUser)
 
         then:"The edit view is rendered again with the invalid instance"
-            view == 'edit'
+            view == 'profile'
             model.registeredUserInstance == registeredUser
+			flash.tab == "UPDATE"
+			flash.subMenu == "BASICINFO"
 
         when:"A valid domain instance is passed to the update action"
             response.reset()
@@ -117,11 +150,13 @@ class RegisteredUserControllerSpec extends Specification {
             controller.update(registeredUser)
 
         then:"A redirect is issues to the show action"
-            response.redirectedUrl == "/registeredUser/show/$registeredUser.id"
-            flash.message != null
+            response.redirectedUrl == "/registeredUser/profile"
+			flash.message != null
+			
     }
 
     void "Test that the delete action deletes an instance if it exists"() {
+			
         when:"The delete action is called for a null instance"
             request.contentType = FORM_CONTENT_TYPE
             controller.delete(null)
@@ -137,7 +172,8 @@ class RegisteredUserControllerSpec extends Specification {
 
         then:"It exists"
             RegisteredUser.count() == 1
-
+			
+		
         when:"The domain instance is passed to the delete action"
             controller.delete(registeredUser)
 
@@ -146,6 +182,25 @@ class RegisteredUserControllerSpec extends Specification {
             response.redirectedUrl == '/registeredUser/index'
             flash.message != null
     }
+	
+	void "Test that displaying profile page displays profile page vith currently logged user data" (){
+		when: "The profile action is called"
+			response.reset()
+			controller.profile()
+		then: "A registeredUserInstance of currently logged user is shown"
+			model.registeredUserInstance != null
+			model.registeredUserInstance.username == "admin"
+			view == 'profile' 
+		
+	}
+	
+	void "Test change password" () {
+		
+		when: "Invalid ChangePasswordCommand is provided" 
+			controller.changePassword(null)
+		then: "Change profile view is rendered with flash.tab=PROFILE flash.submenu=changePassword"
+			view == "profile"
+	}
 	
 	
 }
