@@ -17,6 +17,7 @@ import spock.lang.*
 class RegisteredUserControllerSpec extends Specification {
 	
 	def securityServiceMock
+	def registeredUserServiceMock
    
 	def populateValidParams(params) {
         assert params != null
@@ -28,19 +29,29 @@ class RegisteredUserControllerSpec extends Specification {
 		params["description"] = "descr"
     }
 	
+	def createAdminUser() {
+		return new RegisteredUser(
+			username: "admin",
+			passwordHash: new Sha512Hash("admin").toHex(),
+			firstName : "James",
+			lastName : "Hetfield",
+			description: "James Alan Hetfield is the main songwriter, co-founder, lead vocalist, rhythm guitarist and lyricist for the American heavy metal band Metallica.",
+			contact: new Contact(email: "test@gmail.com", phone:"0993100144")
+			);
+	}
+	
 	void setup() {
 		securityServiceMock = mockFor(SecurityService)
-		securityServiceMock.demand.getLoggedRegisteredUser { -> new RegisteredUser(
-				username: "admin",
-				passwordHash: new Sha512Hash("admin").toHex(),
-				firstName : "James",
-				lastName : "Hetfield",
-				description: "James Alan Hetfield is the main songwriter, co-founder, lead vocalist, rhythm guitarist and lyricist for the American heavy metal band Metallica.",
-				contact: new Contact(email: "test@gmail.com", phone:"0993100144")
-				); 
-			}
-		
+		securityServiceMock.demand.getLoggedRegisteredUser { ->  createAdminUser() }
 		controller.securityService = securityServiceMock.createMock()
+		
+		registeredUserServiceMock = mockFor(RegisteredUserService)
+		registeredUserServiceMock.demand.findByUsername(1..10) {username -> 
+			if (username=="admin") {
+				createAdminUser() 
+			}
+		}
+		controller.registeredUserService = registeredUserServiceMock.createMock()
 	}
 	
     void "Test the index action returns the correct model"() {
@@ -195,11 +206,38 @@ class RegisteredUserControllerSpec extends Specification {
 	}
 	
 	void "Test change password" () {
-		
-		when: "Invalid ChangePasswordCommand is provided" 
-			controller.changePassword(null)
+		given:
+			def command = new ChangePasswordCommand(username:"unknown", oldPassword:"bla", newPassword:"bla", confirmedPassword:"bla");
+			command.validate()
+			
+			def command2 = new ChangePasswordCommand(username:"admin", oldPassword:"bla", newPassword:"bla", confirmedPassword:"blaNOTGOOD");
+			command2.validate()
+			
+			def validCommand = new ChangePasswordCommand(username:"admin", oldPassword:"pero", newPassword:"blabla", confirmedPassword:"blabla");
+			validCommand.validate()
+		when: "Invalid (uknown username) ChangePasswordCommand is provided" 
+			request.contentType = FORM_CONTENT_TYPE
+			controller.changePassword(command)
+		then: "Change profile view is rendered with flash.tab=PROFILE flash.submenu=changePassword"
+			response.redirectedUrl == '/registeredUser/index'
+			
+		when: "Invalid (no validation) ChangePasswordCommand is provided"
+			response.reset()
+			request.contentType = FORM_CONTENT_TYPE
+			
+			controller.changePassword(command2)
 		then: "Change profile view is rendered with flash.tab=PROFILE flash.submenu=changePassword"
 			view == "profile"
+		
+		when: "Ok ChangePasswordCommand is provided"
+			response.reset()
+			request.contentType = FORM_CONTENT_TYPE
+			controller.changePassword(validCommand)
+		then: "Change profile view is rendered with flash.tab=PROFILE flash.submenu=changePassword"
+			view == "profile"
+			flash.tab == "PROFILE"
+			flash.submenu == "changePassword"
+			
 	}
 	
 	

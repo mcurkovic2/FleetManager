@@ -18,6 +18,7 @@ class RegisteredUserController {
 	static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 	
 	def securityService
+	def registeredUserService
 
 	def index(Integer max) {
 		params.max = Math.min(max ?: 10, 100)
@@ -27,10 +28,6 @@ class RegisteredUserController {
 	def show(RegisteredUser registeredUserInstance) {
 		respond registeredUserInstance
 	}
-
-	//    def create() {
-	//        respond new RegisteredUser(params)
-	//    }
 
 	def create() {
 		respond new NewRegisteredUserCommand()
@@ -149,30 +146,24 @@ class RegisteredUserController {
 
 	@Transactional
 	def changePassword(ChangePasswordCommand changePasswordCommand) {
+		if (changePasswordCommand.hasErrors()) {
+			respond changePasswordCommand.errors, view:"profile"
+			return
+		}
 		
-		respond changePasswordCommand, [view:"profile"]
-		return
-	
-//		if (changePasswordCommand == null) {
-//			notFound()
-//			return
-//		}
-//
-//		if (changePasswordCommand.hasErrors()) {
-//			respond changePasswordCommand.errors, view:'profile'
-//			flash.tab = "UPDATE"
-//			flash.subMenu = "changePassword"
-//			return
-//		}
-//
-//		RegisteredUser registeredUserInstance = RegisteredUser.findByUsername(changePasswordCommand.username)
-//		
-//		if (registeredUserInstance != null) {
-//			respond registeredUserInstance, view:'profile'
-//		} else {
-//			notFound()
-//			return
-//		}
+		//def registeredUserInstance = RegisteredUser.findByUsername(changePasswordCommand.username)
+		def registeredUserInstance = registeredUserService.findByUsername(changePasswordCommand.username)
+		
+		if (registeredUserInstance == null) {
+			notFound()
+			return
+		}
+		
+		flash.message = ""
+		flash.tab = "PROFILE"
+		flash.submenu = "changePassword"
+		respond registeredUserInstance, view:"profile"
+
 	}
 
 	def profile() {
@@ -209,20 +200,25 @@ class RegisteredUserController {
 }
 
 class ChangePasswordCommand {
-	def sha512CryptoService
 
 	String username
+	
+	String oldPassword
 	String newPassword
 	String confirmedPassword
-	String oldPassword
+	
 
 	static constraints = {
-
+		//username null:false, blank:false
+		newPassword (nullable: false, blank: false, size: 3..20,)
+		confirmedPassword (nullable: false, blank: false,
+			validator: { passwd, cmd ->
+				return passwd == cmd.newPassword
+			}
+		);
 	}
 
-	String getPasswordHash() {
-		sha512CryptoService.encrypt(newPassword)
-	}
+	
 }
 
 class NewRegisteredUserCommand {
