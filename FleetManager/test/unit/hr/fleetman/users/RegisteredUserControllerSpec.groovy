@@ -18,7 +18,9 @@ class RegisteredUserControllerSpec extends Specification {
 	
 	def securityServiceMock
 	def registeredUserServiceMock
-   
+
+	def registeredUserService = Stub(RegisteredUserService)
+	
 	def populateValidParams(params) {
         assert params != null
         // TODO: Populate valid properties like...
@@ -45,13 +47,20 @@ class RegisteredUserControllerSpec extends Specification {
 		securityServiceMock.demand.getLoggedRegisteredUser { ->  createAdminUser() }
 		controller.securityService = securityServiceMock.createMock()
 		
-		registeredUserServiceMock = mockFor(RegisteredUserService)
-		registeredUserServiceMock.demand.findByUsername(1..10) {username -> 
-			if (username=="admin") {
+//		registeredUserServiceMock = mockFor(RegisteredUserService)
+//		registeredUserServiceMock.demand.findByUsername(1..10) {username -> 
+//			if (username=="admin") {
+//				createAdminUser() 
+//			}
+//		}
+//		controller.registeredUserService = registeredUserServiceMock.createMock()
+		registeredUserService.findByUsername(_) >> {args -> 
+
+			if (args[0]=="admin") {
 				createAdminUser() 
 			}
 		}
-		controller.registeredUserService = registeredUserServiceMock.createMock()
+		controller.registeredUserService = registeredUserService
 	}
 	
     void "Test the index action returns the correct model"() {
@@ -79,7 +88,7 @@ class RegisteredUserControllerSpec extends Specification {
             request.contentType = FORM_CONTENT_TYPE
 			
 			//NO PASSWORD PROVIDED
-            def newRegisteredUserCommand = new NewRegisteredUserCommand(username: "aaa", confirmedPassword:"")
+            def newRegisteredUserCommand = new NewRegisteredUserCommand(username: "user", confirmedPassword:"")
 			controller.save(newRegisteredUserCommand)
 
         then:"The create view is rendered again with the correct model"
@@ -90,7 +99,7 @@ class RegisteredUserControllerSpec extends Specification {
 
         when:"The save action is executed with a valid instance"
             response.reset()
-            def validNewRegisteredUserCommand = new NewRegisteredUserCommand(username: "aaa", newPassword:"aaa123456", confirmedPassword: "aaa123456")
+            def validNewRegisteredUserCommand = new NewRegisteredUserCommand(username: "user", newPassword:"aaa123456", confirmedPassword: "aaa123456")
 
             controller.save(validNewRegisteredUserCommand)
 
@@ -215,10 +224,11 @@ class RegisteredUserControllerSpec extends Specification {
 			
 			def validCommand = new ChangePasswordCommand(username:"admin", oldPassword:"pero", newPassword:"blabla", confirmedPassword:"blabla");
 			validCommand.validate()
+			
 		when: "Invalid (uknown username) ChangePasswordCommand is provided" 
 			request.contentType = FORM_CONTENT_TYPE
 			controller.changePassword(command)
-		then: "Change profile view is rendered with flash.tab=PROFILE flash.submenu=changePassword"
+		then: "Redirect back to index"
 			response.redirectedUrl == '/registeredUser/index'
 			
 		when: "Invalid (no validation) ChangePasswordCommand is provided"
@@ -227,16 +237,17 @@ class RegisteredUserControllerSpec extends Specification {
 			
 			controller.changePassword(command2)
 		then: "Change profile view is rendered with flash.tab=PROFILE flash.submenu=changePassword"
-			view == "profile"
-		
+			view == "/registeredUser/profile"
+			model.registeredUserInstance != null //changePasswordCommand
+			model.command != null
 		when: "Ok ChangePasswordCommand is provided"
 			response.reset()
 			request.contentType = FORM_CONTENT_TYPE
 			controller.changePassword(validCommand)
 		then: "Change profile view is rendered with flash.tab=PROFILE flash.submenu=changePassword"
 			view == "profile"
-			flash.tab == "PROFILE"
-			flash.submenu == "changePassword"
+			flash.tabPosition != null
+			flash.message == "RegisteredUser.profile.changePassword.success"
 			
 	}
 	

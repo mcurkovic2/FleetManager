@@ -6,9 +6,8 @@
 <meta name="layout" content="bodySingleColumn" />
 </head>
 <body>
-	<content tag="validation"> <g:render
-		template="/shared/validationMessage"
-		model="[instance: registeredUserInstance]"></g:render> 
+	<content tag="validation"> 
+		<g:render template="/shared/validationMessage" model="[instance: registeredUserInstance, command: changePasswordCommand]"></g:render> 
 	</content>
 	
 	<content tag="message"> <g:render
@@ -175,23 +174,25 @@
 								</div>
 								<div class="tab-pane fade in" id="changePassword">
 									<h3>Change Password:</h3>
-									<form role="form">
+									<g:form url="[controller:registeredUserController, action:'changePassword']"
+										method="PUT">
+										<g:hiddenField name="username" value="${registeredUserInstance.username}"/>
+<%--										<div class="form-group">--%>
+<%--											<label>Old Password</label> <input name="oldPassword" type="password"--%>
+<%--												class="form-control"  value="">--%>
+<%--										</div>--%>
 										<div class="form-group">
-											<label>Old Password</label> <input type="password"
+											<label>New Password</label> <input name="newPassword" type="password"
 												class="form-control" value="">
 										</div>
 										<div class="form-group">
-											<label>New Password</label> <input type="password"
-												class="form-control" value="">
-										</div>
-										<div class="form-group">
-											<label>Re-Type New Password</label> <input type="password"
+											<label>Re-Type New Password</label> <input name="confirmedPassword" type="password"
 												class="form-control" value="">
 										</div>
 										<button type="submit" class="btn btn-default">Update
 											Password</button>
 										<button class="btn btn-green">Cancel</button>
-									</form>
+									</g:form>
 								</div>
 							</div>
 						</div>

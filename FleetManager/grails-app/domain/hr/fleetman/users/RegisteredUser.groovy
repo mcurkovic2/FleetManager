@@ -1,8 +1,7 @@
 package hr.fleetman.users
 
-import hr.fleetman.common.Contact;
+import hr.fleetman.common.Contact
 import hr.fleetman.common.User
-import hr.fleetman.users.RegisteredRole;
 
 class RegisteredUser extends User {
 	String username
@@ -12,8 +11,8 @@ class RegisteredUser extends User {
     static hasMany = [ roles: RegisteredRole, permissions: String ]
 
 	static constraints = {
-		username(blank: false, unique: true, maxLength: 50, minLength: 3)
-		passwordHash(nullable: false, blank: false, unique: false, maxLength: 100, minLength:3)
+		username(size: 4..20,nullable: false, blank: false, unique: true) 
+		passwordHash(nullable: false, blank: false, unique: false)
 		contact(nullable: true)
 	}
 }

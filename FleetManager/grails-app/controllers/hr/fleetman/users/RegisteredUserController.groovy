@@ -98,7 +98,7 @@ class RegisteredUserController {
 			flash.subMenu = "BASICINFO"
 			return
 		}
-
+		
 		registeredUserInstance.save flush:true
 
 		request.withFormat {
@@ -146,12 +146,6 @@ class RegisteredUserController {
 
 	@Transactional
 	def changePassword(ChangePasswordCommand changePasswordCommand) {
-		if (changePasswordCommand.hasErrors()) {
-			respond changePasswordCommand.errors, view:"profile"
-			return
-		}
-		
-		//def registeredUserInstance = RegisteredUser.findByUsername(changePasswordCommand.username)
 		def registeredUserInstance = registeredUserService.findByUsername(changePasswordCommand.username)
 		
 		if (registeredUserInstance == null) {
@@ -159,9 +153,15 @@ class RegisteredUserController {
 			return
 		}
 		
-		flash.message = ""
-		flash.tab = "PROFILE"
-		flash.submenu = "changePassword"
+		if (changePasswordCommand.hasErrors()) {
+			render view:"profile", model:[registeredUserInstance: registeredUserInstance, changePasswordCommand: changePasswordCommand]
+			return
+		}
+		
+		flash.message = "RegisteredUser.profile.changePassword.success"
+		
+		def tabPosition = new TabPosition(tab:"details", submenu:"")
+		flash.tabPosition = tabPosition
 		respond registeredUserInstance, view:"profile"
 
 	}
@@ -199,30 +199,41 @@ class RegisteredUserController {
 	}
 }
 
-class ChangePasswordCommand {
+class TabPosition {
+	
+		String tab
+		String submenu
+	}
 
+class ChangePasswordCommand {
+	def securityService
+	
 	String username
 	
-	String oldPassword
+//	String oldPassword
 	String newPassword
 	String confirmedPassword
 	
-
+	
 	static constraints = {
-		//username null:false, blank:false
-		newPassword (nullable: false, blank: false, size: 3..20,)
+		username null:false, blank: false
+//		oldPassword (validator: { oldPwd, cmd -> 
+//			if (securityService.checkPassword(cmd.username, oldPwd) == false) {
+//				return ["ChangePasswordCommand.confirmedPassword.doesNotMatch"]
+//			}
+//		});
+		newPassword nullable: false, blank: false, size: 3..20
 		confirmedPassword (nullable: false, blank: false,
 			validator: { passwd, cmd ->
-				return passwd == cmd.newPassword
+				if (passwd != cmd.newPassword) {
+					 return ["ChangePasswordCommand.confirmedPassword.doesNotMatch"]
+				} 
 			}
 		);
 	}
-
-	
 }
 
 class NewRegisteredUserCommand {
-	def sha512CryptoService
 
 	String username
 	String firstName
@@ -234,6 +245,7 @@ class NewRegisteredUserCommand {
 	String confirmedPassword
 
 	static constraints = {
+		importFrom RegisteredUser
 		newPassword (nullable: false, blank: false, size: 3..20,)
 		confirmedPassword (nullable: false, blank: false,			
 			validator: { passwd, cmd ->
