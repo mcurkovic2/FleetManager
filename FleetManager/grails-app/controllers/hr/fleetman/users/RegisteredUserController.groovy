@@ -96,6 +96,7 @@ class RegisteredUserController {
 			respond registeredUserInstance.errors, view:'profile'
 			flash.tab = "UPDATE"
 			flash.subMenu = "BASICINFO"
+			flash.tabposition = new TabPosition()
 			return
 		}
 		
@@ -155,13 +156,14 @@ class RegisteredUserController {
 		
 		if (changePasswordCommand.hasErrors()) {
 			render view:"profile", model:[registeredUserInstance: registeredUserInstance, changePasswordCommand: changePasswordCommand]
+			def tabPosition = new TabPosition(tab: TabPosition.MainTab.OVERVIEW, submenu:TabPosition.SubMenu.CHANGEPASS)
+			flash.tabPosition = tabPosition
 			return
 		}
 		
 		flash.message = "RegisteredUser.profile.changePassword.success"
 		
-		def tabPosition = new TabPosition(tab:"details", submenu:"")
-		flash.tabPosition = tabPosition
+		
 		respond registeredUserInstance, view:"profile"
 
 	}
@@ -200,9 +202,16 @@ class RegisteredUserController {
 }
 
 class TabPosition {
-	
-		String tab
-		String submenu
+		public enum MainTab {
+		    OVERVIEW("overview"), UPDATE("profile-settings")
+		}
+		
+		public enum SubMenu {
+			DETAILS("userSettingsContent"), CHANGEPASS("changePassword")
+		}
+		
+		MainTab tab
+		SubMenu submenu
 	}
 
 class ChangePasswordCommand {
@@ -210,18 +219,12 @@ class ChangePasswordCommand {
 	
 	String username
 	
-//	String oldPassword
 	String newPassword
 	String confirmedPassword
 	
 	
 	static constraints = {
 		username null:false, blank: false
-//		oldPassword (validator: { oldPwd, cmd -> 
-//			if (securityService.checkPassword(cmd.username, oldPwd) == false) {
-//				return ["ChangePasswordCommand.confirmedPassword.doesNotMatch"]
-//			}
-//		});
 		newPassword nullable: false, blank: false, size: 3..20
 		confirmedPassword (nullable: false, blank: false,
 			validator: { passwd, cmd ->

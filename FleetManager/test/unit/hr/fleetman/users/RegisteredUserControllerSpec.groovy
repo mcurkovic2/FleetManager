@@ -216,13 +216,13 @@ class RegisteredUserControllerSpec extends Specification {
 	
 	void "Test change password" () {
 		given:
-			def command = new ChangePasswordCommand(username:"unknown", oldPassword:"bla", newPassword:"bla", confirmedPassword:"bla");
+			def command = new ChangePasswordCommand(username:"unknown", newPassword:"bla", confirmedPassword:"bla");
 			command.validate()
 			
-			def command2 = new ChangePasswordCommand(username:"admin", oldPassword:"bla", newPassword:"bla", confirmedPassword:"blaNOTGOOD");
+			def command2 = new ChangePasswordCommand(username:"admin", newPassword:"bla", confirmedPassword:"blaNOTGOOD");
 			command2.validate()
 			
-			def validCommand = new ChangePasswordCommand(username:"admin", oldPassword:"pero", newPassword:"blabla", confirmedPassword:"blabla");
+			def validCommand = new ChangePasswordCommand(username:"admin", newPassword:"blabla", confirmedPassword:"blabla");
 			validCommand.validate()
 			
 		when: "Invalid (uknown username) ChangePasswordCommand is provided" 
@@ -239,7 +239,10 @@ class RegisteredUserControllerSpec extends Specification {
 		then: "Change profile view is rendered with flash.tab=PROFILE flash.submenu=changePassword"
 			view == "/registeredUser/profile"
 			model.registeredUserInstance != null //changePasswordCommand
-			model.command != null
+			model.changePasswordCommand != null
+			def tabPosition = flash.tabPosition
+			tabPosition != null
+			
 		when: "Ok ChangePasswordCommand is provided"
 			response.reset()
 			request.contentType = FORM_CONTENT_TYPE

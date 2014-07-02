@@ -165,7 +165,7 @@
 										<fieldset>
 											<g:actionSubmit class="btn btn-default" action="update"
 												value="${message(code: 'default.button.update.label', default: 'Update')}" />
-											<g:link class="btn btn-green" action="profileById" id="${registeredUserInstance.username}"
+											<g:link class="btn btn-green" action="profileById"
 												id="${registeredUserInstance.id}">
 												<g:message code="default.back.label" />
 											</g:link>
@@ -173,25 +173,23 @@
 									</g:form>
 								</div>
 								<div class="tab-pane fade in" id="changePassword">
-									<h3>Change Password:</h3>
+									<h3><g:message code="ChangePassword.title"/></h3>
 									<g:form url="[controller:registeredUserController, action:'changePassword']"
 										method="PUT">
 										<g:hiddenField name="username" value="${registeredUserInstance.username}"/>
-<%--										<div class="form-group">--%>
-<%--											<label>Old Password</label> <input name="oldPassword" type="password"--%>
-<%--												class="form-control"  value="">--%>
-<%--										</div>--%>
 										<div class="form-group">
-											<label>New Password</label> <input name="newPassword" type="password"
+											<label><g:message code="ChangePassword.newPassword.label"/></label> <input name="newPassword" type="password"
 												class="form-control" value="">
 										</div>
 										<div class="form-group">
-											<label>Re-Type New Password</label> <input name="confirmedPassword" type="password"
+											<label><g:message code="ChangePassword.retypePassword.label"/></label> <input name="confirmedPassword" type="password"
 												class="form-control" value="">
 										</div>
-										<button type="submit" class="btn btn-default">Update
-											Password</button>
-										<button class="btn btn-green">Cancel</button>
+										<button type="submit" class="btn btn-default"><g:message code="ChangePassword.updatePassword.label"/></button>
+										<g:link class="btn btn-green" action="profileById"
+												id="${registeredUserInstance.id}">
+												<g:message code="default.back.label" />
+											</g:link>
 									</g:form>
 								</div>
 							</div>
