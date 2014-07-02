@@ -156,7 +156,7 @@ class RegisteredUserController {
 		
 		if (changePasswordCommand.hasErrors()) {
 			render view:"profile", model:[registeredUserInstance: registeredUserInstance, changePasswordCommand: changePasswordCommand]
-			def tabPosition = new TabPosition(tab: TabPosition.MainTab.OVERVIEW, submenu:TabPosition.SubMenu.CHANGEPASS)
+			def tabPosition = new TabPosition(tab: "profile-settings", submenu:"changePassword")
 			flash.tabPosition = tabPosition
 			return
 		}
@@ -202,16 +202,9 @@ class RegisteredUserController {
 }
 
 class TabPosition {
-		public enum MainTab {
-		    OVERVIEW("overview"), UPDATE("profile-settings")
-		}
-		
-		public enum SubMenu {
-			DETAILS("userSettingsContent"), CHANGEPASS("changePassword")
-		}
-		
-		MainTab tab
-		SubMenu submenu
+			
+		String tab
+		String submenu
 	}
 
 class ChangePasswordCommand {

@@ -242,6 +242,8 @@ class RegisteredUserControllerSpec extends Specification {
 			model.changePasswordCommand != null
 			def tabPosition = flash.tabPosition
 			tabPosition != null
+			tabPosition.menu == "profile-settings"
+			tabPosition.submenu == "changePassword"
 			
 		when: "Ok ChangePasswordCommand is provided"
 			response.reset()
