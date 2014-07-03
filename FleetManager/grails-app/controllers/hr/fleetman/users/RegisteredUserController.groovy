@@ -94,9 +94,8 @@ class RegisteredUserController {
 
 		if (registeredUserInstance.hasErrors()) {
 			respond registeredUserInstance.errors, view:'profile'
-			flash.tab = "UPDATE"
-			flash.subMenu = "BASICINFO"
-			flash.tabposition = new TabPosition()
+			
+			flash.tabPosition = new TabPosition(menu:"profile-settings", submenu:"basicInformation")
 			return
 		}
 		
@@ -156,8 +155,7 @@ class RegisteredUserController {
 		
 		if (changePasswordCommand.hasErrors()) {
 			render view:"profile", model:[registeredUserInstance: registeredUserInstance, changePasswordCommand: changePasswordCommand]
-			def tabPosition = new TabPosition(tab: "profile-settings", submenu:"changePassword")
-			flash.tabPosition = tabPosition
+			flash.tabPosition = new TabPosition(menu:"profile-settings", submenu:"changePassword")
 			return
 		}
 		
@@ -203,7 +201,7 @@ class RegisteredUserController {
 
 class TabPosition {
 			
-		String tab
+		String menu
 		String submenu
 	}
 

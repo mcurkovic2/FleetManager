@@ -160,8 +160,9 @@ class RegisteredUserControllerSpec extends Specification {
         then:"The edit view is rendered again with the invalid instance"
             view == 'profile'
             model.registeredUserInstance == registeredUser
-			flash.tab == "UPDATE"
-			flash.subMenu == "BASICINFO"
+			flash.tabPosition != null
+			flash.tabPosition?.menu == "profile-settings"
+			
 
         when:"A valid domain instance is passed to the update action"
             response.reset()
@@ -252,6 +253,8 @@ class RegisteredUserControllerSpec extends Specification {
 		then: "Change profile view is rendered with flash.tab=PROFILE flash.submenu=changePassword"
 			view == "profile"
 			flash.tabPosition != null
+			flash.tabPosition?.menu == "profile-settings"
+			flash.tabPosition?.submenu == "changePassword"
 			flash.message == "RegisteredUser.profile.changePassword.success"
 			
 	}
