@@ -34,25 +34,23 @@
 				<div class="col-lg-12">
 
 					<div class="table-responsive">
-						<table class="table table-hover table-striped tablesorter">
+						<table class="table table-striped">
 							<thead>
 								<tr>
 
-									<th>
-										${message(code: 'user.username.label', default: 'Username')} <i
-										class="fa fa-sort"></i>
+									<th class="col-md-2">
+										${message(code: 'user.username.label', default: 'Username')} 
 									</th>
-									<th>
+									<th class="col-md-2">
 										${message(code: 'user.firstName.label', default: 'First Name')}
-										<i class="fa fa-sort"></i>
+										
 									</th>
-									<th>
-										${message(code: 'user.lastName.label', default: 'Last Name')} <i
-										class="fa fa-sort"></i>
+									<th class="col-md-2">
+										${message(code: 'user.lastName.label', default: 'Last Name')}
 									</th>
-									<th>
+									<th class="col-md-6">
 										${message(code: 'user.description.label', default: 'Description')}
-										<i class="fa fa-sort"></i>
+										
 									</th>
 							</thead>
 							<tbody>
