@@ -38,19 +38,19 @@
 							<thead>
 								<tr>
 
-									<th>
+									<th class="col-md-2">
 										${message(code: 'user.username.label', default: 'Username')} <i
 										class="fa fa-sort"></i>
 									</th>
-									<th>
+									<th class="col-md-2">
 										${message(code: 'user.firstName.label', default: 'First Name')}
 										<i class="fa fa-sort"></i>
 									</th>
-									<th>
+									<th class="col-md-2">
 										${message(code: 'user.lastName.label', default: 'Last Name')} <i
 										class="fa fa-sort"></i>
 									</th>
-									<th>
+									<th class="col-md-6">
 										${message(code: 'user.description.label', default: 'Description')}
 										<i class="fa fa-sort"></i>
 									</th>
