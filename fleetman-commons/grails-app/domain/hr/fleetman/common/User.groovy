@@ -16,7 +16,7 @@ class User {
 		description nullable: true, blank: true, unique: false
 		active nullable: false
 		contact nullable: true
-		dateCreated
-		lastUpdated
+		dateCreated()
+		lastUpdated()
 	}
 }
