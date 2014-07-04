@@ -23,7 +23,6 @@ class RegisteredUserControllerSpec extends Specification {
 	
 	def populateValidParams(params) {
         assert params != null
-        // TODO: Populate valid properties like...
         params["username"] = 'someValidName'
 		params["passwordHash"] = Utils.encrypt("aaaaaa");
 		params["firstName"] = "firstName"
@@ -46,14 +45,7 @@ class RegisteredUserControllerSpec extends Specification {
 		securityServiceMock = mockFor(SecurityService)
 		securityServiceMock.demand.getLoggedRegisteredUser { ->  createAdminUser() }
 		controller.securityService = securityServiceMock.createMock()
-		
-//		registeredUserServiceMock = mockFor(RegisteredUserService)
-//		registeredUserServiceMock.demand.findByUsername(1..10) {username -> 
-//			if (username=="admin") {
-//				createAdminUser() 
-//			}
-//		}
-//		controller.registeredUserService = registeredUserServiceMock.createMock()
+
 		registeredUserService.findByUsername(_) >> {args -> 
 
 			if (args[0]=="admin") {
@@ -103,8 +95,9 @@ class RegisteredUserControllerSpec extends Specification {
 
             controller.save(validNewRegisteredUserCommand)
 
-        then:"A redirect is issued to the show action"
-            response.redirectedUrl == '/registeredUser/show/1'
+        then:"A redirect is issued to the profile action"
+            view == "profile"
+			model.registeredUserInstance != null //changePasswordCommand
             controller.flash.message != null
             RegisteredUser.count() == 1
     }
