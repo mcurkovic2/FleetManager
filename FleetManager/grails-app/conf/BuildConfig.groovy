@@ -22,6 +22,9 @@ grails.project.fork = [
 ]
 
 grails.project.dependency.resolver = "maven" // or ivy
+
+grails.plugin.location.'fleetman-commons'='../fleetman-commons'
+
 grails.project.dependency.resolution = {
     // inherit Grails' default dependencies
     inherits("global") {
