@@ -69,7 +69,7 @@ class RegisteredUserController {
 						message(code: 'registeredUserInstance.label', default: 'RegisteredUser'),
 						registeredUserInstance.username
 					])
-					redirect registeredUserInstance
+					respond registeredUserInstance, view:"profile"
 				}
 				'*' { respond registeredUserInstance, [status: CREATED] }
 			}

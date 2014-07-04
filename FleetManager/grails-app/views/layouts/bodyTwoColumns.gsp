@@ -10,17 +10,16 @@
 	<div class="row">
 
 		<!-- /.col-lg-12 -->
-		<div class="col-lg-9">
+		<div class="col-lg-10">
 			<g:pageProperty name="page.col1" />
 		</div>
-		<div class="col-lg-3">
+		<div class="col-lg-2">
 			<g:pageProperty name="page.col2" />
 		</div>
 	</div>
 	
 	<content tag="javascript">
 		<g:pageProperty name="page.javascript" />
-<%--		<script src="${assetPath(src: 'passCheck.js')}"></script>--%>
 	</content>
 </body>
 	</html>
