@@ -4,13 +4,25 @@ import grails.test.mixin.*
 import spock.lang.Specification
 
 /**
- * See the API for {@link grails.test.mixin.web.ControllerUnitTestMixin} for usage instructions
+ * See the API for {
+
+			private static final String DUMMY_VIN = "12345678911234567"@link grails.test.mixin.web.ControllerUnitTestMixin} for usage instructions
  */
 @TestFor(VehicleController)
-@Mock(Vehicle)
+@Mock([Vehicle])
 class VehicleControllerSpec extends Specification {
-
+	
+	def DUMMY_VIN = "12345678911234567"
+	
+	def vehicleService = Stub(VehicleService)
+	
 	def setup() {
+		vehicleService.findByVin(DUMMY_VIN) >> {args -> 
+
+			new Vehicle(vin:DUMMY_VIN)
+		}
+		
+		controller.vehicleService = vehicleService
 	}
 
 	def cleanup() {
@@ -21,7 +33,36 @@ class VehicleControllerSpec extends Specification {
 			controller.index()
 
 		then:"The model is correct"
-			model.vehicleInstanceList != null
+			!model.vehicleInstanceList
 			model.vehicleInstanceCount == 0
+	}
+
+	void "Test that the show action returns the correct model"() {
+		when:"The show action is executed with a null domain"
+			controller.show()
+
+		then:"A 404 error is returned"
+			response.status == 404
+
+		when:"A domain instance is passed to the show action"
+			response.reset()
+			def vehicle = createVehicle(vin:DUMMY_VIN)
+			
+			boolean validated = vehicle.validate()
+			def saved = vehicle.save()
+			def id = vehicle.id
+			params['id'] = id
+			controller.show()
+
+		then:"A model is populated containing the domain instance"
+			validated
+			saved
+			model.vehicle != null
+	}
+	
+	private Vehicle createVehicle(Map data) {
+		def vehicle = new Vehicle(vin: 'vin12345678912345')
+		//vehicle.properties = data
+		return vehicle
 	}
 }

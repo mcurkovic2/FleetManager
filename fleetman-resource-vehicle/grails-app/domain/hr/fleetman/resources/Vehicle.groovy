@@ -1,7 +1,7 @@
 package hr.fleetman.resources
 
 class Vehicle extends Resource {
-	String VIN
+	String vin
 	String brand
 	String	model
 	int	year
@@ -26,10 +26,21 @@ class Vehicle extends Resource {
 	float	fuelEconomyExtraUrban
 	float	fuelEconomyCombined
 	float	emissions //Emissions Data CO2 gm km
-    
+
 	static constraints = {
-		VIN(nullable:false, blank:false, size: 17..17)
-    }
-	
+		vin(nullable:false, blank:false, size: 17..17)
+
+		brand(nullable:true, blank:false, size: 3..50)
+		model(nullable:true, blank:false, size: 3..50)
+
+		trim(nullable:true, blank:false, size: 3..50)
+		fuelDelivery(nullable:true, blank:false, size: 3..50)
+		fuelType(nullable:true, blank:false, size: 3..50)
+		bodyStyle(nullable:true, blank:false, size: 3..50)
+		transmission(nullable:true, blank:false, size: 3..50)
+		tyreType(nullable:true, blank:false, size: 3..50)
+
+	}
+
 
 }

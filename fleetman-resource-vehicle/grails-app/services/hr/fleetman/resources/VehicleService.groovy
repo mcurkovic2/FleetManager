@@ -12,4 +12,8 @@ class VehicleService {
 	def findVehicles() {
 		
 	}
+	
+	def fetchVehicle(String vin) {
+		return Vehicle.findByVin(vin)
+	}
 }

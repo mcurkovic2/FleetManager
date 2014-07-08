@@ -3,13 +3,14 @@ package hr.fleetman.resources
 import java.util.Date;
 
 abstract class Resource {
-	int active = 1
+	boolean active = true
 	Date dateCreated
 	Date lastUpdated
-
 	String userCreateId
-	static constraints = {
+
+		static constraints = {
 		active(nullable:false)
+		userCreateId(nullable:true, balnk:false, size:1..20)
 		dateCreated()
 		lastUpdated()
 	}
