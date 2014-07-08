@@ -1,6 +1,6 @@
 package hr.fleetman.resources
 
-class Vehicle {
+class Vehicle extends Resource {
 	String VIN
 	String brand
 	String	model

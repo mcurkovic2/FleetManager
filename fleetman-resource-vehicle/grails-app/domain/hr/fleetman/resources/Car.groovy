@@ -40,7 +40,6 @@ class Car extends Resource{
 
 	String vin, currentRegistrationId, description
 	Date lastRegistrationEvent
-	boolean active
 	Integer power
 	String make
 	String type

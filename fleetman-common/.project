@@ -20,7 +20,7 @@
 		<link>
 			<name>.link_to_grails_plugins</name>
 			<type>2</type>
-			<location>D:/Users/mcurkovic/.grails/2.3.7/projects/fleetman-common/plugins</location>
+			<locationURI>GRAILS_ROOT/2.3.7/projects/fleetman-common/plugins</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
