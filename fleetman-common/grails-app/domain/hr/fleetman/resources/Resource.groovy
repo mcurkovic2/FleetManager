@@ -6,15 +6,13 @@ abstract class Resource {
 	int active = 1
 	Date dateCreated
 	Date lastUpdated
-	
+
 	String userCreateId
-    static constraints = {
+	static constraints = {
 		active(nullable:false)
 		dateCreated()
-		lastUpdated
-    }
-	
-	static mapping = {
-		tablePerHierarchy false
+		lastUpdated()
 	}
+
+	static mapping = { tablePerHierarchy false }
 }
