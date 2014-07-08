@@ -1,6 +1,5 @@
 package hr.fleetman.common
 
-import hr.fleetman.users.RegisteredUser
 
 class Contact {
 
@@ -9,7 +8,7 @@ class Contact {
 		phone blank: true
 	}
 	
-	static belongsTo = [user:RegisteredUser]
+	static belongsTo = [user:User]
 
 	String email
 	String phone
