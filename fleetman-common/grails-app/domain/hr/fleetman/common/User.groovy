@@ -8,6 +8,7 @@ class User {
 	
 	String  firstName, lastName, description
 	boolean active = 1
+	Contact contact
 	Date dateCreated
 	Date lastUpdated
 	
@@ -17,6 +18,7 @@ class User {
 		lastName(nullable: true, blank: true, unique: false)
 		description(nullable: true, blank: true, unique: false)
 		active(nullable: false)
+		contact(nullable: true)
 		dateCreated()
 		lastUpdated()
 	}
