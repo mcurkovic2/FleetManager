@@ -161,7 +161,6 @@ class RegisteredUserController {
 		
 		flash.message = "RegisteredUser.profile.changePassword.success"
 		
-		
 		respond registeredUserInstance, view:"profile"
 
 	}

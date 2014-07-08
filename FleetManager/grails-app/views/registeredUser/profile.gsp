@@ -6,12 +6,12 @@
 <meta name="layout" content="bodySingleColumn" />
 </head>
 <body>
-	<content tag="validation"> <g:render
+	<content tag="validation"> <g:render plugin="fleetman-common"
 		template="/shared/validationMessage"
 		model="[instance: registeredUserInstance, command: changePasswordCommand]"></g:render>
 	</content>
 
-	<content tag="message"> <g:render
+	<content tag="message"> <g:render plugin="fleetman-common"
 		template="/shared/flashMessage"></g:render> </content>
 
 	<content tag="mainContent">
@@ -169,12 +169,12 @@
 
 							<li>
 						</g:else>
-					
-						<a href="#basicInformation"
-							data-toggle="tab"><i class="fa fa-user fa-fw"></i> <g:message
-									code="RegisteredUser.profile.basicInfo.label" /></a></li>
-						<g:if
-							test="${(flash.tabPosition?.submenu == "changePassword")}">
+
+						<a href="#basicInformation" data-toggle="tab"><i
+							class="fa fa-user fa-fw"></i> <g:message
+								code="RegisteredUser.profile.basicInfo.label" /></a>
+						</li>
+						<g:if test="${(flash.tabPosition?.submenu == "changePassword")}">
 
 							<li class="active">
 						</g:if>

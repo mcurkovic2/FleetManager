@@ -24,7 +24,7 @@
 		</div>
 	</div>
 
-	<g:render template="/shared/flashMessage"></g:render>
+	<g:render plugin="fleetman-common" template="/shared/flashMessage"></g:render>
 
 	<div class="row">
 		<div class="col-lg-4">
