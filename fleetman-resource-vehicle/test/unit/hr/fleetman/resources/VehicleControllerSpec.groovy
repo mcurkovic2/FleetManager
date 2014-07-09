@@ -3,11 +3,7 @@ package hr.fleetman.resources
 import grails.test.mixin.*
 import spock.lang.Specification
 
-/**
- * See the API for {
 
-			private static final String DUMMY_VIN = "12345678911234567"@link grails.test.mixin.web.ControllerUnitTestMixin} for usage instructions
- */
 @TestFor(VehicleController)
 @Mock([Vehicle])
 class VehicleControllerSpec extends Specification {
@@ -17,10 +13,14 @@ class VehicleControllerSpec extends Specification {
 	def vehicleService = Stub(VehicleService)
 	
 	def setup() {
-		vehicleService.findByVin(DUMMY_VIN) >> {args -> 
+		def createDummyVehicle =  {args -> 
 
 			new Vehicle(vin:DUMMY_VIN)
 		}
+		
+		vehicleService.findByVin(DUMMY_VIN) >> createDummyVehicle
+		
+		vehicleService.populateDetails(DUMMY_VIN) >> createDummyVehicle
 		
 		controller.vehicleService = vehicleService
 	}
@@ -60,9 +60,18 @@ class VehicleControllerSpec extends Specification {
 			model.vehicle != null
 	}
 	
+	void "create and populate vehicle"() {
+		when:"create action is executed"
+			controller.create()
+		then:"populated vehicle is returned"
+			model.newVehicleCommand
+	}
+	
+	
+	
 	private Vehicle createVehicle(Map data) {
-		def vehicle = new Vehicle(vin: 'vin12345678912345')
-		//vehicle.properties = data
+		def vehicle = new Vehicle(vin: 'aaa')
+		vehicle.properties = data
 		return vehicle
 	}
 }

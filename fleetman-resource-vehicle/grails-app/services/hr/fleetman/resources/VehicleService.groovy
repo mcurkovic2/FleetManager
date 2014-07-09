@@ -5,15 +5,15 @@ import grails.transaction.Transactional
 @Transactional
 class VehicleService {
 
-    def serviceMethod() {
-
-    }
-	
-	def findVehicles() {
-		
-	}
 	
 	def fetchVehicle(String vin) {
 		return Vehicle.findByVin(vin)
+	}
+	
+	Vehicle populateDetails(String p_vin) {
+		def vehicle = new Vehicle(vin:p_vin)
+		vehicle
+		
+				
 	}
 }

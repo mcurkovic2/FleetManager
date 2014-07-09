@@ -1,5 +1,10 @@
 package hr.fleetman.resources
 
+import hr.fleetman.events.InsurancePurchaseEvent
+import hr.fleetman.events.RegistrationEvent
+import hr.fleetman.events.ServiceEvent
+import hr.fleetman.events.TireChangeEvent
+
 class Vehicle extends Resource {
 	String vin
 	String brand
@@ -28,19 +33,18 @@ class Vehicle extends Resource {
 	float	emissions //Emissions Data CO2 gm km
 
 	static constraints = {
-		vin(nullable:false, blank:false, size: 17..17)
-
-		brand(nullable:true, blank:false, size: 3..50)
-		model(nullable:true, blank:false, size: 3..50)
-
-		trim(nullable:true, blank:false, size: 3..50)
-		fuelDelivery(nullable:true, blank:false, size: 3..50)
-		fuelType(nullable:true, blank:false, size: 3..50)
-		bodyStyle(nullable:true, blank:false, size: 3..50)
-		transmission(nullable:true, blank:false, size: 3..50)
-		tyreType(nullable:true, blank:false, size: 3..50)
-
+		vin nullable:false, blank:false, size: 17..17
+		brand nullable:true, blank:false, size: 3..50
+		model nullable:true, blank:false, size: 3..50
+		trim nullable:true, blank:false, size: 3..50
+		fuelDelivery nullable:true, blank:false, size: 3..50
+		fuelType nullable:true, blank:false, size: 3..50
+		bodyStyle nullable:true, blank:false, size: 3..50
+		transmission nullable:true, blank:false, size: 3..50
+		tyreType nullable:true, blank:false, size: 3..50
 	}
+	
+	static hasMany = [serviceEvents: ServiceEvent, registrationEvents : RegistrationEvent, tireChangeEvents: TireChangeEvent, insurancePurchaseEvents: InsurancePurchaseEvent]
 
 
 }

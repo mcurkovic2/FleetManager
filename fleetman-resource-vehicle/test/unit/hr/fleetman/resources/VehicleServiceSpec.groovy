@@ -15,6 +15,12 @@ class VehicleServiceSpec extends Specification {
     def cleanup() {
     }
 
-    void "test something"() {
+   void "populateDetails - mocked"() {
+		when:"broken VIN is provided"
+			def vehicle = service.populateDetails "DUMMYVIN"
+			
+		then: "service returns null"
+			vehicle
+		
     }
 }
