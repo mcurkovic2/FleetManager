@@ -94,11 +94,18 @@ environments {
         grails.logging.jul.usebridge = true
 		grails.assets.minifyJs = false
 		grails.assets.minifyCss = false
+		
+		vehicleService.serviceURL = 'localhost:8080/'
     }
+	test {
+		//grails.logging.jul.usebridge = false
+		vehicleService.serviceURL = 'localhost:8080/'
+	}
     production {
         grails.logging.jul.usebridge = false
-        // TODO: grails.serverURL = "http://www.changeme.com"
+		vehicleService.serviceURL = 'localhost:8080/'
     }
+	
 }
 
 // log4j configuration
