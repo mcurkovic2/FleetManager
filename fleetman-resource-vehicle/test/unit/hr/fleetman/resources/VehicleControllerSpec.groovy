@@ -63,8 +63,18 @@ class VehicleControllerSpec extends Specification {
 	void "create and populate vehicle"() {
 		when:"create action is executed"
 			controller.create()
-		then:"populated vehicle is returned"
+		then:"new vehicle command is returned"
 			model.newVehicleCommand
+			
+	}
+	
+	void "Test that after providing VIN of vehicle vehicle details is populated and vehicle is saved"() {
+		when:"create save is executed with bad vin"
+			def command = new NewVehicleCommand('12345')
+			controller.save(command)
+		then:"validation message is displayed"
+			flash.message
+			
 	}
 	
 	

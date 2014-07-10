@@ -1,6 +1,5 @@
 package hr.fleetman.resources
 
-import grails.plugins.rest.client.RestBuilder
 import grails.transaction.Transactional
 
 @Transactional
@@ -18,21 +17,21 @@ class VehicleService {
 	}
 
 	Vehicle populateDetailsFromService(String vin) {
-		if(vin) {
-			try {
-				def restBuilder = new RestBuilder()
-				def urlWithVIN =
-						"${serviceUrl}&vin=${vin.encodeAsURL()}"
-				def response = restBuilder.get(urlWithVIN)
-				def json = response.json
-				def records = json.results
-				def matchingRecord = records.find { r ->
-					new Vehicle(r)
-				}
-			} catch (Exception e) {
-				log.error "Problem retrieving vehicle details: ${e.message}", e
-			}
-		}
+//		if(vin) {
+//			try {
+//				def restBuilder = new RestBuilder()
+//				def urlWithVIN =
+//						"${serviceUrl}&vin=${vin.encodeAsURL()}"
+//				def response = restBuilder.get(urlWithVIN)
+//				def json = response.json
+//				def records = json.results
+//				def matchingRecord = records.find { r ->
+//					new Vehicle(r)
+//				}
+//			} catch (Exception e) {
+//				log.error "Problem retrieving vehicle details: ${e.message}", e
+//			}
+//		}
 	}
 	
 	

@@ -22,6 +22,46 @@ class VehicleController {
 	def create() {
 		respond new NewVehicleCommand()
 	}
+
+	def newVehicleFlow() {
+		entervin {
+			on("check"){
+				def vehicle = new Vehicle(vin)
+				if (vehicle.validate()) {
+					vehicle = vehicleService.populateDetails(vin)
+				} else {
+					error()
+				}
+			}.to "showVehicleDetails"
+			on("cancel").to "index"
+		}
+
+		showVehicleDetails {
+			on("confirm"){
+				def vehicle = new Vehicle(vin)
+				if (vehicle.validate()) {
+					vehicle.save()
+				} else {
+					error()
+				}
+			}.to "index"
+			on("additional").to "manuallyEnter"
+			on("back").to "showVinForm"
+			on("cancel").to "index"
+		}
+
+		manuallyEnter {
+			on("confirm"){
+				def vehicle = new Vehicle(params)
+				if (vehicle.validate()) {
+					vehicle = vehicleService.populateDetails(vin)
+				} else {
+					error()
+				}
+			}.to "index"
+			on("cancel").to "index"
+		}
+	}
 }
 
 class NewVehicleCommand {
