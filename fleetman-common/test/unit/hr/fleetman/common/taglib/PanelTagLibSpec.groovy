@@ -21,11 +21,12 @@ class PanelTagLibSpec extends Specification {
 	void "test panel-header tag"() {
 		expect:
 		applyTemplate('<fm:panelHeader title="bla"/>') ==
-		 		'''<div class="row">
-				<div class="col-lg-12">
-					<g:link action="create" class="btn btn-default">
-						bla
-					</g:link>
+		 		'''
+				 <div class="row">
+				 	<div class="col-lg-12">
+						<g:link action="create" class="btn btn-default">
+							bla
+						</g:link>
 				</div>
 			</div>
 
