@@ -23,4 +23,14 @@ class PanelTagLib {
 				<div class="col-lg-12">&nbsp;</div>
 			</div>'''
 	}
+	
+	def defaultButton = {
+		
+		attrs, body ->
+		
+		def result = '<g:link action="'+attrs.action+'" class="btn btn-default">'
+		result <<= '<g:message code="'+attrs.code+'"></g:message>'
+		result <<= '</g:link>'
+		out << result
+	}
 }
