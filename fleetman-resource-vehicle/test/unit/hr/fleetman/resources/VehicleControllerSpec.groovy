@@ -68,10 +68,9 @@ class VehicleControllerSpec extends Specification {
 			
 	}
 	
-	void "Test that after providing VIN of vehicle vehicle details is populated and vehicle is saved"() {
+	void "Test of new wehicle flow"() {
 		when:"create save is executed with bad vin"
-			def command = new NewVehicleCommand('12345')
-			controller.save(command)
+			controller.newVehicleFlow()
 		then:"validation message is displayed"
 			flash.message
 			

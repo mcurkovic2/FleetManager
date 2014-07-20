@@ -20,15 +20,18 @@
 		<div class="portlet-body">
 			<div class="row">
 				<div class="col-lg-12">
-					<g:link action="create" class="btn btn-default">
-						<g:message code="user.newUser.label"></g:message>
-					</g:link>
+					<fm:defaultButton action="newVehicleFlow"
+						code="vehicle.action.new.label" />
+					<%--					<g:link action="create" class="btn btn-default">--%>
+					<%--						<g:message code="user.newUser.label"></g:message>--%>
+					<%--					</g:link>--%>
 				</div>
 			</div>
 
-			<div class="row">
-				<div class="col-lg-12">&nbsp;</div>
-			</div>
+<%--			<div class="row">--%>
+<%--				<div class="col-lg-12">&nbsp;</div>--%>
+<%--			</div>--%>
+			<fm:emptyRow/>
 
 			<div class="row">
 				<div class="col-lg-12">
@@ -39,37 +42,28 @@
 								<tr>
 
 									<th class="col-md-2">
-										${message(code: 'user.username.label', default: 'Username')} 
+										${message(code: 'vehicle.vin.tableHeader', default: 'VIN')}
 									</th>
 									<th class="col-md-2">
-										${message(code: 'user.firstName.label', default: 'First Name')}
-										
+										${message(code: 'vehicle.brand.tableHeader', default: 'BRAND')}
+
 									</th>
 									<th class="col-md-2">
-										${message(code: 'user.lastName.label', default: 'Last Name')}
-									</th>
-									<th class="col-md-6">
-										${message(code: 'user.description.label', default: 'Description')}
-										
+										${message(code: 'vehicle.type.tableHeader', default: 'TYPE')}
 									</th>
 							</thead>
 							<tbody>
-								<g:each in="${registeredUserInstanceList}" status="i"
-									var="registeredUserInstance">
+								<g:each in="${vehicleInstanceList}" status="i" var="vehicle">
 									<tr>
-										<td><g:link action="profileById"
-												id="${registeredUserInstance.id}">
-												${fieldValue(bean: registeredUserInstance, field: 'username')}
+										<td><g:link action="show" id="${vehicle.id}">
+												${fieldValue(bean: vehicle, field: 'vin')}
 											</g:link></td>
 
 										<td>
-											${fieldValue(bean: registeredUserInstance, field: 'firstName')}
+											${fieldValue(bean: vehicle, field: 'brand')}
 										</td>
 										<td>
-											${fieldValue(bean: registeredUserInstance, field: 'lastName')}
-										</td>
-										<td>
-											${fieldValue(bean: registeredUserInstance, field: 'description')}
+											${fieldValue(bean: vehicle, field: 'type')}
 										</td>
 									</tr>
 								</g:each>
@@ -77,7 +71,7 @@
 						</table>
 
 						<div class="pagination">
-							<g:paginate total="${registeredUserInstance ?: 0}"></g:paginate>
+							<g:paginate total="${vehicleList ?: 0}"></g:paginate>
 						</div>
 					</div>
 				</div>

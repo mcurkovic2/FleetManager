@@ -31,6 +31,7 @@ class Vehicle extends Resource {
 	float	fuelEconomyExtraUrban
 	float	fuelEconomyCombined
 	float	emissions //Emissions Data CO2 gm km
+	
 
 	static constraints = {
 		vin nullable:false, blank:false, size: 17..17

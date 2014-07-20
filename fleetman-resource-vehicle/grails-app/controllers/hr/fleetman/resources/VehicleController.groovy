@@ -3,6 +3,7 @@ package hr.fleetman.resources
 class VehicleController {
 	def vehicleService
 
+
 	def index(Integer max) {
 		params.max = Math.min(max ?: 10, 100)
 		respond Vehicle.list(params), model:[vehicleInstanceCount: Vehicle.count()]
@@ -19,50 +20,49 @@ class VehicleController {
 		respond vehicle
 	}
 
-	def create() {
-		respond new NewVehicleCommand()
-	}
+	
 
 	def newVehicleFlow() {
-		entervin {
-			on("check"){
-				def vehicle = new Vehicle(vin)
+		brandSelection {
+			on("next"){
+				def vehicle = new NewVehicleCommand(params)
 				if (vehicle.validate()) {
 					vehicle = vehicleService.populateDetails(vin)
 				} else {
 					error()
 				}
-			}.to "showVehicleDetails"
+			}.to "typeSelection"
+			on("newBrand"){
+				
+			}.to("newBrand")
 			on("cancel").to "index"
 		}
 
-		showVehicleDetails {
+		typeSelection {
 			on("confirm"){
-				def vehicle = new Vehicle(vin)
-				if (vehicle.validate()) {
-					vehicle.save()
-				} else {
-					error()
-				}
 			}.to "index"
-			on("additional").to "manuallyEnter"
+			on("newType").to "newType"
 			on("back").to "showVinForm"
 			on("cancel").to "index"
 		}
-
-		manuallyEnter {
+		
+		newType {
 			on("confirm"){
-				def vehicle = new Vehicle(params)
-				if (vehicle.validate()) {
-					vehicle = vehicleService.populateDetails(vin)
-				} else {
-					error()
-				}
+				
+			}.to "index"
+			on("cancel").to "index"
+		}
+
+		newType {
+			on("confirm"){
+				
 			}.to "index"
 			on("cancel").to "index"
 		}
 	}
+
 }
+
 
 class NewVehicleCommand {
 	String vin
