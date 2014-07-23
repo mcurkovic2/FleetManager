@@ -1,5 +1,8 @@
 package hr.fleetman.resources
 
+import grails.transaction.Transactional
+
+@Transactional(readOnly = true)
 class VehicleController {
 	def vehicleService
 
@@ -20,47 +23,45 @@ class VehicleController {
 		respond vehicle
 	}
 
-	
+	def create() {
+		redirect(action:'newVehicle')
+	}
 
-	def newVehicleFlow() {
+	def newVehicleFlow = {
 		brandSelection {
-			on("next"){
-				def vehicle = new NewVehicleCommand(params)
-				if (vehicle.validate()) {
-					vehicle = vehicleService.populateDetails(vin)
-				} else {
-					error()
-				}
-			}.to "typeSelection"
-			on("newBrand"){
-				
-			}.to("newBrand")
-			on("cancel").to "index"
+			on("next").to "typeSelection"
+			on("newBrand").to "newBrand"
+			on("cancel").to "exit"
 		}
 
 		typeSelection {
-			on("confirm"){
-			}.to "index"
+			on("next").to "enterDetails"
 			on("newType").to "newType"
-			on("back").to "showVinForm"
-			on("cancel").to "index"
+			on("back").to "brandSelection"
+			on("cancel").to "exit"
 		}
 		
-		newType {
-			on("confirm"){
-				
-			}.to "index"
-			on("cancel").to "index"
+		enterDetails {
+			on("confirm").to "exit"
+			on("back").to "typeSelection"
+			on("cancel").to "exit"
+		}
+		
+		newBrand {
+			on("confirm").to "typeSelection"
+			on("cancel").to "exit"
 		}
 
 		newType {
-			on("confirm"){
-				
-			}.to "index"
-			on("cancel").to "index"
+			on("confirm").to "exit"
+			on("cancel").to "exit"
 		}
+		
+		exit {
+			redirect(controller: "vehicle", action: "index")
+		}
+	
 	}
-
 }
 
 

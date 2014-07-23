@@ -20,11 +20,11 @@
 		<div class="portlet-body">
 			<div class="row">
 				<div class="col-lg-12">
-					<fm:defaultButton action="newVehicleFlow"
-						code="vehicle.action.new.label" />
-					<%--					<g:link action="create" class="btn btn-default">--%>
-					<%--						<g:message code="user.newUser.label"></g:message>--%>
-					<%--					</g:link>--%>
+<%--					<fm:defaultButton action="create"--%>
+<%--						code="vehicle.action.new.label" />--%>
+										<g:link action="create" class="btn btn-default">
+											<g:message code="user.newUser.label"></g:message>
+										</g:link>
 				</div>
 			</div>
 

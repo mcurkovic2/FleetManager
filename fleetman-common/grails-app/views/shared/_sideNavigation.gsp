@@ -32,8 +32,8 @@
 							code="main.menu.menuItem.dashboard" />
 				</a></li>
 			</shiro:hasPermission>
-			<shiro:hasPermission permission="resources:index">
-				<li><a href="${createLink(controller:'car')}"> <i
+			<shiro:hasPermission permission="vehicle">
+				<li><a href="${createLink(controller:'vehicle', action:'index')}"> <i
 						class="fa fa-dashboard"></i> <g:message
 							code="main.menu.menuItem.resources" />
 				</a></li>

@@ -28,9 +28,8 @@ class PanelTagLib {
 		
 		attrs, body ->
 		
-		def result = '<g:link action="'+attrs.action+'" class="btn btn-default">'
-		result <<= '<g:message code="'+attrs.code+'"></g:message>'
-		result <<= '</g:link>'
+		def result = g.link(action:attrs.action, class:"btn btn-default", title:g.message(code: attrs.code)) //'<g:link action="'+attrs.action+'" class="btn btn-default">'
+
 		out << result
 	}
 }

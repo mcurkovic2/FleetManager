@@ -65,6 +65,7 @@ class RegisteredDbRealm {
     }
 
     def isPermitted(principal, requiredPermission) {
+		RegisteredUser.withTransaction {
         // Does the user have the given permission directly associated
         // with himself?
         //
@@ -128,5 +129,6 @@ class RegisteredDbRealm {
         else {
             return false
         }
+		}
     }
 }
