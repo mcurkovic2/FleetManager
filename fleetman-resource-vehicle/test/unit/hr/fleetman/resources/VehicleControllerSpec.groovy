@@ -1,10 +1,11 @@
 package hr.fleetman.resources
 
 import grails.test.mixin.*
+import grails.test.mixin.webflow.WebFlowUnitTestMixin
 import spock.lang.Specification
 
 
-@TestFor(VehicleController)
+@TestMixin([WebFlowUnitTestMixin, VehicleController])
 @Mock([Vehicle])
 class VehicleControllerSpec extends Specification {
 	
@@ -64,19 +65,20 @@ class VehicleControllerSpec extends Specification {
 		when:"create action is executed"
 			controller.create()
 		then:"new vehicle command is returned"
-			model.newVehicleCommand
+			response.redirectUrl == '/vehicle/newVehicle'
 			
 	}
 	
+	/*All of the default unit test controller properties are available + flow,
+	conversation, lastTransitionName, lastEventName, currentEvent*/
 	void "Test of new wehicle flow"() {
+		
 		when:"create save is executed with bad vin"
-			controller.newVehicleFlow()
+			newVehicleFlow.start.action()
 		then:"validation message is displayed"
-			flash.message
+			currentEvent == 'typeSelection'
 			
 	}
-	
-	
 	
 	private Vehicle createVehicle(Map data) {
 		def vehicle = new Vehicle(vin: 'aaa')

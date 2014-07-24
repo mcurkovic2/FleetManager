@@ -12,5 +12,6 @@
 		<g:submitButton name="back" value="Back"></g:submitButton>
 		<g:submitButton name="cancel" value="Cancel"></g:submitButton>
 	</g:form> </content>
+	
 </body>
 </html>

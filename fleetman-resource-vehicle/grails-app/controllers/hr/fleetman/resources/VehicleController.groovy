@@ -28,44 +28,50 @@ class VehicleController {
 	}
 
 	def newVehicleFlow = {
+		start {
+			action {
+				flow.newVehicleCommand = new NewVehicleCommand()
+			}
+			on 'success' to 'brandSelection'
+		}
+		
 		brandSelection {
-			on("next").to "typeSelection"
+			on "next" to "typeSelection"
 			on("newBrand").to "newBrand"
-			on("cancel").to "exit"
+			on("cancel").to "end"
 		}
 
 		typeSelection {
 			on("next").to "enterDetails"
 			on("newType").to "newType"
 			on("back").to "brandSelection"
-			on("cancel").to "exit"
+			on("cancel").to "end"
 		}
 		
 		enterDetails {
-			on("confirm").to "exit"
+			on("confirm").to "end"
 			on("back").to "typeSelection"
-			on("cancel").to "exit"
+			on("cancel").to "end"
 		}
 		
 		newBrand {
 			on("confirm").to "typeSelection"
-			on("cancel").to "exit"
+			on("cancel").to "end"
 		}
 
 		newType {
-			on("confirm").to "exit"
-			on("cancel").to "exit"
+			on("confirm").to "enterDetails"
+			on("cancel").to "end"
 		}
 		
-		exit {
+		end {
 			redirect(controller: "vehicle", action: "index")
 		}
-	
 	}
 }
 
 
-class NewVehicleCommand {
+class NewVehicleCommand implements Serializable{
 	String vin
 	static constraints = {
 		vin nullable: true, blank:false, size:17..17
