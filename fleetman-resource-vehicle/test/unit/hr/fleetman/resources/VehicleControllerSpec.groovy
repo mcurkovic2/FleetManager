@@ -5,7 +5,9 @@ import grails.test.mixin.webflow.WebFlowUnitTestMixin
 import spock.lang.Specification
 
 
-@TestMixin([WebFlowUnitTestMixin, VehicleController])
+
+@TestMixin(WebFlowUnitTestMixin)
+@TestFor(VehicleController)
 @Mock([Vehicle])
 class VehicleControllerSpec extends Specification {
 	
@@ -73,12 +75,44 @@ class VehicleControllerSpec extends Specification {
 	conversation, lastTransitionName, lastEventName, currentEvent*/
 	void "Test of new wehicle flow"() {
 		
-		when:"create save is executed with bad vin"
+		when:"start flow is executed"
 			newVehicleFlow.start.action()
-		then:"validation message is displayed"
-			currentEvent == 'typeSelection'
+		then:"NewVehicleCommand is inserted in flow context"
+			lastEventName == 'start'
+			flow.newVehicleCommand instanceof NewVehicleCommand
+			
+		when:"brand is selected"
+			newVehicleFlow.brandSelection.on.next
+			
+		then:"transition id on typeSelection"
+			currentEvent == 'brandSelection'
 			
 	}
+	
+	void "Test new vehicle flow transitions" (){
+		when:"flow is executed"
+			
+		then:"Correct transitions are executed"
+			"brandSelection" == newVehicleFlow.start.on.success.to
+			response.reset()
+			"typeSelection" == newVehicleFlow.brandSelection.on.next.to
+			response.reset()
+			"newBrand" == newVehicleFlow.brandSelection.on.newBrand.to
+			response.reset()
+			"end" == newVehicleFlow.brandSelection.on.cancel.to
+			response.reset()
+			"enterDetails" == newVehicleFlow.typeSelection.on.next.to
+			response.reset()
+			"brandSelection" == newVehicleFlow.typeSelection.on.back.to
+			response.reset()
+			"end" == newVehicleFlow.typeSelection.on.cancel.to
+			response.reset()
+			"typeSelection" == newVehicleFlow.enterDetails.on.back.to
+			response.reset()
+			"end" == newVehicleFlow.enterDetails.on.confirm.to
+			
+	}
+	
 	
 	private Vehicle createVehicle(Map data) {
 		def vehicle = new Vehicle(vin: 'aaa')

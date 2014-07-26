@@ -38,35 +38,41 @@ class VehicleController {
 		brandSelection {
 			on "next" to "typeSelection"
 			on("newBrand").to "newBrand"
-			on("cancel").to "end"
+			on("cancel").to "cancel"
 		}
 
 		typeSelection {
 			on("next").to "enterDetails"
 			on("newType").to "newType"
 			on("back").to "brandSelection"
-			on("cancel").to "end"
+			on("cancel").to "cancel"
 		}
 		
 		enterDetails {
 			on("confirm").to "end"
 			on("back").to "typeSelection"
-			on("cancel").to "end"
+			on("cancel").to "cancel"
 		}
 		
 		newBrand {
 			on("confirm").to "typeSelection"
-			on("cancel").to "end"
+			on("cancel").to "cancel"
 		}
 
 		newType {
 			on("confirm").to "enterDetails"
-			on("cancel").to "end"
+			on("cancel").to "cancel"
 		}
+
+		end()
 		
-		end {
-			redirect(controller: "vehicle", action: "index")
+		cancel {
+			redirect(action: "index")
 		}
+		 
+//		{
+//			//redirect(action: "index")
+//		}
 	}
 }
 
