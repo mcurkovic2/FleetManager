@@ -80,12 +80,11 @@ class VehicleControllerSpec extends Specification {
 		then:"NewVehicleCommand is inserted in flow context"
 			lastEventName == 'start'
 			flow.newVehicleCommand instanceof NewVehicleCommand
-			
 		when:"brand is selected"
-			newVehicleFlow.brandSelection.on.next
-			
+			controller.params.brandId = null 
+			def transition = newVehicleFlow.brandSelection.on.next
 		then:"transition id on typeSelection"
-			currentEvent == 'brandSelection'
+			lastTransitionName =='brandSelection' 
 			
 	}
 	
@@ -94,22 +93,18 @@ class VehicleControllerSpec extends Specification {
 			
 		then:"Correct transitions are executed"
 			"brandSelection" == newVehicleFlow.start.on.success.to
-			response.reset()
+			
 			"typeSelection" == newVehicleFlow.brandSelection.on.next.to
-			response.reset()
 			"newBrand" == newVehicleFlow.brandSelection.on.newBrand.to
-			response.reset()
-			"end" == newVehicleFlow.brandSelection.on.cancel.to
-			response.reset()
+			"cancel" == newVehicleFlow.brandSelection.on.cancel.to
+			
 			"enterDetails" == newVehicleFlow.typeSelection.on.next.to
-			response.reset()
 			"brandSelection" == newVehicleFlow.typeSelection.on.back.to
-			response.reset()
-			"end" == newVehicleFlow.typeSelection.on.cancel.to
-			response.reset()
+			"cancel" == newVehicleFlow.typeSelection.on.cancel.to
+			
 			"typeSelection" == newVehicleFlow.enterDetails.on.back.to
-			response.reset()
 			"end" == newVehicleFlow.enterDetails.on.confirm.to
+			"cancel" == newVehicleFlow.enterDetails.on.cancel.to
 			
 	}
 	

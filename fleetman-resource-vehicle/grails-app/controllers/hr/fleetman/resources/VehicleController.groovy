@@ -24,62 +24,73 @@ class VehicleController {
 	}
 
 	def create() {
-		redirect(action:'newVehicle')
+		redirect(action:"newVehicle")
 	}
 
 	def newVehicleFlow = {
+		boolean cancelled = false 
 		start {
 			action {
 				flow.newVehicleCommand = new NewVehicleCommand()
 			}
-			on 'success' to 'brandSelection'
+			on("success").to("brandSelection") 
 		}
 		
 		brandSelection {
-			on "next" to "typeSelection"
+			on("next"){
+//				bindData(flow.newVehicleCommand, params)
+//				def cmd = flow.newVehicleCommand
+//				if (!cmd.validate()) {
+//					return error()
+//				}
+			}.to "typeSelection"
 			on("newBrand").to "newBrand"
-			on("cancel").to "cancel"
+			on("cancel").to("cancel")
+			
 		}
 
 		typeSelection {
-			on("next").to "enterDetails"
-			on("newType").to "newType"
-			on("back").to "brandSelection"
+			on("next").to("enterDetails") 
+			on("newType").to("newType") 
+			on("back").to("brandSelection") 
 			on("cancel").to "cancel"
 		}
 		
 		enterDetails {
-			on("confirm").to "end"
-			on("back").to "typeSelection"
-			on("cancel").to "cancel"
+			on("confirm").to("end") 
+			on("back").to("typeSelection") 
+			on("cancel").to("cancel") 
 		}
 		
 		newBrand {
-			on("confirm").to "typeSelection"
-			on("cancel").to "cancel"
+			on("confirm").to("typeSelection") 
+			on("cancel").to("cancel") 
 		}
 
 		newType {
 			on("confirm").to "enterDetails"
-			on("cancel").to "cancel"
+			on("cancel").to("cancel")
 		}
 
 		end()
 		
 		cancel {
-			redirect(action: "index")
+			//NOTICE: Redirect in action to avoid unitTest WebFlowUnitTestMixin redirect error
+			action {
+				redirect(action: "index")
+			}
+			on("success"){}
 		}
-		 
-//		{
-//			//redirect(action: "index")
-//		}
+
 	}
 }
 
-
 class NewVehicleCommand implements Serializable{
 	String vin
+	String brandId
+	String typeId
 	static constraints = {
 		vin nullable: true, blank:false, size:17..17
+		brandId nullable: true, blank:false, size:1..20
 	}
 }
