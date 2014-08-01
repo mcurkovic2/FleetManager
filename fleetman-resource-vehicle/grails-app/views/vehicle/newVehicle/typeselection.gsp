@@ -6,6 +6,7 @@
 <body>
 	<content tag="col1">
 	<h2>select type</h2>
+	selected brandId=${brandId}
 	<g:form>
 		<!-- Other fields -->
 		<g:submitButton name="next" value="Next"></g:submitButton>

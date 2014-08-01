@@ -9,6 +9,8 @@ class Vehicle extends Resource {
 	String vin
 	String brand
 	String	model
+	String currentRegistration
+	
 	int	year
 	String	trim
 	String	fuelDelivery
@@ -43,6 +45,7 @@ class Vehicle extends Resource {
 		bodyStyle nullable:true, blank:false, size: 3..50
 		transmission nullable:true, blank:false, size: 3..50
 		tyreType nullable:true, blank:false, size: 3..50
+		currentRegistration nullable:true, blank:false, size: 3..20
 	}
 	
 	static hasMany = [serviceEvents: ServiceEvent, registrationEvents : RegistrationEvent, tireChangeEvents: TireChangeEvent, insurancePurchaseEvents: InsurancePurchaseEvent]

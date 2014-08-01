@@ -1,6 +1,7 @@
 package hr.fleetman.resources
 
 import grails.transaction.Transactional
+import grails.validation.Validateable
 
 @Transactional(readOnly = true)
 class VehicleController {
@@ -28,61 +29,141 @@ class VehicleController {
 	}
 	
 	def newVehicleFlow = {
+		
 		def cancel = false
+		
 		start {
+		
 			action {
-				flow.newVehicleCommand = new NewVehicleCommand()
+				flow.brandSelectionCommand = new BrandSelectionCommand()
 			}
+			
 			on("success").to "brandSelection"
 		}
+		
 		brandSelection {
-			on("next"){
-				bindData(flow.newVehicleCommand, params)
-				if (!flow.newVehicleCommand.validate()) {
-					return error()
+			
+			on("next"){ 
+				
+				bindData(flow.brandSelectionCommand, params)
+				
+				flow.brandSelectionCommand.validate()
+
+				if (flow.brandSelectionCommand.hasErrors()) {
+				  return error()
 				}
+				
+				flow.typeSelectionCommand = new TypeSelectionCommand()
+
 			}.to "typeSelection"
+		
 			on("newBrand").to "newBrand"
-			on("cancel").to "exit"
+			
+			on("cancel") {
+				cancel = true
+			}.to "exit"
 		}
 
 		typeSelection {
-			on("next").to "enterDetails"
+			on("next"){
+				
+				bindData(flow.typeSelectionCommand, params)
+				
+				flow.typeSelectionCommand.validate()
+				
+				if (flow.typeSelectionCommand.hasErrors()) {
+				  return error()
+				}
+				
+			}.to "enterDetails"
 			on("newType").to "newType"
 			on("back").to "brandSelection"
-			on("cancel").to "exit"
+			on("cancel"){
+				cancel = true
+			}.to "exit"
 		}
 		
 		enterDetails {
-			on("confirm").to "end"
+			on("confirm"){
+				bindData(flow.newVehicleCommand, params)
+				
+				if (flow.newVehicleCommand.hasErrors()) {
+				  return error()
+				}
+				
+			}.to "end"
 			on("back").to "typeSelection"
-			on("cancel").to "exit"
+			on("cancel"){
+				cancel = true
+			}.to "exit"
 		}
 		
 		newBrand {
 			on("confirm").to "typeSelection"
-			on("cancel").to "exit"
+			on("cancel"){
+				cancel = true
+			}.to "exit"
 		}
 
 		newType {
 			on("confirm").to "exit"
-			on("cancel").to "exit"
+			on("cancel"){
+				cancel = true
+			}.to "exit"
 		}
 		
 		end()
 		
 		exit {
-			redirect(controller: "vehicle", action: "index")
+			if (cancel == true) {
+				redirect(controller: "vehicle", action: "index")
+			}
 		}
 	}
 }
 
-class NewVehicleCommand implements Serializable{
-	String vin
+
+@Validateable
+class BrandSelectionCommand implements Serializable{
 	String brandId
-	String typeId
+	String brandName
+	
 	static constraints = {
-		vin nullable: true, blank:false, size:17..17
-		brandId nullable: true, blank:false, size:1..20
+		brandId nullable: false, blank:false, size: 1..10
+		brandName nullable: false, blank:false, size: 3..10
 	}
+}
+
+@Validateable
+class TypeSelectionCommand implements Serializable{
+	String typeId
+	String typeName
+	
+	static constraints = {
+		typeId nullable: false, blank:false, size: 1..10
+		typeName nullable: false, blank:false, size: 3..10
+	}
+}
+
+
+@Validateable
+class NewVehicleCommand2 implements Serializable{
+	String brandId
+	String brandName
+	String typeId
+	String typeName
+	
+	String vin
+	String currentRegistration
+	
+	static constraints = {
+		brandId nullable: true, blank:false, size: 1..10
+		brandName nullable: true, blank:false, size: 3..10
+		typeId nullable: true, blank:false, size: 1..10
+		typeName nullable: true, blank:false, size: 3..10
+		
+		vin nullable: true, blank:false, size: 17..17
+		currentRegistration nullable: true, blank:false, size: 3..20
+	}
+	
 }

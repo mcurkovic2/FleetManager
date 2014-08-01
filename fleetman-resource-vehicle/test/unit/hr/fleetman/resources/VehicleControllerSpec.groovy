@@ -79,14 +79,46 @@ class VehicleControllerSpec extends Specification {
 			newVehicleFlow.start.action()
 		then:"NewVehicleCommand is inserted in flow context"
 			lastEventName == 'start'
-			flow.newVehicleCommand instanceof NewVehicleCommand
-		when:"brand is selected"
-			controller.params.brandId = null 
-			def transition = newVehicleFlow.brandSelection.on.next
-		then:"transition id on typeSelection"
-			lastTransitionName =='brandSelection' 
+			flow.brandSelectionCommand instanceof BrandSelectionCommand
 			
+		when:"brand is not selected"
+			params.brandId = '' 
+			params.brandName = null
+			newVehicleFlow.brandSelection.on.next.action()
+		then:"transition back to brand selection"
+			flow.brandSelectionCommand.hasErrors()
+			stateTransition == 'brandSelection'
+		when:"brand is selected"
+			params.brandId = '12345'
+			params.brandName = 'Peugeot'
+			newVehicleFlow.brandSelection.on.next.action()
+		then:"transition id to typeSelection"
+			flow.brandSelectionCommand.hasErrors() == false
+			
+		
+			
+		when:"type is NOT selected "
+			
+			params.typeId = ''
+			params.typeName = ''
+			newVehicleFlow.typeSelection.on.next.action()
+			
+		then:"transition back to type selection"
+			flow.typeSelectionCommand.hasErrors()
+			stateTransition == 'typeSelection'
+			
+		when:"type is selected "
+			
+			params.typeId = '12'
+			params.typeName = '308 SW'
+			newVehicleFlow.typeSelection.on.next.action()
+			
+		then:"transition back to type selection"
+			flow.typeSelectionCommand.hasErrors() == false
+
 	}
+	
+	
 	
 	void "Test new vehicle flow transitions" (){
 		when:"flow is executed"
