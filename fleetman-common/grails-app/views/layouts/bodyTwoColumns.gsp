@@ -6,6 +6,12 @@
 </head>
 <body>
 
+<!-- begin VALIDATION ROW2 -->
+	<div class="row">
+		<div class="col-lg-12">
+			<g:pageProperty name="page.validation" />
+		</div>
+	</div>
 	<!-- begin PAGE TITLE ROW -->
 	<div class="row">
 
