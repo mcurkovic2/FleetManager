@@ -63,7 +63,7 @@ class VehicleControllerSpec extends Specification {
 			model.vehicle != null
 	}
 	
-	void "create and populate vehicle"() {
+	void "Create and populate vehicle"() {
 		when:"create action is executed"
 			controller.create()
 		then:"new vehicle command is returned"
@@ -115,10 +115,7 @@ class VehicleControllerSpec extends Specification {
 			
 		then:"transition back to type selection"
 			flow.typeSelectionCommand.hasErrors() == false
-
 	}
-	
-	
 	
 	void "Test new vehicle flow transitions" (){
 		when:"flow is executed"
