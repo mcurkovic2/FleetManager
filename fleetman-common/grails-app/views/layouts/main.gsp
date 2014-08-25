@@ -11,9 +11,11 @@
 <title><g:layoutTitle default="FleetManager" /></title>
 
 <!-- PACE LOAD BAR PLUGIN - This creates the subtle load bar effect at the top of the page. -->
-<link href="${assetPath(src: 'css/plugins/pace/pace.css')}"
+<%--<link href="${assetPath(src: 'css/plugins/pace/pace.css')}"
 	rel="stylesheet">
 <script src="${assetPath(src: 'js/plugins/pace/pace.js')}"></script>
+
+--%>
 
 <!-- GLOBAL STYLES - Include these on every page. -->
 <asset:stylesheet src="application.css" />
