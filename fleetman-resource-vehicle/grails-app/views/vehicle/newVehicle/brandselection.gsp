@@ -15,7 +15,15 @@
 			</g:eachError>
 		</ul>
 	</g:hasErrors> <g:form>
-		<g:select name="brandId" from="${['11', '12', '']}" />
+
+
+		<g:select id="brandSelection" name='brandId'
+			value="${brandSelectionCommand?.brandId}"
+			noSelection="${['':'Select One...']}"
+			from="${brandSelectionCommand.brands}" 
+			optionKey="id"
+			optionValue="name"></g:select>
+
 		<!-- Other fields -->
 		<g:submitButton name="next" value="Next"></g:submitButton>
 		<g:submitButton name="newBrand" value="New Brand"></g:submitButton>

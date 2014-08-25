@@ -7,7 +7,6 @@ import grails.validation.Validateable
 class VehicleController {
 	def vehicleService
 
-
 	def index(Integer max) {
 		params.max = Math.min(max ?: 10, 100)
 		respond Vehicle.list(params), model:[vehicleInstanceCount: Vehicle.count()]
@@ -36,6 +35,8 @@ class VehicleController {
 		
 			action {
 				flow.brandSelectionCommand = new BrandSelectionCommand()
+				def brands = vehicleService.findBrands()
+				flow.brandSelectionCommand.brands = brands
 			}
 			
 			on("success").to "brandSelection"
@@ -54,7 +55,11 @@ class VehicleController {
 				}
 				
 				flow.typeSelectionCommand = new TypeSelectionCommand()
-
+				def types = vehicleService.findModels(Integer.valueOf(flow.brandSelectionCommand.brandId))
+				flow.typeSelectionCommand.types = types
+				
+				
+				
 			}.to "typeSelection"
 		
 			on("newBrand").to "newBrand"
@@ -62,15 +67,16 @@ class VehicleController {
 		}
 
 		typeSelection {
-			on("next"){
+			on("next") {
 				
 				bindData(flow.typeSelectionCommand, params)
-				
 				flow.typeSelectionCommand.validate()
 				
 				if (flow.typeSelectionCommand.hasErrors()) {
 				  return error()
 				}
+				
+				flow.enterDetailsCommand = new EnterDetailsCommand()
 				
 			}.to "enterDetails"
 		
@@ -81,12 +87,11 @@ class VehicleController {
 		
 		enterDetails {
 			on("confirm"){
-				bindData(flow.newVehicleCommand, params)
+				bindData(flow.enterDetailsCommand, params)
 				
-				if (flow.newVehicleCommand.hasErrors()) {
+				if (flow.enterDetailsCommand.hasErrors()) {
 				  return error()
 				}
-				
 			}.to "end"
 		
 			on("back").to "typeSelection"
@@ -111,48 +116,39 @@ class VehicleController {
 	}
 }
 
-
 @Validateable
-class BrandSelectionCommand implements Serializable{
+class BrandSelectionCommand implements Serializable {
 	String brandId
 	String brandName
+	def brands 
 	
 	static constraints = {
-		brandId nullable: false, blank:false, size: 1..10
-		brandName nullable: false, blank:false, size: 3..10
+		brandId(nullable: false, blank:false, size: 1..10)
 	}
 }
 
 @Validateable
-class TypeSelectionCommand implements Serializable{
+class TypeSelectionCommand implements Serializable {
 	String typeId
 	String typeName
+	def types
 	
 	static constraints = {
-		typeId nullable: false, blank:false, size: 1..10
-		typeName nullable: false, blank:false, size: 3..10
+		typeId(nullable: false, blank:false, size: 1..10)
 	}
 }
 
-
 @Validateable
-class NewVehicleCommand2 implements Serializable{
+class EnterDetailsCommand implements Serializable{
 	String brandId
-	String brandName
 	String typeId
-	String typeName
-	
 	String vin
 	String currentRegistration
 	
 	static constraints = {
-		brandId nullable: true, blank:false, size: 1..10
-		brandName nullable: true, blank:false, size: 3..10
-		typeId nullable: true, blank:false, size: 1..10
-		typeName nullable: true, blank:false, size: 3..10
+		brandId(nullable: false, blank:false, size: 1..10)
+		typeId(nullable: false, blank:false, size: 1..10)
 		
-		vin nullable: true, blank:false, size: 17..17
-		currentRegistration nullable: true, blank:false, size: 3..20
+		importFrom Vehicle
 	}
-	
 }

@@ -8,7 +8,7 @@ import hr.fleetman.events.TireChangeEvent
 class Vehicle extends Resource {
 	String vin
 	String brand
-	String	model
+	String model
 	String currentRegistration
 	
 	int	year

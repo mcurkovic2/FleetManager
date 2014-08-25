@@ -2,6 +2,7 @@ package hr.fleetman.resources
 
 import grails.test.mixin.*
 import grails.test.mixin.webflow.WebFlowUnitTestMixin
+import hr.fleetman.resource.Brand
 import spock.lang.Specification
 
 
@@ -17,15 +18,22 @@ class VehicleControllerSpec extends Specification {
 	
 	def setup() {
 		def createDummyVehicle =  {args -> 
-
 			new Vehicle(vin:DUMMY_VIN)
 		}
 		
 		vehicleService.findByVin(DUMMY_VIN) >> createDummyVehicle
-		
 		vehicleService.populateDetails(DUMMY_VIN) >> createDummyVehicle
 		
+		vehicleService.findBrands() >> {args ->
+			def brand = new Brand()
+			brand.id = 0
+			brand.name = 'aaa'
+			return [brand]
+		}
+		
 		controller.vehicleService = vehicleService
+		
+		
 	}
 
 	def cleanup() {
@@ -80,6 +88,7 @@ class VehicleControllerSpec extends Specification {
 		then:"NewVehicleCommand is inserted in flow context"
 			lastEventName == 'start'
 			flow.brandSelectionCommand instanceof BrandSelectionCommand
+			flow.brandSelectionCommand.brands
 			
 		when:"brand is not selected"
 			params.brandId = '' 

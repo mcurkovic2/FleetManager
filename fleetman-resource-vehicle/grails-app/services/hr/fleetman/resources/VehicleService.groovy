@@ -1,11 +1,12 @@
 package hr.fleetman.resources
 
 import grails.transaction.Transactional
+import hr.fleetman.resource.Brand
+import hr.fleetman.resource.Model
 
 @Transactional
 class VehicleService {
 	String serviceUrl
-	def brands = ['Skoda', 'Volswagen', 'Opel', 'Peugeot', 'Renault', 'Volvo', 'Saab', 'Kia', 'Honda', 'Hyndai']
 
 	def fetchVehicle(String vin) {
 		return Vehicle.findByVin(vin)
@@ -14,6 +15,43 @@ class VehicleService {
 	Vehicle populateDetails(String p_vin) {
 		def vehicle = new Vehicle(vin:p_vin)
 		vehicle
+	}
+	
+	def findBrands() {
+		def brands = []
+		def i = 0
+		brandsAndTypes.each {
+			key, value -> 
+			def brand = new Brand()
+			brand.name = key
+			brand.id = ++i
+			brands.add(brand)
+		}
+		
+		return brands
+	}
+	
+	def findModels(int brandId) {
+		def models = []
+		def i = 0
+		
+		brandsAndTypes.each {
+			key, value ->
+			i++
+			def modelId = 0
+			if (i == brandId) {
+				def internalModels = value
+				internalModels.each {
+					modelName -> 
+					def model = new Model()
+					model.id = ++modelId
+					model.name = modelName
+					models.add(model)
+				}
+			}
+		}
+		
+		return models
 	}
 
 	Vehicle populateDetailsFromService(String vin) {
@@ -109,7 +147,7 @@ class VehicleService {
 
 		"Škoda":
 		[
-			"Škoda 105",
+			"Škoda105",
 			"Škoda 120",
 			"Škoda 135",
 			"Škoda Citigo",

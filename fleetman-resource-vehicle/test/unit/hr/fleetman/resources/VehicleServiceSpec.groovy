@@ -23,4 +23,28 @@ class VehicleServiceSpec extends Specification {
 			vehicle
 		
     }
+   
+   
+   void "findBrands"() {
+	   when:"findBrands is called"
+		   def brands = service.findBrands()
+		   
+	   then: "service returns list of Brand objects"
+		   brands
+	   	   brands.size == 5
+		   brands[0].name == "Alfa Romeo"
+   }
+   
+   
+   void "findModels"() {
+	   when:"findModels is called for given brand id"
+		   def models = service.findModels(1)
+		   
+	   then: "service returns list of Model objects"
+		   models
+		   models.size == 20
+		   models[0].name == "Alfa Romeo 33"
+   }
+   
+   
 }
