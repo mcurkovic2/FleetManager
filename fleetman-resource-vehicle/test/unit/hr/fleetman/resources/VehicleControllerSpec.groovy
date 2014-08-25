@@ -117,7 +117,7 @@ class VehicleControllerSpec extends Specification {
 			flow.typeSelectionCommand.hasErrors() == false
 	}
 	
-	void "Test new vehicle flow transitions" (){
+	void "Test new vehicle flow transitions" () {
 		when:"flow is executed"
 			
 		then:"Correct transitions are executed"
@@ -125,15 +125,15 @@ class VehicleControllerSpec extends Specification {
 			
 			"typeSelection" == newVehicleFlow.brandSelection.on.next.to
 			"newBrand" == newVehicleFlow.brandSelection.on.newBrand.to
-			"cancel" == newVehicleFlow.brandSelection.on.cancel.to
+			"exit" == newVehicleFlow.brandSelection.on.cancel.to
 			
 			"enterDetails" == newVehicleFlow.typeSelection.on.next.to
 			"brandSelection" == newVehicleFlow.typeSelection.on.back.to
-			"cancel" == newVehicleFlow.typeSelection.on.cancel.to
+			"exit" == newVehicleFlow.typeSelection.on.cancel.to
 			
 			"typeSelection" == newVehicleFlow.enterDetails.on.back.to
 			"end" == newVehicleFlow.enterDetails.on.confirm.to
-			"cancel" == newVehicleFlow.enterDetails.on.cancel.to
+			"exit" == newVehicleFlow.enterDetails.on.cancel.to
 			
 	}
 	

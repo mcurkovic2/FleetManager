@@ -43,7 +43,7 @@ class VehicleController {
 		
 		brandSelection {
 			
-			on("next"){ 
+			on("next") { 
 				
 				bindData(flow.brandSelectionCommand, params)
 				
@@ -58,10 +58,7 @@ class VehicleController {
 			}.to "typeSelection"
 		
 			on("newBrand").to "newBrand"
-			
-			on("cancel") {
-				cancel = true
-			}.to "exit"
+			on("cancel") .to "exit"
 		}
 
 		typeSelection {
@@ -76,11 +73,10 @@ class VehicleController {
 				}
 				
 			}.to "enterDetails"
+		
 			on("newType").to "newType"
 			on("back").to "brandSelection"
-			on("cancel"){
-				cancel = true
-			}.to "exit"
+			on("cancel").to "exit"
 		}
 		
 		enterDetails {
@@ -92,32 +88,25 @@ class VehicleController {
 				}
 				
 			}.to "end"
+		
 			on("back").to "typeSelection"
-			on("cancel"){
-				cancel = true
-			}.to "exit"
+			on("cancel").to "exit"
 		}
 		
 		newBrand {
 			on("confirm").to "typeSelection"
-			on("cancel"){
-				cancel = true
-			}.to "exit"
+			on("cancel").to "exit"
 		}
 
 		newType {
-			on("confirm").to "exit"
-			on("cancel"){
-				cancel = true
-			}.to "exit"
+			on("confirm").to "enterDetails"
+			on("cancel").to "exit"
 		}
 		
 		end()
 		
 		exit {
-			if (cancel == true) {
-				redirect(controller: "vehicle", action: "index")
-			}
+			redirect(action:"index")
 		}
 	}
 }
