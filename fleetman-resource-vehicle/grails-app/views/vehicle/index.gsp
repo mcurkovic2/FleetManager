@@ -11,7 +11,7 @@
 		<div class="portlet-heading">
 			<div class="portlet-title">
 				<h4>
-					<g:message code="user.users.panelTitle" />
+					<g:message code="vehicle.vehicles.panelHeader" />
 				</h4>
 			</div>
 			<div class="clearfix"></div>
@@ -23,7 +23,7 @@
 <%--					<fm:defaultButton action="create"--%>
 <%--						code="vehicle.action.new.label" />--%>
 										<g:link action="create" class="btn btn-default">
-											<g:message code="user.newUser.label"></g:message>
+											<g:message code="vehicle.newVehicle.label"></g:message>
 										</g:link>
 				</div>
 			</div>
