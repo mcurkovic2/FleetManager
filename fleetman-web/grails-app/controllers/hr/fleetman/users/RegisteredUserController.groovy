@@ -52,12 +52,23 @@ class RegisteredUserController {
 			render(view: "create", model: map)
 			return
 		}
+		
+		if (registeredUserService.findByUsername(newRegisteredUserCommand.newUsername)) {
+			def map = [newRegisteredUserCommandInstance: newRegisteredUserCommand]
+			flash.message = message(code: 'default.created.message',
+					args: [
+						newRegisteredUserCommand.newUsername
+					]) 
+			render(view: "create", model: map)
+			return
+		}
 
 		def passwordHash = Utils.encrypt(newRegisteredUserCommand.confirmedPassword);
 
 		def registeredUserInstance = new RegisteredUser()
 
 		bindData(registeredUserInstance, newRegisteredUserCommand)
+		bindData(registeredUserInstance, [username: newRegisteredUserCommand.newUsername])
 		bindData(registeredUserInstance, [passwordHash: passwordHash])
 		bindData(registeredUserInstance, [active: 1])
 
@@ -75,7 +86,9 @@ class RegisteredUserController {
 			}
 
 		} else {
-			log error "Could not save registeredUser instance. username = "	 registeredUserInstance.username
+			registeredUserInstance.errors.each {
+				log.error it
+			}
 		}
 
 
@@ -228,7 +241,7 @@ class ChangePasswordCommand {
 
 class NewRegisteredUserCommand {
 
-	String username
+	String newUsername
 	String firstName
 	String lastName
 	String description
@@ -239,10 +252,13 @@ class NewRegisteredUserCommand {
 
 	static constraints = {
 		importFrom RegisteredUser
+		newUsername(size: 4..20,nullable: false, blank: false, unique: true)
 		newPassword (nullable: false, blank: false, size: 3..20,)
 		confirmedPassword (nullable: false, blank: false,			
 			validator: { passwd, cmd ->
-				return passwd == cmd.newPassword
+				if (passwd != cmd.newPassword) {
+					 return ["ChangePasswordCommand.confirmedPassword.doesNotMatch"]
+				} 
 			}
 		);
 	}

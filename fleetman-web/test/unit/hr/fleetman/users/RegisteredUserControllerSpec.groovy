@@ -71,7 +71,7 @@ class RegisteredUserControllerSpec extends Specification {
 
         then:"The model is correctly created"
             model.newRegisteredUserCommandInstance!= null
-			model.newRegisteredUserCommandInstance.username == null
+			model.newRegisteredUserCommandInstance.newUsername == null
     }
 
     void "Test the save action correctly persists an instance"() {
@@ -80,7 +80,7 @@ class RegisteredUserControllerSpec extends Specification {
             request.contentType = FORM_CONTENT_TYPE
 			
 			//NO PASSWORD PROVIDED
-            def newRegisteredUserCommand = new NewRegisteredUserCommand(username: "user", confirmedPassword:"")
+            def newRegisteredUserCommand = new NewRegisteredUserCommand(newUsername: "user", confirmedPassword:"")
 			controller.save(newRegisteredUserCommand)
 
         then:"The create view is rendered again with the correct model"
@@ -91,7 +91,7 @@ class RegisteredUserControllerSpec extends Specification {
 
         when:"The save action is executed with a valid instance"
             response.reset()
-            def validNewRegisteredUserCommand = new NewRegisteredUserCommand(username: "user", newPassword:"aaa123456", confirmedPassword: "aaa123456")
+            def validNewRegisteredUserCommand = new NewRegisteredUserCommand(newUsername: "user2", newPassword:"aaa123456", confirmedPassword: "aaa123456")
 
             controller.save(validNewRegisteredUserCommand)
 

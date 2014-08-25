@@ -1,18 +1,18 @@
 <%@ page import="hr.fleetman.users.NewRegisteredUserCommand"%>
 
 <div
-	class="form-group ${hasErrors(bean: newRegisteredUserCommandInstance, field: 'username', 'has-error')} ">
-	<label class="control-label" for="username"> <g:message
+	class="form-group ${hasErrors(bean: newRegisteredUserCommandInstance, field: 'newUsername', 'has-error')} ">
+	<label class="control-label" for="newUsername"> <g:message
 			code="user.username.label" default="Username" />
 	</label>
 	<g:textField autocomplete="off" autocapitalize="off"
-		class="form-control" name="username"
-		value="${newRegisteredUserCommandInstance?.username}" />
+		class="form-control" name="newUsername"
+		value="${newRegisteredUserCommandInstance?.newUsername}" />
 </div>
 
 <div
 	class="form-group ${hasErrors(bean: newRegisteredUserCommandInstance, field: 'newPassword', 'has-error')} ">
-	<label class="control-label" for="password1"> <g:message
+	<label class="control-label" for="newPassword1"> <g:message
 			code="user.password1.label" default="Password" />
 	</label>
 	<g:passwordField autocomplete="off" autocapitalize="off"
@@ -21,7 +21,7 @@
 
 <div
 	class="form-group ${hasErrors(bean: newRegisteredUserCommandInstance, field: 'confirmedPassword', 'has-error')} ">
-	<label class="control-label" for="password2"> <g:message
+	<label class="control-label" for="newPassword2"> <g:message
 			code="user.password2.label" default="Confirm Password" /></label>
 	<g:passwordField autocomplete="off" class="form-control" id="password2"
 		name="confirmedPassword" />

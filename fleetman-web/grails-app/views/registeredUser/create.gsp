@@ -35,7 +35,7 @@
 		<div class="portlet-body">
 			<div class="row">
 				<div class="col-lg-12">
-					<g:form url="[resource:registeredUserInstance, action:'save']">
+					<g:form url="[resource:registeredUserInstance, action:'save']" autocomplete="off">
 						<fieldset class="form">
 							<g:render template="form" />
 						</fieldset>
