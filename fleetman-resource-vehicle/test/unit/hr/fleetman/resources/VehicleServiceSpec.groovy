@@ -47,4 +47,20 @@ class VehicleServiceSpec extends Specification {
    }
    
    
+   void "fetchBrandById"() {
+	   when: "fetchBrandById is called for given brandId"
+	   	def brandName = service.fetchBrandById("1")
+	   then: "brand name should be returned"
+	   	brandName
+	   
+   }
+   
+    void "fetchModelById"() {
+	   when: "fetchModelById is called for given brandId and modelId"
+	   	def modelName = service.fetchModelById("1", "1")
+	   then: "brand name should be returned"
+	   	modelName
+	   
+   }
+   
 }

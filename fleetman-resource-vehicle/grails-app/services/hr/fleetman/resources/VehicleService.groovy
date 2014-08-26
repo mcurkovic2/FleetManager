@@ -53,6 +53,43 @@ class VehicleService {
 		
 		return models
 	}
+	
+	String fetchBrandById(String brandId){
+		def brand
+		def i = 0;
+		brandsAndTypes.each {
+			key, value ->
+			i++
+			def modelId = 0
+			if (i == Integer.valueOf(brandId)) {
+				brand = key
+			}
+		}
+		
+		return brand
+	}
+	
+	String fetchModelById(String brandId, String modelId){
+		def i = 0
+		def result
+		brandsAndTypes.each {
+			key, value ->
+			i++
+			def pomModelId = 0
+			if (i == Integer.valueOf(brandId)) {
+				def internalModels = value
+				internalModels.each {
+					modelName ->
+					
+					if (++pomModelId == Integer.valueOf(modelId)) {
+						result = modelName
+					}
+				}
+			}
+		}
+		
+		return result
+	}
 
 	Vehicle populateDetailsFromService(String vin) {
 //		if(vin) {

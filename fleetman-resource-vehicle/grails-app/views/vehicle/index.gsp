@@ -51,6 +51,9 @@
 									<th class="col-md-2">
 										${message(code: 'vehicle.type.tableHeader', default: 'TYPE')}
 									</th>
+									<th class="col-md-2">
+										${message(code: 'vehicle.currentRegistration.tableHeader', default: 'REGISTRATION')}
+									</th>
 							</thead>
 							<tbody>
 								<g:each in="${vehicleInstanceList}" status="i" var="vehicle">
@@ -64,6 +67,9 @@
 										</td>
 										<td>
 											${fieldValue(bean: vehicle, field: 'type')}
+										</td>
+										<td>
+											${fieldValue(bean: vehicle, field: 'currentRegistration')}
 										</td>
 									</tr>
 								</g:each>
