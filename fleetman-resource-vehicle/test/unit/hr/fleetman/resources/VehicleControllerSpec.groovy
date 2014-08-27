@@ -17,6 +17,7 @@ class VehicleControllerSpec extends Specification {
 	def vehicleService = Stub(VehicleService)
 	
 	def setup() {
+		
 		def createDummyVehicle =  {args -> 
 			new Vehicle(vin:DUMMY_VIN)
 		}
@@ -24,7 +25,7 @@ class VehicleControllerSpec extends Specification {
 		vehicleService.findByVin(DUMMY_VIN) >> createDummyVehicle
 		vehicleService.populateDetails(DUMMY_VIN) >> createDummyVehicle
 		
-		vehicleService.findBrands() >> {args ->
+		vehicleService.findBrands() >> {
 			def brand = new Brand()
 			brand.id = 0
 			brand.name = 'aaa'
@@ -33,10 +34,27 @@ class VehicleControllerSpec extends Specification {
 		
 		controller.vehicleService = vehicleService
 		
-		
 	}
 
 	def cleanup() {
+		
+	}
+	
+	void "Test stubbed service"() {
+		when:"findBrands is executed"
+			def brands = vehicleService.findBrands()
+
+		then:"The model is correct"
+			brands
+			brands[0].id == 0
+			brands[0].name == 'aaa'
+	}
+	
+	void "Test stubbed service2"() {
+		when:"findBrands is executed"
+			controller.findBrands()
+			
+		then:"The model is correct"
 	}
 
 	void "Test index page"() {
@@ -74,6 +92,7 @@ class VehicleControllerSpec extends Specification {
 	void "Create and populate vehicle"() {
 		when:"create action is executed"
 			controller.create()
+			
 		then:"new vehicle command is returned"
 			response.redirectUrl == '/vehicle/newVehicle'
 			
@@ -82,9 +101,9 @@ class VehicleControllerSpec extends Specification {
 	/*All of the default unit test controller properties are available + flow,
 	conversation, lastTransitionName, lastEventName, currentEvent*/
 	void "Test of new wehicle flow"() {
-		
 		when:"start flow is executed"
 			newVehicleFlow.start.action()
+			
 		then:"NewVehicleCommand is inserted in flow context"
 			lastEventName == 'start'
 			flow.brandSelectionCommand instanceof BrandSelectionCommand
@@ -94,20 +113,20 @@ class VehicleControllerSpec extends Specification {
 			params.brandId = '' 
 			params.brandName = null
 			newVehicleFlow.brandSelection.on.next.action()
+			
 		then:"transition back to brand selection"
 			flow.brandSelectionCommand.hasErrors()
 			stateTransition == 'brandSelection'
+			
 		when:"brand is selected"
 			params.brandId = '12345'
 			params.brandName = 'Peugeot'
 			newVehicleFlow.brandSelection.on.next.action()
+			
 		then:"transition id to typeSelection"
 			flow.brandSelectionCommand.hasErrors() == false
 			
-		
-			
 		when:"type is NOT selected "
-			
 			params.typeId = ''
 			params.typeName = ''
 			newVehicleFlow.typeSelection.on.next.action()
@@ -117,7 +136,6 @@ class VehicleControllerSpec extends Specification {
 			stateTransition == 'typeSelection'
 			
 		when:"type is selected "
-			
 			params.typeId = '12'
 			params.typeName = '308 SW'
 			newVehicleFlow.typeSelection.on.next.action()
@@ -143,7 +161,6 @@ class VehicleControllerSpec extends Specification {
 			"typeSelection" == newVehicleFlow.enterDetails.on.back.to
 			"end" == newVehicleFlow.enterDetails.on.confirm.to
 			"exit" == newVehicleFlow.enterDetails.on.cancel.to
-			
 	}
 	
 	

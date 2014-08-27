@@ -5,7 +5,7 @@ import grails.validation.Validateable
 
 @Transactional(readOnly = true)
 class VehicleController {
-	def vehicleService
+	def transient vehicleService
 
 	def index(Integer max) {
 		params.max = Math.min(max ?: 10, 100)
@@ -25,6 +25,11 @@ class VehicleController {
 
 	def create() {
 		redirect(action:"newVehicle")
+	}
+	
+	def findBrands() {
+		def br = vehicleService.findBrands()
+		redirect(action: "index")
 	}
 	
 	def newVehicleFlow = {
@@ -69,6 +74,7 @@ class VehicleController {
 			on("next") {
 				
 				bindData(flow.typeSelectionCommand, params)
+				
 				flow.typeSelectionCommand.validate()
 				
 				if (flow.typeSelectionCommand.hasErrors()) {
@@ -149,7 +155,13 @@ class VehicleController {
 			redirect(action:"index")
 		}
 	}
+	
+	def gotoIndex() {
+		redirect(action:"index")
+	}
 }
+
+
 
 @Validateable
 class BrandSelectionCommand implements Serializable {
