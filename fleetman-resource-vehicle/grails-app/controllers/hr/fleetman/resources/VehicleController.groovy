@@ -5,7 +5,7 @@ import grails.validation.Validateable
 
 @Transactional(readOnly = true)
 class VehicleController {
-	def transient vehicleService
+	def vehicleService
 
 	def index(Integer max) {
 		params.max = Math.min(max ?: 10, 100)

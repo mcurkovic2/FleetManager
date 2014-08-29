@@ -9,48 +9,31 @@ import spock.lang.Specification
 
 @TestMixin(WebFlowUnitTestMixin)
 @TestFor(VehicleController)
-@Mock([Vehicle])
+@Mock([Vehicle, VehicleService])
 class VehicleControllerSpec extends Specification {
 	
 	def DUMMY_VIN = "12345678911234567"
-	
-	def vehicleService = Stub(VehicleService)
-	
+
 	def setup() {
-		
-		def createDummyVehicle =  {args -> 
-			new Vehicle(vin:DUMMY_VIN)
-		}
-		
-		vehicleService.findByVin(DUMMY_VIN) >> createDummyVehicle
-		vehicleService.populateDetails(DUMMY_VIN) >> createDummyVehicle
-		
-		vehicleService.findBrands() >> {
-			def brand = new Brand()
-			brand.id = 0
-			brand.name = 'aaa'
-			return [brand]
-		}
-		
-		controller.vehicleService = vehicleService
-		
+		MockFor(VehicleService)
 	}
 
 	def cleanup() {
 		
 	}
 	
-	void "Test stubbed service"() {
-		when:"findBrands is executed"
-			def brands = vehicleService.findBrands()
-
-		then:"The model is correct"
-			brands
-			brands[0].id == 0
-			brands[0].name == 'aaa'
-	}
-	
 	void "Test stubbed service2"() {
+		given:
+			def vehicleServiceMock = mockFor(VehicleService)
+			vehicleServiceMock.demand.findBrands  {
+				def brand = new Brand()
+				brand.id = 0
+				brand.name = 'aaa'
+				return [brand]
+			}
+		
+			controller.vehicleService = vehicleServiceMock.createMock()
+			
 		when:"findBrands is executed"
 			controller.findBrands()
 			
@@ -100,7 +83,16 @@ class VehicleControllerSpec extends Specification {
 	
 	/*All of the default unit test controller properties are available + flow,
 	conversation, lastTransitionName, lastEventName, currentEvent*/
-	void "Test of new wehicle flow"() {
+	void "Test of new vehicle flow"() {
+//		given:
+//		def vehicleServiceMock = mockFor(VehicleService)
+//		vehicleServiceMock.demand.findBrands {
+//			def brand = new Brand()
+//			brand.id = 0
+//			brand.name = 'aaaa'
+//			return [brand]
+//		}
+//		controller.vehicleService = vehicleServiceMock.createMock()
 		when:"start flow is executed"
 			newVehicleFlow.start.action()
 			
@@ -108,6 +100,7 @@ class VehicleControllerSpec extends Specification {
 			lastEventName == 'start'
 			flow.brandSelectionCommand instanceof BrandSelectionCommand
 			flow.brandSelectionCommand.brands
+			flow.brandSelectionCommand.brands.size() > 0
 			
 		when:"brand is not selected"
 			params.brandId = '' 
@@ -142,6 +135,7 @@ class VehicleControllerSpec extends Specification {
 			
 		then:"transition back to type selection"
 			flow.typeSelectionCommand.hasErrors() == false
+			stateTransition == 'typeSelection'
 	}
 	
 	void "Test new vehicle flow transitions" () {
@@ -159,7 +153,7 @@ class VehicleControllerSpec extends Specification {
 			"exit" == newVehicleFlow.typeSelection.on.cancel.to
 			
 			"typeSelection" == newVehicleFlow.enterDetails.on.back.to
-			"end" == newVehicleFlow.enterDetails.on.confirm.to
+			"validateAndSaveVehicle" == newVehicleFlow.enterDetails.on.confirm.to
 			"exit" == newVehicleFlow.enterDetails.on.cancel.to
 	}
 	
