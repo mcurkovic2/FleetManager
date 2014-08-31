@@ -84,9 +84,8 @@ class VehicleController {
 				flow.enterDetailsCommand = new EnterDetailsCommand()
 				flow.enterDetailsCommand.brandId = flow.brandSelectionCommand.brandId
 				flow.enterDetailsCommand.typeId = flow.typeSelectionCommand.typeId
-				
-			}.to "enterDetails"
-		
+
+			}.to("enterDetails")
 			on("newType").to "newType"
 			on("back").to "brandSelection"
 			on("cancel").to "exit"
@@ -116,8 +115,6 @@ class VehicleController {
 				def type = vehicleService.fetchModelById(flow.enterDetailsCommand.brandId, flow.enterDetailsCommand.typeId)
 				
 				bindData(vehicleInstance, flow.enterDetailsCommand)
-				bindData(vehicleInstance, [brand: brand])
-				bindData(vehicleInstance, [type: type])
 				
 				vehicleInstance.validate()
 				

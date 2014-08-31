@@ -1,122 +1,70 @@
-package hr.fleetman.resources
-
-import grails.transaction.Transactional
 import hr.fleetman.resources.vehicle.Brand
+import hr.fleetman.resources.vehicle.Type
 
-@Transactional
-class VehicleService {
-	String serviceUrl
+class VehiclesBootStrap {
 
-	def fetchVehicle(String vin) {
-		return Vehicle.findByVin(vin)
+	def init = { servletContext ->
+
+		environments {
+			development {
+				
+//				def type147 = new Type(name:"Alfa 147")
+//				def type166 = new Type(name:"Alfa 166")
+//				def brandAlfa = new Brand(name:"Alfa Romeo")
+//				brandAlfa.types = findTypes(brandAlfa.name)
+//				brandAlfa.save()
+//				
+//				def typeOctavia = new Type(name:"Škoda Octavia")
+//				def typeOctaviaCombi = new Type(name:"Škoda Octavia Combi")
+//				def brandSkoda = new Brand(name:"Škoda")
+//				brandSkoda.types = findTypes(brandAlfa.name)
+//				brandSkoda.save()
+				
+				def brands = findBrands()
+				brands.each {brand -> 
+					def types = findTypes(brand.name)
+					brand.types = types
+					brand.save()
+				}
+
+			}
+		}
 	}
 
-	Vehicle populateDetails(String p_vin) {
-		def vehicle = new Vehicle(vin:p_vin)
-		vehicle
+	def destroy = {
 	}
 	
 	def findBrands() {
-		def brands = Brand.findAll()
-	
-//		def brands = []
-//		def i = 0
-//		brandsAndTypes.each {
-//			key, value -> 
-//			def brand = new Brand()
-//			brand.name = key
-//			brand.id = ++i
-//			brands.add(brand)
-//		}
+		def brands = []
+		def i = 0
+		brandsAndTypes.each {
+			key, value ->
+			def brand = new Brand()
+			brand.name = key
+			brands.add(brand)
+		}
 		
 		return brands
 	}
 	
-	def findModels(int brandId) {
-		def brand = Brand.findById(brandId)
-		if (brand){
-			def types = brand.types
-			return types
-		} else {
-			return null
-		}
-	}
-//		def models = []
-//		def i = 0
-//		
-//		brandsAndTypes.each {
-//			key, value ->
-//			i++
-//			def modelId = 0
-//			if (i == brandId) {
-//				def internalModels = value
-//				internalModels.each {
-//					modelName -> 
-//					def model = new Model()
-//					model.id = ++modelId
-//					model.name = modelName
-//					models.add(model)
-//				}
-//			}
-//		}
-//		
-//		return models
-//	}
-	
-	String fetchBrandById(String brandId){
-		def brand
-		def i = 0;
-		brandsAndTypes.each {
-			key, value ->
-			i++
-			def modelId = 0
-			if (i == Integer.valueOf(brandId)) {
-				brand = key
-			}
-		}
+	def findTypes(String brandId) {
+		def types = []
 		
-		return brand
-	}
-	
-	String fetchModelById(String brandId, String modelId){
-		def i = 0
-		def result
 		brandsAndTypes.each {
 			key, value ->
-			i++
-			def pomModelId = 0
-			if (i == Integer.valueOf(brandId)) {
+			if (key == brandId) {
 				def internalModels = value
 				internalModels.each {
 					modelName ->
-					
-					if (++pomModelId == Integer.valueOf(modelId)) {
-						result = modelName
-					}
+					def model = new Type(name: modelName)
+					types.add(model)
 				}
 			}
 		}
 		
-		return result
+		return types
 	}
-
-	Vehicle populateDetailsFromService(String vin) {
-//		if(vin) {
-//			try {
-//				def restBuilder = new RestBuilder()
-//				def urlWithVIN =
-//						"${serviceUrl}&vin=${vin.encodeAsURL()}"
-//				def response = restBuilder.get(urlWithVIN)
-//				def json = response.json
-//				def records = json.results
-//				def matchingRecord = records.find { r ->
-//					new Vehicle(r)
-//				}
-//			} catch (Exception e) {
-//				log.error "Problem retrieving vehicle details: ${e.message}", e
-//			}
-//		}
-	}
+	
 	
 	def brandsAndTypes =["Alfa Romeo" :
 		[
@@ -309,5 +257,4 @@ class VehicleService {
 			"Ford Transit",
 			"Ford Windstar"
 		]]
-	
 }

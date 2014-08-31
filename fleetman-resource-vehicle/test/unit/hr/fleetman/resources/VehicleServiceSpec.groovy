@@ -31,8 +31,8 @@ class VehicleServiceSpec extends Specification {
 		   
 	   then: "service returns list of Brand objects"
 		   brands
-	   	   brands.size == 5
-		   brands[0].name == "Alfa Romeo"
+	   	   brands.size == 1
+		   brands[0].name
    }
    
    

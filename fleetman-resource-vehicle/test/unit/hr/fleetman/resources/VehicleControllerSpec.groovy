@@ -1,26 +1,20 @@
+
 package hr.fleetman.resources
 
 import grails.test.mixin.*
 import grails.test.mixin.webflow.WebFlowUnitTestMixin
-import hr.fleetman.resource.Brand
+import hr.fleetman.resources.vehicle.Brand
+import hr.fleetman.resources.vehicle.Type
 import spock.lang.Specification
 
 
 
 @TestMixin(WebFlowUnitTestMixin)
 @TestFor(VehicleController)
-@Mock([Vehicle, VehicleService])
+@Mock([Vehicle, VehicleService, Brand])
 class VehicleControllerSpec extends Specification {
 	
 	def DUMMY_VIN = "12345678911234567"
-
-	def setup() {
-		MockFor(VehicleService)
-	}
-
-	def cleanup() {
-		
-	}
 	
 	void "Test stubbed service2"() {
 		given:
@@ -58,16 +52,20 @@ class VehicleControllerSpec extends Specification {
 
 		when:"A domain instance is passed to the show action"
 			response.reset()
-			def vehicle = createVehicle(vin:DUMMY_VIN)
 			
-			boolean validated = vehicle.validate()
+			def vehicle = new Vehicle()
+			vehicle.vin = "12345678911234567"
+			vehicle.brand = new Brand(name:"Toyota")
+			vehicle.type = new Type(name:"Corolla")
+			
 			def saved = vehicle.save()
 			def id = vehicle.id
 			params['id'] = id
+			
 			controller.show()
 
 		then:"A model is populated containing the domain instance"
-			validated
+			vehicle.validate()
 			saved
 			model.vehicle != null
 	}
@@ -84,15 +82,14 @@ class VehicleControllerSpec extends Specification {
 	/*All of the default unit test controller properties are available + flow,
 	conversation, lastTransitionName, lastEventName, currentEvent*/
 	void "Test of new vehicle flow"() {
-//		given:
-//		def vehicleServiceMock = mockFor(VehicleService)
-//		vehicleServiceMock.demand.findBrands {
-//			def brand = new Brand()
-//			brand.id = 0
-//			brand.name = 'aaaa'
-//			return [brand]
-//		}
-//		controller.vehicleService = vehicleServiceMock.createMock()
+		given:
+			VehicleService.metaClass.findBrands = {->
+				return [new Brand(name: 'Toyota')]
+			}
+			
+			VehicleService.metaClass.findTypes = {brandName ->
+				return [new Type(name: 'Corolla')]
+			}
 		when:"start flow is executed"
 			newVehicleFlow.start.action()
 			
@@ -101,7 +98,7 @@ class VehicleControllerSpec extends Specification {
 			flow.brandSelectionCommand instanceof BrandSelectionCommand
 			flow.brandSelectionCommand.brands
 			flow.brandSelectionCommand.brands.size() > 0
-			
+			response.reset()
 		when:"brand is not selected"
 			params.brandId = '' 
 			params.brandName = null
@@ -110,7 +107,7 @@ class VehicleControllerSpec extends Specification {
 		then:"transition back to brand selection"
 			flow.brandSelectionCommand.hasErrors()
 			stateTransition == 'brandSelection'
-			
+			response.reset()
 		when:"brand is selected"
 			params.brandId = '12345'
 			params.brandName = 'Peugeot'
@@ -118,7 +115,7 @@ class VehicleControllerSpec extends Specification {
 			
 		then:"transition id to typeSelection"
 			flow.brandSelectionCommand.hasErrors() == false
-			
+			response.reset()
 		when:"type is NOT selected "
 			params.typeId = ''
 			params.typeName = ''
@@ -127,15 +124,18 @@ class VehicleControllerSpec extends Specification {
 		then:"transition back to type selection"
 			flow.typeSelectionCommand.hasErrors()
 			stateTransition == 'typeSelection'
-			
+			response.reset()
 		when:"type is selected "
 			params.typeId = '12'
-			params.typeName = '308 SW'
 			newVehicleFlow.typeSelection.on.next.action()
 			
 		then:"transition back to type selection"
 			flow.typeSelectionCommand.hasErrors() == false
-			stateTransition == 'typeSelection'
+			flow.typeSelectionCommand.typeId == '12'
+			lastTransitionName == 'next'
+			lastEventName == 'typeSelection'
+			response.reset()
+			
 	}
 	
 	void "Test new vehicle flow transitions" () {
@@ -143,17 +143,23 @@ class VehicleControllerSpec extends Specification {
 			
 		then:"Correct transitions are executed"
 			"brandSelection" == newVehicleFlow.start.on.success.to
-			
+			response.reset()
 			"typeSelection" == newVehicleFlow.brandSelection.on.next.to
+			response.reset()
 			"newBrand" == newVehicleFlow.brandSelection.on.newBrand.to
+			response.reset()
 			"exit" == newVehicleFlow.brandSelection.on.cancel.to
-			
+			response.reset()
 			"enterDetails" == newVehicleFlow.typeSelection.on.next.to
+			response.reset()
 			"brandSelection" == newVehicleFlow.typeSelection.on.back.to
+			response.reset()
 			"exit" == newVehicleFlow.typeSelection.on.cancel.to
-			
+			response.reset()
 			"typeSelection" == newVehicleFlow.enterDetails.on.back.to
+			response.reset()
 			"validateAndSaveVehicle" == newVehicleFlow.enterDetails.on.confirm.to
+			response.reset()
 			"exit" == newVehicleFlow.enterDetails.on.cancel.to
 	}
 	
