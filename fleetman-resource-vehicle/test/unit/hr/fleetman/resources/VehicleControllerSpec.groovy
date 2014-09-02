@@ -99,6 +99,8 @@ class VehicleControllerSpec extends Specification {
 			flow.brandSelectionCommand.brands
 			flow.brandSelectionCommand.brands.size() > 0
 			response.reset()
+			
+			
 		when:"brand is not selected"
 			params.brandId = '' 
 			params.brandName = null
@@ -108,6 +110,8 @@ class VehicleControllerSpec extends Specification {
 			flow.brandSelectionCommand.hasErrors()
 			stateTransition == 'brandSelection'
 			response.reset()
+	
+					
 		when:"brand is selected"
 			params.brandId = '12345'
 			params.brandName = 'Peugeot'
@@ -116,6 +120,8 @@ class VehicleControllerSpec extends Specification {
 		then:"transition id to typeSelection"
 			flow.brandSelectionCommand.hasErrors() == false
 			response.reset()
+			
+			
 		when:"type is NOT selected "
 			params.typeId = ''
 			params.typeName = ''
@@ -125,6 +131,8 @@ class VehicleControllerSpec extends Specification {
 			flow.typeSelectionCommand.hasErrors()
 			stateTransition == 'typeSelection'
 			response.reset()
+			
+			
 		when:"type is selected "
 			params.typeId = '12'
 			newVehicleFlow.typeSelection.on.next.action()
