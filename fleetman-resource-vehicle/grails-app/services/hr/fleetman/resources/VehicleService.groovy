@@ -1,7 +1,10 @@
 package hr.fleetman.resources
 
+import grails.test.mixin.Mock
+import grails.test.mixin.TestFor
 import grails.transaction.Transactional
 import hr.fleetman.resources.vehicle.Brand
+import hr.fleetman.resources.vehicle.Type
 
 @Transactional
 class VehicleService {
@@ -17,22 +20,11 @@ class VehicleService {
 	}
 	
 	def findBrands() {
-		def brands = Brand.findAll()
-	
-//		def brands = []
-//		def i = 0
-//		brandsAndTypes.each {
-//			key, value -> 
-//			def brand = new Brand()
-//			brand.name = key
-//			brand.id = ++i
-//			brands.add(brand)
-//		}
-		
+		def brands = Brand.list()
 		return brands
 	}
 	
-	def findModels(int brandId) {
+	def findModelsForBrandId(String brandId) {
 		def brand = Brand.findById(brandId)
 		if (brand){
 			def types = brand.types
@@ -41,81 +33,18 @@ class VehicleService {
 			return null
 		}
 	}
-//		def models = []
-//		def i = 0
-//		
-//		brandsAndTypes.each {
-//			key, value ->
-//			i++
-//			def modelId = 0
-//			if (i == brandId) {
-//				def internalModels = value
-//				internalModels.each {
-//					modelName -> 
-//					def model = new Model()
-//					model.id = ++modelId
-//					model.name = modelName
-//					models.add(model)
-//				}
-//			}
-//		}
-//		
-//		return models
-//	}
 	
-	String fetchBrandById(String brandId){
-		def brand
-		def i = 0;
-		brandsAndTypes.each {
-			key, value ->
-			i++
-			def modelId = 0
-			if (i == Integer.valueOf(brandId)) {
-				brand = key
-			}
-		}
-		
-		return brand
+	Brand fetchBrandById(String brandId){
+		return Brand.findById(brandId)
 	}
+
 	
-	String fetchModelById(String brandId, String modelId){
-		def i = 0
-		def result
-		brandsAndTypes.each {
-			key, value ->
-			i++
-			def pomModelId = 0
-			if (i == Integer.valueOf(brandId)) {
-				def internalModels = value
-				internalModels.each {
-					modelName ->
-					
-					if (++pomModelId == Integer.valueOf(modelId)) {
-						result = modelName
-					}
-				}
-			}
-		}
-		
-		return result
+	Type fetchModelById(String typeId){
+		return Type.findById(typeId)
 	}
 
 	Vehicle populateDetailsFromService(String vin) {
-//		if(vin) {
-//			try {
-//				def restBuilder = new RestBuilder()
-//				def urlWithVIN =
-//						"${serviceUrl}&vin=${vin.encodeAsURL()}"
-//				def response = restBuilder.get(urlWithVIN)
-//				def json = response.json
-//				def records = json.results
-//				def matchingRecord = records.find { r ->
-//					new Vehicle(r)
-//				}
-//			} catch (Exception e) {
-//				log.error "Problem retrieving vehicle details: ${e.message}", e
-//			}
-//		}
+		throw new IllegalStateException("not supported")
 	}
 	
 	def brandsAndTypes =["Alfa Romeo" :

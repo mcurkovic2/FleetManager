@@ -63,10 +63,10 @@
 											</g:link></td>
 
 										<td>
-											${fieldValue(bean: vehicle, field: 'brand')}
+											${fieldValue(bean: vehicle, field: 'brand.name')}
 										</td>
 										<td>
-											${fieldValue(bean: vehicle, field: 'type')}
+											${fieldValue(bean: vehicle, field: 'type.name')}
 										</td>
 										<td>
 											${fieldValue(bean: vehicle, field: 'currentRegistration')}

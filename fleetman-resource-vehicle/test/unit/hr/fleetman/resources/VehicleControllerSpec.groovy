@@ -11,7 +11,7 @@ import spock.lang.Specification
 
 @TestMixin(WebFlowUnitTestMixin)
 @TestFor(VehicleController)
-@Mock([Vehicle, VehicleService, Brand])
+@Mock([Vehicle, VehicleService, Brand, Type])
 class VehicleControllerSpec extends Specification {
 	
 	def DUMMY_VIN = "12345678911234567"
@@ -83,13 +83,24 @@ class VehicleControllerSpec extends Specification {
 	conversation, lastTransitionName, lastEventName, currentEvent*/
 	void "Test of new vehicle flow"() {
 		given:
-			VehicleService.metaClass.findBrands = {->
+			def brand = new Brand(name:"Toyota")
+			
+			brand.types = [new Type(name: "Corolla")]
+		
+			brand.save()
+			
+			/*VehicleService.metaClass.findBrands = {->
 				return [new Brand(name: 'Toyota')]
 			}
 			
 			VehicleService.metaClass.findTypes = {brandName ->
 				return [new Type(name: 'Corolla')]
 			}
+			
+			VehicleService.metaClass.fetchBrandById = {id ->
+				return [new Brand(name: 'Toyota')]
+			}*/
+			
 		when:"start flow is executed"
 			newVehicleFlow.start.action()
 			
@@ -113,12 +124,13 @@ class VehicleControllerSpec extends Specification {
 	
 					
 		when:"brand is selected"
-			params.brandId = '12345'
-			params.brandName = 'Peugeot'
+			params.brandId = brand.id.toString()
 			newVehicleFlow.brandSelection.on.next.action()
 			
 		then:"transition id to typeSelection"
 			flow.brandSelectionCommand.hasErrors() == false
+			flow.typeSelectionCommand
+			flow.typeSelectionCommand.brand
 			response.reset()
 			
 			
@@ -133,17 +145,36 @@ class VehicleControllerSpec extends Specification {
 			response.reset()
 			
 			
-		when:"type is selected "
-			params.typeId = '12'
+		when:"newVehicleFlow.typeSelection.on.next"
+			params.typeId = brand.types.toList().get(0).id.toString()
 			newVehicleFlow.typeSelection.on.next.action()
 			
-		then:"transition back to type selection"
+		then:"type selection has no errors"
 			flow.typeSelectionCommand.hasErrors() == false
-			flow.typeSelectionCommand.typeId == '12'
+			flow.typeSelectionCommand.typeId == brand.types.toList().get(0).id.toString()
 			lastTransitionName == 'next'
-			lastEventName == 'typeSelection'
+			
+			flow.enterDetailsCommand
+			flow.enterDetailsCommand.brand == brand
 			response.reset()
 			
+			
+		when: "newVehicleFlow.enterDetails.on.confirm"
+			flow.enterDetailsCommand.vin = "12345678911234567"
+			flow.enterDetailsCommand.currentRegistration = "ZG-1019-BA"
+			newVehicleFlow.enterDetails.on.confirm.action()
+			
+		then: "enterDetails command is valid"
+			flow.enterDetailsCommand.hasErrors() == false
+			flow.enterDetailsCommand.brand
+			flow.enterDetailsCommand.type
+			response.reset()
+			
+		when: "newVehicleFlow.validateAndSaveVehicle"
+			newVehicleFlow.validateAndSaveVehicle.action()
+			
+		then:"vehicle is saved"
+			Vehicle.list()
 	}
 	
 	void "Test new vehicle flow transitions" () {

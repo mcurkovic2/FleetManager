@@ -33,12 +33,12 @@
 							<tr>
 								<th><g:message code="vehicle.brand.label"
 										default="BRAND" /></th>
-								<td><g:fieldValue bean="${vehicleInstance}" field="brand" /></td>
+								<td><g:fieldValue bean="${vehicleInstance}" field="brand.name" /></td>
 							</tr>
 							<tr>
 								<th><g:message code="vehicle.type.label"
 										default="TYPE" /></th>
-								<td><g:fieldValue bean="${vehicleInstance}" field="type" /></td>
+								<td><g:fieldValue bean="${vehicleInstance}" field="type.name" /></td>
 							</tr>
 							<tr>
 								<th><g:message code="vehicle.currentRegistration.label"
