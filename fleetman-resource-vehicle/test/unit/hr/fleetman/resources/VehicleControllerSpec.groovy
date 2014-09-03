@@ -89,18 +89,6 @@ class VehicleControllerSpec extends Specification {
 		
 			brand.save()
 			
-			/*VehicleService.metaClass.findBrands = {->
-				return [new Brand(name: 'Toyota')]
-			}
-			
-			VehicleService.metaClass.findTypes = {brandName ->
-				return [new Type(name: 'Corolla')]
-			}
-			
-			VehicleService.metaClass.fetchBrandById = {id ->
-				return [new Brand(name: 'Toyota')]
-			}*/
-			
 		when:"start flow is executed"
 			newVehicleFlow.start.action()
 			
