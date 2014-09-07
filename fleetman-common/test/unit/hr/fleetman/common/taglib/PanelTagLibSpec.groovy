@@ -15,15 +15,9 @@ class PanelTagLibSpec extends Specification {
 	def cleanup() {
 	}
 
-	void "test panel-header tag"() {
+	void "panel tag with dummy form"() {
 		expect:
-		applyTemplate('<fm:panelHeader title="bla"/>') ==
-				'''<div>bla</div>'''
+		applyTemplate('<g:panel formTemplate="/shared/components/empty" fromTemplatePlugin="fleetman-common" title="TEST"/>') 
 	}
 
-	void "test default button"() {
-		expect:
-		applyTemplate('<fm:defaultButton action="bla" code="mycode"/>') ==
-				'''<g:link action="bla" class="btn btn-default"><g:message code="mycode"></g:message></g:link>'''
-	}
 }

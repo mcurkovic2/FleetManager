@@ -1,16 +1,36 @@
 package hr.fleetman.common.taglib
 
+import hr.fleetman.components.PanelData
+
 class PanelTagLib {
-    //static defaultEncodeAs = 'html'
-    //static encodeAsForTags = [tagName: 'raw']
-	static namespace = "fm"
+
+	def panel = { attrs, body ->
+		def myInstance = attrs.get('modelInstance')
+		out << render(
+				template: "/shared/components/panel",
+				plugin: "fleetman-common",
+				model:[
+					data: new PanelData(
+								title:attrs.title, 
+								formTemplate: attrs.formTemplate, 
+								formTemplatePlugin: attrs.formTemplatePlugin, 
+								upperActionsTemplate: attrs.upperActionsTemplate,
+								upperActionsTemplatePlugin: attrs.upperActionsTemplatePlugin,
+								bottomActionsTemplate: attrs.bottomActionsTemplate,
+								bottomActionsTemplatePlugin: attrs.bottomActionsTemplatePlugin,
+								instance: myInstance
+							  )
+				] 
+			)
+	}
 	
-	/**
-	 * NOT FINISHED Displays pklain title enclosed in div element
-	 * @attrs title expects message key of title
-	 */
-	def panelHeader = { attrs, body ->
-		out << '<div>'+attrs.title+'</div>'
+	def myForm = {attrs, body ->
+		def instance = attrs.get('modelInstance')
+		out << render(
+				template: attrs.formTemplate,
+				plugin: attrs.formTemplatePlugin,
+				model:[modelInstance: instance] 
+			)
 	}
 	
 	/**
