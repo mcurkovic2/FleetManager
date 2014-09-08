@@ -12,6 +12,12 @@ class PanelTagLib {
 
 		private static final String SHARED_COMPONENTS_EMPTY_TABLE_MESSAGE = "/shared/components/emptyTableMessage"
 
+	/**
+	 * Renders form
+	 * @attr modelInstance REQUIRED instance of domain/command used by template
+	 * @attr formTemplate REQUIRED path to template
+	 * @attr formTemplatePlugin REQUIRED plugin id where template is located
+	 */
 	def panel = { attrs, body ->
 		def myInstance = attrs.get('modelInstance')
 		out << render(
@@ -32,7 +38,13 @@ class PanelTagLib {
 			)
 	}
 	
-	def myForm = {attrs, body ->
+	/**
+	 * Renders template form 
+	 * @attr modelInstance REQUIRED instance of domain/command used by template
+	 * @attr formTemplate REQUIRED path to template
+	 * @attr formTemplatePlugin REQUIRED plugin id where template is located 
+	 */
+	def myRenderTemplate = {attrs, body ->
 		def instance = attrs.get('modelInstance')
 		out << render(
 				template: attrs.formTemplate,
@@ -42,10 +54,16 @@ class PanelTagLib {
 	}
 	
 	/**
+	 * Renders empty table placeholder
 	 * 
-	 */
+	 * @attr title controllers action name after click
+	 * @attr message REQUIRED message to display inside placeholder
+	 * @attr newItemButtonControllerAction controller action to dispatch when click on new item button
+	 * @attr newItemButtonTitle title of new item button 
+	 */	 
 	def emptyTableMessage = {
 		attrs, body -> 
+		assert attrs.message!=null, "message must be defined" 
 		out << render(
 				template: SHARED_COMPONENTS_EMPTY_TABLE_MESSAGE,
 				plugin: PLUGIN_FLEETMAN_COMMON,
@@ -60,6 +78,7 @@ class PanelTagLib {
 	
 	/**
 	 * Renders the bootstrap empty row.
+	 * 
 	 */
 	def emptyRow = {
 		attrs, body ->
