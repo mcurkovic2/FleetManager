@@ -20,4 +20,10 @@ class PanelTagLibSpec extends Specification {
 		applyTemplate('<g:panel formTemplate="/shared/components/empty" fromTemplatePlugin="fleetman-common" title="TEST"/>') 
 	}
 
+	
+	void "emptyTableMessage tag"() {
+		expect:
+		 assertOutputMatches (/.*TITLE.*/, '<g:emptyTableMessage title="TITLE" message="MESSAGE"/>') 
+		
+	}
 }
