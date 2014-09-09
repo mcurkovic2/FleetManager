@@ -1,6 +1,8 @@
 package hr.fleetman.common.taglib
 
-import grails.test.mixin.TestFor
+import grails.test.mixin.*
+import hr.fleetman.components.LinkOptions
+import hr.fleetman.components.TableColumnOptions
 import spock.lang.Specification
 
 /**
@@ -10,6 +12,7 @@ import spock.lang.Specification
 class PanelTagLibSpec extends Specification {
 
 	def setup() {
+		log.debug "START TEST"
 	}
 
 	def cleanup() {
@@ -23,7 +26,23 @@ class PanelTagLibSpec extends Specification {
 	
 	void "emptyTableMessage tag"() {
 		expect:
-		 assertOutputMatches (/.*TITLE.*/, '<g:emptyTableMessage title="TITLE" message="MESSAGE"/>') 
+		 log.info applyTemplate('<g:emptyTableMessage title="TITLE" message="MESSAGE"/>') 
+		
+	}
+	
+	void "dataTable tag"() {
+		expect:
+		 log.info applyTemplate('''
+			 <g:dataTable 
+			columnOptions="${options}"
+			instanceList="${instanceList}" />
+			 '''
+		 , [instanceList:[new TestData(id:1, name: '12345')], options: [
+				new TableColumnOptions(
+					headerCode: "vehicle.vin.tableHeader", 
+					cssClass:2,
+					bindToProperty:"name", 
+					linkData: new LinkOptions(action:"show", idProperty:"id"))]] )
 		
 	}
 }

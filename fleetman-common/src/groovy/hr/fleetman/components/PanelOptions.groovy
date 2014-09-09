@@ -1,6 +1,6 @@
 package hr.fleetman.components
 
-class PanelData {
+class PanelOptions {
 	String title
 	String formTemplate
 	String formTemplatePlugin

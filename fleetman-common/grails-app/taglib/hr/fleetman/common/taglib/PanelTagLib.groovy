@@ -1,16 +1,18 @@
 package hr.fleetman.common.taglib
 
-import hr.fleetman.components.PanelData
+import hr.fleetman.components.PanelOptions
+
+
 
 class PanelTagLib {
 
-		private static final String SHARED_COMPONENTS_DEFAULT_BUTTON = '/shared/components/defaultButton'
+	private static final String SHARED_COMPONENTS_DEFAULT_BUTTON = '/shared/components/defaultButton'
 
-		private static final String SHARED_COMPONENTS_PANEL = "/shared/components/panel"
+	private static final String SHARED_COMPONENTS_PANEL = "/shared/components/panel"
 
-		private static final String PLUGIN_FLEETMAN_COMMON = "fleetman-common"
+	private static final String PLUGIN_FLEETMAN_COMMON = "fleetman-common"
 
-		private static final String SHARED_COMPONENTS_EMPTY_TABLE_MESSAGE = "/shared/components/emptyTableMessage"
+	private static final String SHARED_COMPONENTS_EMPTY_TABLE_MESSAGE = "/shared/components/emptyTableMessage"
 
 	/**
 	 * Renders form
@@ -20,11 +22,13 @@ class PanelTagLib {
 	 */
 	def panel = { attrs, body ->
 		def myInstance = attrs.get('modelInstance')
+		assert attrs.formTemplate
+		
 		out << render(
 				template: SHARED_COMPONENTS_PANEL,
 				plugin: PLUGIN_FLEETMAN_COMMON,
 				model:[
-					data: new PanelData(
+					data: new PanelOptions(
 								title:attrs.title, 
 								formTemplate: attrs.formTemplate, 
 								formTemplatePlugin: attrs.formTemplatePlugin, 
@@ -46,11 +50,13 @@ class PanelTagLib {
 	 */
 	def myRenderTemplate = {attrs, body ->
 		def instance = attrs.get('modelInstance')
+		 	
 		out << render(
-				template: attrs.formTemplate,
-				plugin: attrs.formTemplatePlugin,
-				model:[modelInstance: instance] 
-			)
+			template: attrs.formTemplate,
+			plugin: attrs.formTemplatePlugin,
+			model:[modelInstance: instance] 
+		)
+		
 	}
 	
 	/**
@@ -111,5 +117,67 @@ class PanelTagLib {
 				title:attrs.title,
 				type: attrs.type]
 			)
+	}
+	
+	
+	def dataTable = {
+		attrs, body -> 
+			def tableOptions = attrs.tableOptions
+			def columnOptions = attrs.columnOptions
+			def instanceList = attrs.get('instanceList')
+			
+			assert tableOptions != null
+			assert columnOptions != null
+			assert instanceList != null, "instanceList must me set for dataTable!"
+			
+			
+			out << render(
+					
+					template: '/shared/components/dataTable',
+					plugin: PLUGIN_FLEETMAN_COMMON,
+					model:[
+						tableOptions: attrs.tableOptions, 
+						columnOptions: columnOptions, 
+						instanceList: instanceList
+					]) 
+	}
+	
+	
+	/**
+	 * Used by dataTable taglib only. Do not use as standalone taglib.
+	 */
+	def dataTableHeader = {
+		
+		attrs, body ->
+			def columnOptions = attrs.columnOptions
+			
+			assert columnOptions != null, "columnOptions must be set for tableOptions!"
+			
+			out << render(
+				template: '/shared/components/dataTableHeader',
+				plugin: PLUGIN_FLEETMAN_COMMON,
+				model:[
+					columns: attrs.columnOptions
+				])
+	}
+	
+	
+	/**
+	 * Used by dataTable taglib only. Do not use as standalone taglib.
+	 */
+	def dataTableBody = {
+		
+		attrs, body ->
+			def columnOptions = attrs.columnOptions
+			def instanceList = attrs.get('instanceList')
+			assert columnOptions != null, "columnOptions must be set for tableOptions!"
+			
+			out << render(
+				template: '/shared/components/dataTableBody',
+				plugin: PLUGIN_FLEETMAN_COMMON,
+				model:[
+					columnOptions: attrs.columnOptions,
+					instanceList: instanceList
+				])
 	}
 }

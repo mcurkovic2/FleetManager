@@ -23,15 +23,9 @@
 				formTemplatePlugin="fleetman-resource-vehicle" 
 				modelInstance="${brandSelectionCommand}" 
 				bottomActionsTemplate="brandSelectionActions"
-				bottomActionsTemplatePlugin="fleetman-resource-vehicle"
-				/>
-			
-	
-<%--			<!-- Other fields -->--%>
-<%--			<g:submitButton name="next" value="Next"></g:submitButton>--%>
-<%--			<g:submitButton name="newBrand" value="New Brand"></g:submitButton>--%>
-<%--			<g:submitButton name="cancel" value="Cancel"></g:submitButton>--%>
-			
+				bottomActionsTemplatePlugin="fleetman-resource-vehicle"	>
+			</g:panel>
+
 		</g:form> 
 	</content>
 </body>
