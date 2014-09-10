@@ -8,7 +8,7 @@ class PanelTagLib {
 
 	private static final String SHARED_COMPONENTS_DEFAULT_BUTTON = '/shared/components/defaultButton'
 
-	private static final String SHARED_COMPONENTS_PANEL = "/shared/components/panel"
+	private static final String SHARED_COMPONENTS_PANEL = "/shared/components/formPanel"
 
 	private static final String PLUGIN_FLEETMAN_COMMON = "fleetman-common"
 
@@ -20,7 +20,7 @@ class PanelTagLib {
 	 * @attr formTemplate REQUIRED path to template
 	 * @attr formTemplatePlugin REQUIRED plugin id where template is located
 	 */
-	def panel = { attrs, body ->
+	def formPanel = { attrs, body ->
 		def myInstance = attrs.get('modelInstance')
 		assert attrs.formTemplate
 		

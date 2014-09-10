@@ -18,13 +18,13 @@
 		
 		<g:form>
 		
-			<g:panel title="${message(code:'newVehicle.brandSelection.panel.title', default:'PANEL HEADER') }" 
+			<g:formPanel title="${message(code:'newVehicle.brandSelection.panel.title', default:'PANEL HEADER') }" 
 				formTemplate="brandSelectionForm" 
 				formTemplatePlugin="fleetman-resource-vehicle" 
 				modelInstance="${brandSelectionCommand}" 
 				bottomActionsTemplate="brandSelectionActions"
 				bottomActionsTemplatePlugin="fleetman-resource-vehicle"	>
-			</g:panel>
+			</g:formPanel>
 
 		</g:form> 
 	</content>

@@ -22,7 +22,7 @@ class PanelTagLibSpec extends Specification {
 	void "panel tag with dummy form"() {
 		expect:
 		applyTemplate('''
-			<g:panel 
+			<g:formPanel
 				formTemplate="/shared/components/empty" 
 				fromTemplatePlugin="fleetman-common" title="TEST" 
 				bottomActionsTemplate="/shared/components/empty"/>
