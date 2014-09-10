@@ -1,1 +1,1 @@
-<h1>title.main.big.${controllerName} <small>title.main.small.${controllerName}</small></h1>
+<h1><g:message code="title.main.big.${controllerName}" />&nbsp;<small><g:message code="title.main.small.${controllerName}"/></small></h1>
