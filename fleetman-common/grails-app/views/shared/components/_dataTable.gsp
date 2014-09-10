@@ -1,26 +1,23 @@
-
-<g:panelHeader title="${tableOptions.panelTitle}"/>
-
-<div class="table-responsive">
-	<table id="${tableOptions.tableId}" class="table table-striped">
-		<g:dataTableHeader columnOptions="${columnOptions}" />
-		<g:dataTableBody columnOptions="${columnOptions}" instanceList="${instanceList}" />
-	</table>
-
-</div>
-<g:panelFooter  />
+<g:panelHeader title="${panelTitle}"/>
+	<div class="table-responsive">
+		<table id="${tableId}" class="table table-striped">
+			<g:dataTableHeader columnOptions="${columnOptions}" />
+			<g:dataTableBody columnOptions="${columnOptions}" instanceList="${instanceList}" />
+		</table>
+	</div>
+<g:panelFooter/>
 
 <script>
 
-	var dataTableMod${tableOptions.tableId} = function(){
+	var dataTableMod${tableId} = function(){
 		return {
 			init: function() {
-			    $('#${tableOptions.tableId}').dataTable();
+			    $('#${tableId}').dataTable();
 			}
 		}
 	}();
 	
-	appConfig.addCallback(dataTableMod${tableOptions.tableId});
+	appConfig.addCallback(dataTableMod${tableId});
 			
 </script>
 

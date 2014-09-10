@@ -24,6 +24,7 @@ class PanelTagLib {
 		def myInstance = attrs.get('modelInstance')
 		assert attrs.formTemplate
 		
+		
 		out << render(
 				template: SHARED_COMPONENTS_PANEL,
 				plugin: PLUGIN_FLEETMAN_COMMON,
@@ -51,7 +52,11 @@ class PanelTagLib {
 	def panelHeader = {
 		
 		attrs, body->
-		out << render(template: '/shared/components/panelHeader', plugin:PLUGIN_FLEETMAN_COMMON, model:[title: attrs.title, actionButtons: attrs.actionsButtons])
+		out << render(
+				template: '/shared/components/panelHeader', 
+				plugin:PLUGIN_FLEETMAN_COMMON, 
+				model:[title: attrs.title, actionButtonsTemplate: attrs.actionsButtonsTemplate, actionButtonsTemplatePlugin: attrs.actionButtonsTemplatePlugin]
+			)
 	}
 	
 	/**
@@ -62,7 +67,10 @@ class PanelTagLib {
 	def panelFooter = {
 		
 		attrs, body->
-		out << render(template: '/shared/components/panelFooter', plugin:PLUGIN_FLEETMAN_COMMON, model:[actionButtonsTemplate: attrs.actionsButtonsTemplate, actoinButtonsTemplatePlugin: attrs.actionButtonsTemplatePlugin])
+		out << render(
+				template: '/shared/components/panelFooter', 
+				plugin:PLUGIN_FLEETMAN_COMMON, 
+				model:[actionButtonsTemplate: attrs.actionsButtonsTemplate, actionButtonsTemplatePlugin: attrs.actionButtonsTemplatePlugin])
 	}
 	
 	/**
@@ -142,24 +150,36 @@ class PanelTagLib {
 			)
 	}
 	
-	
+	/**
+	 * Renders jquery DataTables table
+	 * @attrs columnOptions REQUIRED map of TableColumnOptions objects, used to define column details (data binding, link settings etc.)
+	 * @attrs instanceList REQUIRED list of objects to bind table to
+	 * @attrs tableId REQUIRED css3 selector id of table
+	 * @attrs showPagination should pagination be visible
+	 * @attrs panelTitle panel title
+	 */
 	def dataTable = {
 		attrs, body -> 
-			def tableOptions = attrs.tableOptions
+			
 			def columnOptions = attrs.columnOptions
 			def instanceList = attrs.get('instanceList')
+			def tableId= attrs.tableId
+			def showPagination= attrs.showPagination
+			def panelTitle= attrs.panelTitle
 			
-			assert tableOptions != null
 			assert columnOptions != null
 			assert instanceList != null, "instanceList must me set for dataTable!"
 			
+			assert tableId != null
 			
 			out << render(
 					
 					template: '/shared/components/dataTable',
 					plugin: PLUGIN_FLEETMAN_COMMON,
 					model:[
-						tableOptions: attrs.tableOptions, 
+						tableId: attrs.tableId,
+						showPagination: attrs.showPagination,
+						panelTitle: attrs.panelTitle,
 						columnOptions: columnOptions, 
 						instanceList: instanceList
 					]) 

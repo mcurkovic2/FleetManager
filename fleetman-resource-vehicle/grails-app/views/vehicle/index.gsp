@@ -22,6 +22,9 @@
 		</g:if>
 		<g:else>
 		<g:dataTable 
+			tableId="tableVehicles"
+			showPagination="${true}" 
+			panelTitle="${message(code:'vehicle.vehicles.panelHeader')}"
 			tableOptions="${new TableOptions(tableId:"tableVehicles", showPagination:true, panelTitle: message(code:'vehicle.vehicles.panelHeader'))}"
 			instanceList="${vehicleInstanceList}"
 			columnOptions="${[

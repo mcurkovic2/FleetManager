@@ -21,21 +21,26 @@ class PanelTagLibSpec extends Specification {
 
 	void "panel tag with dummy form"() {
 		expect:
-		applyTemplate('<g:panel formTemplate="/shared/components/empty" fromTemplatePlugin="fleetman-common" title="TEST"/>') 
+		applyTemplate('''
+			<g:panel 
+				formTemplate="/shared/components/empty" 
+				fromTemplatePlugin="fleetman-common" title="TEST" 
+				bottomActionsTemplate="/shared/components/empty"/>
+			''') 
 	}
 
 	
 	void "emptyTableMessage tag"() {
 		expect:
-		 log.info applyTemplate('<g:emptyTableMessage title="TITLE" message="MESSAGE"/>') 
+		 log.info applyTemplate('<g:emptyTableMessage title="TITLE" actionButtonsTemplate="/shared/components/empty" actionButtonsTemplatePlugin="fleetman-common" message="MESSAGE"/>') 
 		
 	}
 	
-	void "dataTable tag"() {
+	void "DataTable tag"() {
 		expect:
 		log.info applyTemplate('''
 			<g:dataTable 
-				tableOptions="${tableOptions}"
+				tableId="aaa"
 				columnOptions="${columnOptions}"
 				instanceList="${instanceList}" />
 			 ''', 
@@ -46,8 +51,7 @@ class PanelTagLibSpec extends Specification {
 					headerCode: "vehicle.vin.tableHeader", 
 					cssClass:2,
 					bindToProperty:"name", 
-					linkOptions: new LinkOptions(controller:'car', action:"show", idProperty:"id"))],
-			tableOptions: new TableOptions(tableId:'table1')	
+					linkOptions: new LinkOptions(controller:'car', action:"show", idProperty:"id"))]	
 		 ]
 		 )
 		
