@@ -6,13 +6,23 @@ import hr.fleetman.components.PanelOptions
 
 class PanelTagLib {
 
-	private static final String SHARED_COMPONENTS_DEFAULT_BUTTON = '/shared/components/defaultButton'
+		private static final String SHARED_COMPONENTS_PANEL_PANEL_FOOTER = '/shared/components/panel/panelFooter'
 
-	private static final String SHARED_COMPONENTS_PANEL = "/shared/components/formPanel"
+		private static final String SHARED_COMPONENTS_PANEL_PANEL_HEADER = '/shared/components/panel/panelHeader'
+
+		private static final String SHARED_COMPONENTS_DATA_TABLE = '/shared/components/table/dataTable/dataTable'
+
+		private static final String SHARED_COMPONENTS_DATA_TABLE_HEADER = '/shared/components/table/dataTable/dataTableHeader'
+
+		private static final String SHARED_COMPONENTS_DATA_TABLE_BODY = '/shared/components/table/dataTable/dataTableBody'
+
+	private static final String SHARED_COMPONENTS_DEFAULT_BUTTON = '/shared/components/button/defaultButton'
+
+	private static final String SHARED_COMPONENTS_PANEL = "/shared/components/form/formPanel"
 
 	private static final String PLUGIN_FLEETMAN_COMMON = "fleetman-common"
 
-	private static final String SHARED_COMPONENTS_EMPTY_TABLE_MESSAGE = "/shared/components/emptyTableMessage"
+	private static final String SHARED_COMPONENTS_EMPTY_TABLE_MESSAGE = "/shared/components/table/emptyTableMessage"
 
 	/**
 	 * Renders form
@@ -53,7 +63,7 @@ class PanelTagLib {
 		
 		attrs, body->
 		out << render(
-				template: '/shared/components/panelHeader', 
+				template: SHARED_COMPONENTS_PANEL_PANEL_HEADER, 
 				plugin:PLUGIN_FLEETMAN_COMMON, 
 				model:[title: attrs.title, actionButtonsTemplate: attrs.actionsButtonsTemplate, actionButtonsTemplatePlugin: attrs.actionButtonsTemplatePlugin]
 			)
@@ -68,7 +78,7 @@ class PanelTagLib {
 		
 		attrs, body->
 		out << render(
-				template: '/shared/components/panelFooter', 
+				template: SHARED_COMPONENTS_PANEL_PANEL_FOOTER, 
 				plugin:PLUGIN_FLEETMAN_COMMON, 
 				model:[actionButtonsTemplate: attrs.actionsButtonsTemplate, actionButtonsTemplatePlugin: attrs.actionButtonsTemplatePlugin])
 	}
@@ -174,7 +184,7 @@ class PanelTagLib {
 			
 			out << render(
 					
-					template: '/shared/components/dataTable',
+					template: SHARED_COMPONENTS_DATA_TABLE,
 					plugin: PLUGIN_FLEETMAN_COMMON,
 					model:[
 						tableId: attrs.tableId,
@@ -197,7 +207,7 @@ class PanelTagLib {
 			assert columnOptions != null, "columnOptions must be set for tableOptions!"
 			
 			out << render(
-				template: '/shared/components/dataTableHeader',
+				template: SHARED_COMPONENTS_DATA_TABLE_HEADER,
 				plugin: PLUGIN_FLEETMAN_COMMON,
 				model:[
 					columns: attrs.columnOptions
@@ -216,7 +226,7 @@ class PanelTagLib {
 			assert columnOptions != null, "columnOptions must be set for tableOptions!"
 			
 			out << render(
-				template: '/shared/components/dataTableBody',
+				template: SHARED_COMPONENTS_DATA_TABLE_BODY,
 				plugin: PLUGIN_FLEETMAN_COMMON,
 				model:[
 					columnOptions: attrs.columnOptions,
