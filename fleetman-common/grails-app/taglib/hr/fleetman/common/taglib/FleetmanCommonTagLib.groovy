@@ -4,21 +4,22 @@ import hr.fleetman.components.PanelOptions
 
 
 
-class PanelTagLib {
+class FleetmanCommonTagLib {
 
-		private static final String SHARED_COMPONENTS_PANEL_PANEL_FOOTER = '/shared/components/panel/panelFooter'
+	private static final String SHARED_COMPONENTS_PANEL_PANEL_FOOTER = '/shared/components/panel/panelFooter'
 
-		private static final String SHARED_COMPONENTS_PANEL_PANEL_HEADER = '/shared/components/panel/panelHeader'
-
-		private static final String SHARED_COMPONENTS_DATA_TABLE = '/shared/components/table/dataTable/dataTable'
-
-		private static final String SHARED_COMPONENTS_DATA_TABLE_HEADER = '/shared/components/table/dataTable/dataTableHeader'
-
-		private static final String SHARED_COMPONENTS_DATA_TABLE_BODY = '/shared/components/table/dataTable/dataTableBody'
+	private static final String SHARED_COMPONENTS_PANEL_PANEL_HEADER = '/shared/components/panel/panelHeader'
 
 	private static final String SHARED_COMPONENTS_DEFAULT_BUTTON = '/shared/components/button/defaultButton'
 
 	private static final String SHARED_COMPONENTS_PANEL = "/shared/components/form/formPanel"
+	
+	private static final String SHARED_COMPONENTS_DATA_TABLE = '/shared/components/table/dataTable/dataTable'
+	
+	private static final String SHARED_COMPONENTS_DATA_TABLE_HEADER = '/shared/components/table/dataTable/dataTableHeader'
+
+	private static final String SHARED_COMPONENTS_DATA_TABLE_BODY = '/shared/components/table/dataTable/dataTableBody'
+	
 
 	private static final String PLUGIN_FLEETMAN_COMMON = "fleetman-common"
 
@@ -160,6 +161,9 @@ class PanelTagLib {
 			)
 	}
 	
+	
+	
+	
 	/**
 	 * Renders jquery DataTables table
 	 * @attrs columnOptions REQUIRED map of TableColumnOptions objects, used to define column details (data binding, link settings etc.)
@@ -169,7 +173,7 @@ class PanelTagLib {
 	 * @attrs panelTitle panel title
 	 */
 	def dataTable = {
-		attrs, body -> 
+		attrs, body ->
 			
 			def columnOptions = attrs.columnOptions
 			def instanceList = attrs.get('instanceList')
@@ -190,9 +194,9 @@ class PanelTagLib {
 						tableId: attrs.tableId,
 						showPagination: attrs.showPagination,
 						panelTitle: attrs.panelTitle,
-						columnOptions: columnOptions, 
+						columnOptions: columnOptions,
 						instanceList: instanceList
-					]) 
+					])
 	}
 	
 	
@@ -233,4 +237,5 @@ class PanelTagLib {
 					instanceList: instanceList
 				])
 	}
+	
 }

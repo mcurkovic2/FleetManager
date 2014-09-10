@@ -9,8 +9,8 @@ import spock.lang.Specification
 /**
  * See the API for {@link grails.test.mixin.web.GroovyPageUnitTestMixin} for usage instructions
  */
-@TestFor(PanelTagLib)
-class PanelTagLibSpec extends Specification {
+@TestFor(FleetmanCommonTagLib)
+class FleetmanCommonTagLibSpec extends Specification {
 
 	def setup() {
 		log.debug "START TEST"
