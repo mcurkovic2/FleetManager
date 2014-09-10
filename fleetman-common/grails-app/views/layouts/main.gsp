@@ -10,15 +10,11 @@
 
 <title><g:layoutTitle default="FleetManager" /></title>
 
-<!-- PACE LOAD BAR PLUGIN - This creates the subtle load bar effect at the top of the page. -->
-<%--<link href="${assetPath(src: 'css/plugins/pace/pace.css')}"
-	rel="stylesheet">
-<script src="${assetPath(src: 'js/plugins/pace/pace.js')}"></script>
-
---%>
+<script src="${assetPath(src: 'fleetmanApp.js')}"></script>
 
 <!-- GLOBAL STYLES - Include these on every page. -->
 <asset:stylesheet src="application.css" />
+
 <link
 	href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700,300italic,400italic,500italic,700italic'
 	rel="stylesheet" type="text/css">
@@ -80,6 +76,10 @@
 	<g:pageProperty name="page.javascript"/>
 
 	<g:render template="/shared/logoutModule"></g:render>
-	
+	<script>
+		$(document).ready(function(){
+			appCore.initialize();
+		});
+	</script> 
 </body>
 </html>

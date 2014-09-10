@@ -5,8 +5,9 @@
 <g:layoutHead />
 </head>
 <body>
-
-<!-- begin VALIDATION ROW2 -->
+	
+	
+	<!-- begin VALIDATION ROW2 -->
 	<div class="row">
 		<div class="col-lg-12">
 			<g:pageProperty name="page.validation" />
@@ -23,9 +24,9 @@
 			<g:pageProperty name="page.col2" />
 		</div>
 	</div>
-	
+
 	<content tag="javascript">
-		<g:pageProperty name="page.javascript" />
+		<g:pageProperty name="page.javascript" /> 
 	</content>
 </body>
 	</html>
