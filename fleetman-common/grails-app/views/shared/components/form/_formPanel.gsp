@@ -1,4 +1,8 @@
 
+	<g:if test="${showValidationMessage}">
+		<g:render template="/shared/validationMessage" model="[instance: data.instance]" ></g:render>
+	</g:if>
+	
 	<g:panelHeader title="${data.title}" actionsButtonsTemplate="${data.upperActionsTemplate}" actionButtonsTemplatePlugin="${data.upperActionsTemplatePlugin}"/> 
 			
 			<g:if test="${(data.formTemplate!=null)}">

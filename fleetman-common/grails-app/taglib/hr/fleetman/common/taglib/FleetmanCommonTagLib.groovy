@@ -40,6 +40,7 @@ class FleetmanCommonTagLib {
 				template: SHARED_COMPONENTS_PANEL,
 				plugin: PLUGIN_FLEETMAN_COMMON,
 				model:[
+					showValidationMessage: attrs.showValidationMessage ?: true,
 					data: new PanelOptions(
 								title:attrs.title, 
 								formTemplate: attrs.formTemplate, 

@@ -6,19 +6,19 @@
 <body>
 	<content tag="col1">
 		
-		<g:hasErrors bean="${brandSelectionCommand}">
-			<ul>
-				<g:eachError var="err" bean="${brandSelectionCommand}">
-					<li>
-						${err}
-					</li>
-				</g:eachError>
-			</ul>
-		</g:hasErrors> 
+<%--		<g:hasErrors bean="${brandSelectionCommand}">--%>
+<%--			<ul>--%>
+<%--				<g:eachError var="err" bean="${brandSelectionCommand}">--%>
+<%--					<li>--%>
+<%--						${err}--%>
+<%--					</li>--%>
+<%--				</g:eachError>--%>
+<%--			</ul>--%>
+<%--		</g:hasErrors> --%>
 		
 		<g:form>
 		
-			<g:formPanel title="${message(code:'newVehicle.brandSelection.panel.title', default:'PANEL HEADER') }" 
+			<g:formPanel showValidationMessage="true" title="${message(code:'newVehicle.brandSelection.panel.title', default:'PANEL HEADER') }" 
 				formTemplate="brandSelectionForm" 
 				formTemplatePlugin="fleetman-resource-vehicle" 
 				modelInstance="${brandSelectionCommand}" 
