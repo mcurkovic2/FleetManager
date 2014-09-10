@@ -1,6 +1,8 @@
 package hr.fleetman.components
 
 class TableOptions {
+	String tableId
+	String panelTitle
 	boolean showPagination
 	boolean showPanel = true
 	String upperActionButtonsTemplate

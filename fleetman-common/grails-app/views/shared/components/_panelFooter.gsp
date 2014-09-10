@@ -1,6 +1,6 @@
-<g:emptyRow />
-			<g:if test="actionsTemplate">
-				<g:render template="${actionsTemplate}" plugin="${actionsTemplatePlugin}"></g:render>
+			<g:emptyRow /> 
+			<g:if test="${actionButtonsTemplate != null} ">
+<%--				<g:render template="${actionButtonsTemplate}" plugin="${actionButtonsTemplatePlugin}"></g:render>--%>
 			</g:if>
 		</div>
 	</div>

@@ -3,6 +3,7 @@ package hr.fleetman.common.taglib
 import grails.test.mixin.*
 import hr.fleetman.components.LinkOptions
 import hr.fleetman.components.TableColumnOptions
+import hr.fleetman.components.TableOptions
 import spock.lang.Specification
 
 /**
@@ -32,17 +33,33 @@ class PanelTagLibSpec extends Specification {
 	
 	void "dataTable tag"() {
 		expect:
-		 log.info applyTemplate('''
-			 <g:dataTable 
-			columnOptions="${options}"
-			instanceList="${instanceList}" />
-			 '''
-		 , [instanceList:[new TestData(id:1, name: '12345')], options: [
+		log.info applyTemplate('''
+			<g:dataTable 
+				tableOptions="${tableOptions}"
+				columnOptions="${columnOptions}"
+				instanceList="${instanceList}" />
+			 ''', 
+		 [
+			 instanceList:[new TestData(id:1, name: '12345')], 
+			 columnOptions: [
 				new TableColumnOptions(
 					headerCode: "vehicle.vin.tableHeader", 
 					cssClass:2,
 					bindToProperty:"name", 
-					linkData: new LinkOptions(action:"show", idProperty:"id"))]] )
+					linkOptions: new LinkOptions(controller:'car', action:"show", idProperty:"id"))],
+			tableOptions: new TableOptions(tableId:'table1')	
+		 ]
+		 )
 		
+	}
+	
+	void "Panel footer template"(){
+		expect:
+			applyTemplate('<g:panelFooter />')
+	}
+	
+	void "Panel header template"(){
+		expect:
+			applyTemplate('<g:panelHeader title="bla"/>')
 	}
 }

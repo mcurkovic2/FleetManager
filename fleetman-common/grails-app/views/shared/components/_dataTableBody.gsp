@@ -7,7 +7,7 @@
 				<td>
 					<g:if test="${column.linkOptions != null}">
 						
-						<g:link action="${column.linkOptions.action}"
+						<g:link controller="${column.linkOptions.controller}" action="${column.linkOptions.action}"
 							id="${instance.getProperty(column.linkOptions.idProperty)}">
 							${fieldValue(bean: instance, field: column.bindToProperty)}
 						</g:link>

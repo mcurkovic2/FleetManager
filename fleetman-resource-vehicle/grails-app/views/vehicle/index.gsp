@@ -9,7 +9,9 @@
 <meta name="layout" content="bodyTwoColumns" />
 </head>
 <body>
+
 	<content tag="col1"> 
+
 		<g:if test="${vehicleInstanceList == null || vehicleInstanceList.size() == 0}">
 			<g:emptyTableMessage
 				title="${message(code:'vehicle.emptyTable.title')}"
@@ -19,9 +21,8 @@
 
 		</g:if>
 		<g:else>
-		
 		<g:dataTable 
-			tableOptions="${new TableOptions()}"
+			tableOptions="${new TableOptions(tableId:"tableVehicles", showPagination:true, panelTitle: message(code:'vehicle.vehicles.panelHeader'))}"
 			instanceList="${vehicleInstanceList}"
 			columnOptions="${[
 				new TableColumnOptions(
@@ -45,41 +46,7 @@
 					bindToProperty:'currentRegistration' 
 					)]}"
 			 />
-			
-<%--			<div class="portlet portlet-default">--%>
-<%--				<div class="portlet-heading">--%>
-<%--					<div class="portlet-title">--%>
-<%--						<h4>--%>
-<%--							<g:message code="vehicle.vehicles.panelHeader" />--%>
-<%--						</h4>--%>
-<%--					</div>--%>
-<%--					<div class="clearfix"></div>--%>
-<%--				</div>--%>
-<%--	--%>
-<%--				<div class="portlet-body">--%>
-<%--					<div class="row">--%>
-<%--						<div class="col-lg-12">--%>
-<%--							<g:link action="create" class="btn btn-default">--%>
-<%--								<g:message code="vehicle.newVehicle.label"></g:message>--%>
-<%--							</g:link>--%>
-<%--						</div>--%>
-<%--					</div>--%>
-<%--	--%>
-<%--					<fm:emptyRow />--%>
-<%--	--%>
-<%--					--%>
-<%--					<g:render template="vehiclesTable" model="[instanceList: vehicleInstanceList]"/>--%>
-<%--				</div>--%>
-<%--			</div>--%>
 		</g:else> 
-	</content>
-	<content tag="javascript">
-		<script>
-			$(document).ready(function() {
-			    $('#tblVehicles').dataTable();
-			} );
-	
-		</script>
 	</content>
 </body>
 </html>

@@ -10,7 +10,7 @@
 
 <title><g:layoutTitle default="FleetManager" /></title>
 
-<script src="${assetPath(src: 'fleetmanApp.js')}"></script>
+<script src="${assetPath(src: 'appConfig.js')}"></script>
 
 <!-- GLOBAL STYLES - Include these on every page. -->
 <asset:stylesheet src="application.css" />
@@ -78,7 +78,7 @@
 	<g:render template="/shared/logoutModule"></g:render>
 	<script>
 		$(document).ready(function(){
-			appCore.initialize();
+			appConfig.initialize();
 		});
 	</script> 
 </body>

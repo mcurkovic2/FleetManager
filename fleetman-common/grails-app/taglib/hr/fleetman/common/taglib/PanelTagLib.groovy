@@ -43,6 +43,29 @@ class PanelTagLib {
 	}
 	
 	/**
+	 * Renders panel header
+	 * @attrs title panel title
+	 * @attrs actionButtonsTemplate path to template to render for lower action buttons
+	 * @attrs actionButtonsTemplatePlugin id of plugin where template to render for lower action buttonssi 
+	 */
+	def panelHeader = {
+		
+		attrs, body->
+		out << render(template: '/shared/components/panelHeader', plugin:PLUGIN_FLEETMAN_COMMON, model:[title: attrs.title, actionButtons: attrs.actionsButtons])
+	}
+	
+	/**
+	 * Renders panel footer
+	 * @attrs actionButtonsTemplate path to template to render for lower action buttons
+	 * @attrs actionButtonsTemplatePlugin id of plugin where template to render for lower action buttonssi
+	 */
+	def panelFooter = {
+		
+		attrs, body->
+		out << render(template: '/shared/components/panelFooter', plugin:PLUGIN_FLEETMAN_COMMON, model:[actionButtonsTemplate: attrs.actionsButtonsTemplate, actoinButtonsTemplatePlugin: attrs.actionButtonsTemplatePlugin])
+	}
+	
+	/**
 	 * Renders template form 
 	 * @attr modelInstance REQUIRED instance of domain/command used by template
 	 * @attr formTemplate REQUIRED path to template
