@@ -6,16 +6,6 @@
 <body>
 	<content tag="col1">
 		
-<%--		<g:hasErrors bean="${brandSelectionCommand}">--%>
-<%--			<ul>--%>
-<%--				<g:eachError var="err" bean="${brandSelectionCommand}">--%>
-<%--					<li>--%>
-<%--						${err}--%>
-<%--					</li>--%>
-<%--				</g:eachError>--%>
-<%--			</ul>--%>
-<%--		</g:hasErrors> --%>
-		
 		<g:form>
 		
 			<g:formPanel showValidationMessage="true" title="${message(code:'newVehicle.brandSelection.panel.title', default:'PANEL HEADER') }" 
