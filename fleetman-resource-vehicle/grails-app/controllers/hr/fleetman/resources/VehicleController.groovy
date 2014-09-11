@@ -10,7 +10,7 @@ class VehicleController {
 	def vehicleService
 
 	def index(Integer max) {
-		params.max = Math.min(max ?: 10, 100)
+		params.max = Math.min(max ?: 100, 100)
 		respond Vehicle.list(params), model:[vehicleInstanceCount: Vehicle.count()]
 	}
 
