@@ -140,13 +140,13 @@ class VehicleController {
 		}
 		
 		newBrand {
-			on("confirm").to "typeSelection"
-			on("cancel").to "exit"
+			on("confirm").to "brandSelection"
+			on("cancel").to "brandSelection"
 		}
 
 		newType {
-			on("confirm").to "enterDetails"
-			on("cancel").to "exit"
+			on("confirm").to "typeSelection"
+			on("cancel").to "typeSelection"
 		}
 		
 		end()
@@ -156,9 +156,6 @@ class VehicleController {
 		}
 	}
 	
-	def gotoIndex() {
-		redirect(action:"index")
-	}
 }
 
 
