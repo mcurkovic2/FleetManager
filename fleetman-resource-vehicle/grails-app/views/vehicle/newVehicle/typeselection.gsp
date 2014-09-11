@@ -4,7 +4,7 @@
 <meta name="layout" content="bodyTwoColumns" />
 </head>
 <body>
-	<content tag="col1"> <%--	<h2>select type</h2>--%> <%--	selected brandId=${brandSelectionCommand.brandId}--%>
+	<content tag="col1"> 
 
 	<g:form>
 

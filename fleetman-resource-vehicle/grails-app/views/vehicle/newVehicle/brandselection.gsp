@@ -5,8 +5,8 @@
 </head>
 <body>
 	<content tag="col1">
-		
-		<g:form>
+
+	<g:form>
 		
 			<g:formPanel showValidationMessage="true" title="${message(code:'newVehicle.brandSelection.panel.title', default:'PANEL HEADER') }" 
 				formTemplate="brandSelectionForm" 

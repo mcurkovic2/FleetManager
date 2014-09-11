@@ -5,7 +5,7 @@
 </head>
 <body>
 	<content tag="col1">
-		<g:form>
+	<g:form>
 			<g:formPanel modelInstance="${enterDetailsCommand}"
 				title="${message(code:'newVehicle.enterDetails.panel.title')}"
 				formTemplate="enterDetailsForm"
