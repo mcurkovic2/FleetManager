@@ -25,7 +25,8 @@
 			tableId="tableVehicles"
 			showPagination="${true}" 
 			panelTitle="${message(code:'vehicle.vehicles.panelHeader')}"
-			tableOptions="${new TableOptions(tableId:"tableVehicles", showPagination:true, panelTitle: message(code:'vehicle.vehicles.panelHeader'))}"
+			upperActionButtonsTemplate="indexTableActions"
+			upperActionButtonsTemplatePlugin="fleetman-resource-vehicle"
 			instanceList="${vehicleInstanceList}"
 			columnOptions="${[
 				new TableColumnOptions(

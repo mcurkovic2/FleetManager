@@ -3,7 +3,7 @@
 		<g:render template="/shared/validationMessage" model="[instance: data.instance]" ></g:render>
 	</g:if>
 	
-	<g:panelHeader title="${data.title}" actionsButtonsTemplate="${data.upperActionsTemplate}" actionButtonsTemplatePlugin="${data.upperActionsTemplatePlugin}"/> 
+	<g:panelHeader title="${data.title}" actionButtonsTemplate="${data.upperActionsTemplate}" actionButtonsTemplatePlugin="${data.upperActionsTemplatePlugin}"/> 
 			
 			<g:if test="${(data.formTemplate!=null)}">
 				<g:myRenderTemplate formTemplate="${data.formTemplate}"
@@ -11,7 +11,7 @@
 					modelInstance="${data.instance}" />
 			</g:if>
 			
-	<g:panelFooter actionsButtonsTemplate="${data.bottomActionsTemplate}" actionButtonsTemplatePlugin="${data.bottomActionsTemplatePlugin}"/>		
+	<g:panelFooter actionButtonsTemplate="${data.bottomActionsTemplate}" actionButtonsTemplatePlugin="${data.bottomActionsTemplatePlugin}"/>		
 
 			
 			

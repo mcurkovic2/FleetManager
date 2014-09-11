@@ -67,7 +67,10 @@ class FleetmanCommonTagLib {
 		out << render(
 				template: SHARED_COMPONENTS_PANEL_PANEL_HEADER, 
 				plugin:PLUGIN_FLEETMAN_COMMON, 
-				model:[title: attrs.title, actionButtonsTemplate: attrs.actionsButtonsTemplate, actionButtonsTemplatePlugin: attrs.actionButtonsTemplatePlugin]
+				model:[
+					title: attrs.title, 
+					actionButtonsTemplate: attrs.actionButtonsTemplate, 
+					actionButtonsTemplatePlugin: attrs.actionButtonsTemplatePlugin]
 			)
 	}
 	
@@ -82,7 +85,7 @@ class FleetmanCommonTagLib {
 		out << render(
 				template: SHARED_COMPONENTS_PANEL_PANEL_FOOTER, 
 				plugin:PLUGIN_FLEETMAN_COMMON, 
-				model:[actionButtonsTemplate: attrs.actionsButtonsTemplate, actionButtonsTemplatePlugin: attrs.actionButtonsTemplatePlugin])
+				model:[actionButtonsTemplate: attrs.actionButtonsTemplate, actionButtonsTemplatePlugin: attrs.actionButtonsTemplatePlugin])
 	}
 	
 	/**
@@ -196,7 +199,9 @@ class FleetmanCommonTagLib {
 						showPagination: attrs.showPagination,
 						panelTitle: attrs.panelTitle,
 						columnOptions: columnOptions,
-						instanceList: instanceList
+						instanceList: instanceList,
+						upperActionButtonsTemplate: attrs.upperActionButtonsTemplate,
+						upperActionButtonsTemplatePlugin: attrs.upperActionButtonsTemplatePlugin
 					])
 	}
 	

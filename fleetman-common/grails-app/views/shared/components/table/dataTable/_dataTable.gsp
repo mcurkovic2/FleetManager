@@ -1,4 +1,4 @@
-<g:panelHeader title="${panelTitle}"/>
+<g:panelHeader title="${panelTitle}" actionButtonsTemplate="${upperActionButtonsTemplate}" actionButtonsTemplatePlugin="${upperActionButtonsTemplatePlugin}"/>
 	<div class="table-responsive">
 		<table id="${tableId}" class="table table-striped">
 			<g:dataTableHeader columnOptions="${columnOptions}" />
