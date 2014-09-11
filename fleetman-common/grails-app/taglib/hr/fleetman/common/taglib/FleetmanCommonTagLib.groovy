@@ -27,7 +27,7 @@ class FleetmanCommonTagLib {
 
 	/**
 	 * Renders form
-	 * @attr modelInstance REQUIRED instance of domain/command used by template
+	 * @attr modelInstance instance of domain/command used by template
 	 * @attr formTemplate REQUIRED path to template
 	 * @attr formTemplatePlugin REQUIRED plugin id where template is located
 	 */
@@ -42,7 +42,7 @@ class FleetmanCommonTagLib {
 				model:[
 					showValidationMessage: attrs.showValidationMessage ?: true,
 					data: new PanelOptions(
-								title:attrs.title, 
+								title: attrs.title, 
 								formTemplate: attrs.formTemplate, 
 								formTemplatePlugin: attrs.formTemplatePlugin, 
 								upperActionsTemplate: attrs.upperActionsTemplate,
