@@ -187,6 +187,16 @@ class VehicleControllerSpec extends Specification {
 			response.reset()
 			"validateAndSaveVehicle" == newVehicleFlow.enterDetails.on.confirm.to
 			response.reset()
+			"end" ==newVehicleFlow.validateAndSaveVehicle.on.success.to
+			response.reset()
+			
+			newVehicleFlow.end.on.backToIndex
+			controller.redirectedUrl == "index"
+			response.reset()
+			
+			"end" ==newVehicleFlow.validateAndSaveVehicle.on.success.to
+			response.reset()
+			
 			"exit" == newVehicleFlow.enterDetails.on.cancel.to
 	}
 	

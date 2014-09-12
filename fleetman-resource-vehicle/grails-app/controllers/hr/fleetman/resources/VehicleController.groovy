@@ -1,5 +1,7 @@
 package hr.fleetman.resources
 
+import java.awt.FlowLayout;
+
 import grails.transaction.Transactional
 import grails.validation.Validateable
 import hr.fleetman.resources.vehicle.Brand
@@ -125,9 +127,17 @@ class VehicleController {
 					return error()
 				}
 				
-				if (vehicleInstance.save(flush:true)) {
+				def savedVehicle = vehicleInstance.save(flush:true)
+				if (savedVehicle) {
+					//clears flow
+					flow.persistenceContext.flush()
+					flow.persistenceContext.persistenceContext.clear()
+					//end clears flow
+					
+					flow.newVehicleId = savedVehicle.id
 					return success()
 				} else {
+					log.error "error occured while saving vehicle"
 					vehicleInstance.errors.each {
 						log.error it
 					}
@@ -149,7 +159,19 @@ class VehicleController {
 			on("cancel").to "typeSelection"
 		}
 		
-		end()
+		end{
+			on("backToIndex").to "redirectToIndex"
+			on("showDetails").to "redirectToDetails"
+			on("new").to "start"
+		}
+		
+		redirectToIndex{
+			redirect(action:"index")
+		}
+		
+		redirectToDetails{
+			redirect (action:"show", params: [id: flow.newVehicleId])
+		}
 		
 		exit {
 			redirect(action:"index")

@@ -7,7 +7,7 @@ import hr.fleetman.events.TireChangeEvent
 import hr.fleetman.resources.vehicle.Brand
 import hr.fleetman.resources.vehicle.Type
 
-class Vehicle extends Resource {
+class Vehicle extends Resource implements Serializable {
 	String vin
 //	String brand
 //	String type
