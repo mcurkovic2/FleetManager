@@ -5,7 +5,7 @@
 <title>Login</title>
 <style>
 img.bg {
-	/* Set rules to fill background */
+	/* Set rules to fill background */ 
 	min-height: 100%;
 	min-width: 1024px;
 	/* Set up proportionate scaling */
@@ -27,7 +27,7 @@ img.bg {
 </style>
 </head>
 <body>
-	<asset:image id="bg" src="taxi.png" />
+	<asset:image id="bg" src="taxi.jpg" />
 	<div class="container">
 		<g:if test="${flash.message}">
 			<div class="message">
