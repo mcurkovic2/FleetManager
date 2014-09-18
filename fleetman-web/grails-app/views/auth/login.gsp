@@ -27,7 +27,7 @@ img.bg {
 </style>
 </head>
 <body>
-	<asset:image id="bg" src="taxi.jpg" />
+	<asset:image class="bg" src="taxi.jpg" />
 	<div class="container">
 		<g:if test="${flash.message}">
 			<div class="message">
