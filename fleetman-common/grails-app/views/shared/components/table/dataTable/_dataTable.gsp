@@ -12,7 +12,12 @@
 	var dataTableMod${tableId} = function(){
 		return {
 			init: function() {
-			    $('#${tableId}').dataTable();
+				
+			    $('#${tableId}').DataTable( {
+			        language: {
+			            url:'../assets/${locale}.json'
+			        }
+			    } );
 			}
 		}
 	}();

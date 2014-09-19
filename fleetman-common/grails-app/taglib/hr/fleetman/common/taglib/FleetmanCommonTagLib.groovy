@@ -1,7 +1,7 @@
 package hr.fleetman.common.taglib
 
 import hr.fleetman.components.PanelOptions
-
+import org.springframework.web.servlet.support.RequestContextUtils as RCU
 
 
 class FleetmanCommonTagLib {
@@ -184,7 +184,10 @@ class FleetmanCommonTagLib {
 			def tableId= attrs.tableId
 			def showPagination= attrs.showPagination
 			def panelTitle= attrs.panelTitle
-			
+			def locale = org.springframework.web.servlet.support.RequestContextUtils.getLocale(request)
+			if (((locale=='en') || (locale='hr')) == false) {
+				locale = 'en'
+			} 
 			assert columnOptions != null
 			assert instanceList != null, "instanceList must me set for dataTable!"
 			
@@ -201,7 +204,8 @@ class FleetmanCommonTagLib {
 						columnOptions: columnOptions,
 						instanceList: instanceList,
 						upperActionButtonsTemplate: attrs.upperActionButtonsTemplate,
-						upperActionButtonsTemplatePlugin: attrs.upperActionButtonsTemplatePlugin
+						upperActionButtonsTemplatePlugin: attrs.upperActionButtonsTemplatePlugin,
+						locale: locale
 					])
 	}
 	
