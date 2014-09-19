@@ -80,12 +80,12 @@ img.bg {
 									class="btn btn-lg btn-green btn-block"> </input>
 
 								<hr>
-								<a class="btn btn-block btn-social btn-linkedin"> <i
-									class="fa fa-linkedin"></i> Sign in with Facebook
+								<a class="btn btn-block btn-social btn-facebook"> <i
+									class="fa fa-facebook"></i> Sign in with Facebook
 								</a> <a class="btn btn-block btn-social btn-twitter"> <i
 									class="fa fa-twitter"></i> Sign in with Twitter
-								</a> <a class="btn btn-block btn-social btn-google-plus"> <i
-									class="fa fa-google-plus"></i> Sign in with Google
+								</a> <a class="btn btn-block btn-social btn-linkedin"> <i
+									class="fa fa-linkedin"></i> Sign in with LinkedIn
 								</a>
 							</fieldset>
 							<br>
